@@ -1,14 +1,14 @@
-# Instagram About Page Clone
+# Saathi Jobs
 
-A pixel-perfect clone of Instagram's About page (https://about.instagram.com/), built with Next.js and modern CSS.
+A modern job board website for connecting people with employment opportunities.
 
-![Instagram About Clone](screenshot.png)
+![Saathi Jobs Screenshot](screenshot.png)
 
 ## Features
 
 - 📱 Fully responsive layout that works on all devices
-- 🎨 Pixel-perfect recreation of Instagram's About page
-- ✨ Smooth animations and transitions using CSS
+- 🎨 Clean and modern design with smooth animations
+- ✨ Intuitive job search and filtering functionality
 - 🧩 Component-based architecture using React and Next.js
 - 📝 Clean and well-organized code structure
 - 🚀 Fast performance with Next.js
@@ -24,8 +24,8 @@ A pixel-perfect clone of Instagram's About page (https://about.instagram.com/), 
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/instagram-about-clone.git
-   cd instagram-about-clone
+   git clone https://github.com/yourusername/saathi-jobs.git
+   cd saathi-jobs
    ```
 
 2. Install dependencies:
@@ -51,7 +51,7 @@ A pixel-perfect clone of Instagram's About page (https://about.instagram.com/), 
 ## Project Structure
 
 ```
-instagram-about-clone/
+saathi-jobs/
 ├── public/             # Static assets (images, icons, etc.)
 ├── src/
 │   ├── app/            # Next.js App Router files
@@ -61,15 +61,14 @@ instagram-about-clone/
 │   └── components/     # React components
 │       ├── Header.tsx
 │       ├── HeroSection.tsx
-│       ├── CommunitySection.tsx
-│       ├── FeatureCarousel.tsx
+│       ├── JobSection.tsx
 │       └── ...
 └── ...
 ```
 
 ## Customization
 
-Feel free to customize this clone to your liking:
+Feel free to customize this project to your needs:
 
 - Update colors and styles in `globals.css`
 - Modify content and layout in component files under `src/components/`
@@ -77,10 +76,9 @@ Feel free to customize this clone to your liking:
 
 ## License
 
-This project is for educational purposes only. The design is based on Instagram's About page and should not be used for commercial purposes.
+This project is open source and available under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-- [Instagram](https://about.instagram.com/) for the original design inspiration
 - [Next.js](https://nextjs.org/) for the amazing React framework
 - [Tailwind CSS](https://tailwindcss.com/) for making styling a breeze

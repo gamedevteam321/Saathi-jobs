@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "About Instagram | Capture, Create & Share What You Love",
-  description: "Instagram makes it easy to capture, create and share what you love. Discover more about Instagram's features and commitment to community, safety and well-being.",
+  title: "Saathi Jobs | Find Your Perfect Career Opportunity",
+  description: "Saathi Jobs connects talented individuals with great career opportunities. Search for jobs, upload your resume, and find your next career move.",
 };
 
 export default function RootLayout({
