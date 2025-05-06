@@ -52,8 +52,6 @@ export default function FeatureCarousel() {
     if (!section) return;
 
     // Set the direction flag before transition
-    // When scrolling up (from job train), we want to show the last item
-    // When scrolling down (from hero), we want to show the first item
     isFromBelow.current = direction === 'up';
 
     // Get the target section
@@ -93,15 +91,18 @@ export default function FeatureCarousel() {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && !isTransitioning) {
-          setIsFullScreen(true);
-          
-          // When coming from below (job train), show last item
-          // When coming from above (hero), show first item
-          if (isFromBelow.current) {
-            setSelectedIndex(features.length - 1);
-          } else {
-            setSelectedIndex(0);
-          }
+          // Add a small delay before setting fullscreen to allow for transition
+          setTimeout(() => {
+            setIsFullScreen(true);
+            
+            // When coming from below (job train), show last item
+            // When coming from above (hero), show first item
+            if (isFromBelow.current) {
+              setSelectedIndex(features.length - 1);
+            } else {
+              setSelectedIndex(0);
+            }
+          }, 50);
         }
       },
       { threshold: 0.5 }
@@ -216,11 +217,33 @@ export default function FeatureCarousel() {
       className={`${
         isFullScreen ? 'fixed inset-0 z-50 bg-black' : 'relative bg-black'
       } transition-all duration-500 ease-in-out`}
-      style={{ pointerEvents: isTransitioning ? 'none' : 'auto' }}
+      style={{ 
+        pointerEvents: isTransitioning ? 'none' : 'auto',
+        opacity: isFullScreen ? 1 : 0,
+        transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'all 0.5s ease-in-out'
+      }}
     >
-      <section className={`${isFullScreen ? 'h-screen' : 'min-h-screen'} bg-black relative overflow-hidden`}>
+      <section 
+        className={`${
+          isFullScreen ? 'h-screen' : 'min-h-screen'
+        } bg-black relative overflow-hidden transition-all duration-500 ease-in-out`}
+        style={{
+          opacity: isFullScreen ? 1 : 0,
+          transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'all 0.5s ease-in-out'
+        }}
+      >
         <div className="absolute inset-0 flex flex-col justify-center px-5 md:px-16">
-          <div className="mb-8">
+          <div 
+            className="mb-8 transition-all duration-500 ease-in-out" 
+            style={{
+              opacity: isFullScreen ? 1 : 0,
+              transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'all 0.5s ease-in-out',
+              transitionDelay: '0.1s'
+            }}
+          >
             <h1 className="text-3xl md:text-7xl font-bold text-white">
               <span>Job</span>
               <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reels</span>
@@ -240,7 +263,11 @@ export default function FeatureCarousel() {
                         ? 'opacity-100 translate-y-0'
                         : 'opacity-0 -translate-y-4 pointer-events-none'
                     }`}
-                    style={{ willChange: 'transform, opacity' }}
+                    style={{ 
+                      willChange: 'transform, opacity',
+                      transition: 'all 0.5s ease-in-out',
+                      transitionDelay: '0.2s'
+                    }}
                   >
                     <div className="p-4">
                       <div className="space-y-4">
@@ -254,7 +281,14 @@ export default function FeatureCarousel() {
 
               {/* Vertical pagination dots */}
               {isFullScreen && (
-                <div className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4">
+                <div 
+                  className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4"
+                  style={{
+                    opacity: isFullScreen ? 1 : 0,
+                    transition: 'all 0.5s ease-in-out',
+                    transitionDelay: '0.3s'
+                  }}
+                >
                   {features.map((feature, index) => (
                     <div
                       key={`progress-${feature.id}`}
@@ -280,7 +314,11 @@ export default function FeatureCarousel() {
                         ? 'opacity-100 scale-100'
                         : 'opacity-0 scale-95 pointer-events-none'
                     }`}
-                    style={{ willChange: 'transform, opacity, scale' }}
+                    style={{ 
+                      willChange: 'transform, opacity, scale',
+                      transition: 'all 0.5s ease-in-out',
+                      transitionDelay: '0.2s'
+                    }}
                   >
                     {feature.phoneImage.endsWith('.mp4') ? (
                       <video
