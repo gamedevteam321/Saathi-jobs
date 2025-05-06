@@ -37,11 +37,11 @@ function ImpactCards() {
     },
   ];
   return (
-    <div className="py-10">
-      <h3 className="text-2xl md:text-4xl font-bold text-start text-gray-500 mb-8">
+    <div>
+      <h3 className="text-xl md:text-3xl font-semibold text-start text-gray-500 pt-8">
         Towards a Growth Mindset & a Fullfilling Life
       </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-2 md:py-5 max-w-full mx-auto">
         {cards.map((card, idx) => (
           <Card key={idx} className="bg-gray-800/50 backdrop-blur-sm text-white rounded-2xl shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden min-h-[80px] md:min-h-[140px] flex flex-col justify-between">
             <CardHeader className="flex flex-row items-center gap-4 p-6 pb-2">
@@ -62,7 +62,7 @@ export default function Impact() {
   return (
     <section className="bg-[#070707] py-16 md:py-24">
       <div className="container mx-auto px-6 md:px-12 lg:px-16">
-        <h2 className="text-3xl md:text-7xl font-bold text-white mb-2">Impact</h2>
+        <h2 className="text-3xl md:text-7xl font-bold text-white pb-2">Impact</h2>
         <ImpactCards />
         <VideoTickerComponent videos={impactVideoData} title="Media" />
       </div>

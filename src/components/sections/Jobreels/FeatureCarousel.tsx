@@ -248,7 +248,7 @@ export default function FeatureCarousel() {
               <span>Job</span>
               <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reels</span>
             </h1>
-            <p className="text-gray-600 italic text-sm md:text-mb py-1">The Instagram of Jobs</p>
+            <p className="text-gray-600 italic text-md md:text-lg py-1">The Instagram of Jobs</p>
           </div>
 
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">

@@ -2,41 +2,29 @@ import Link from "next/link";
 
 export default function BusinessSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Grow with us
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Share and grow your brand with our diverse, global community.
-            </p>
-            <Link
-              href="#"
-              className="inline-flex items-center text-gray-800 font-medium gap-2 hover:underline"
-            >
-              Business
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </Link>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="relative w-64 h-64 rounded-full overflow-hidden">
-              <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-            </div>
+    <section className="bg-[#09090B] py-20 md:py-32">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-12">
+        {/* Left Side: Text Content */}
+        <div className="flex-1 max-w-xl py-5 md:py-10">
+          <h2 className="text-5xl md:text-6xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Download</span>
+            <br />
+            <span className="text-white">our app for Skilling</span>
+          </h2>
+          <Link
+            href="#"
+            className="inline-block px-6 py-3 rounded-md bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] text-white font-semibold shadow-lg transition hover:opacity-90"
+          >
+            <span className="inline-flex text-black items-center gap-2">
+              Download Android App
+            </span>
+          </Link>
+        </div>
+        {/* Right Side: Phone Mockup */}
+        <div className="flex-1 flex justify-center">
+          <div className="relative w-80 h-[480px] rounded-3xl overflow-hidden bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-2xl flex items-center justify-center">
+            {/* Placeholder for phone mockup */}
+            <span className="text-gray-700 text-lg">Phone Mockup</span>
           </div>
         </div>
       </div>
