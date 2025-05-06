@@ -2,135 +2,29 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-// Placeholder icons (replace with your icon library or SVGs as needed)
-const PhotoIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">📷</span>
-);
-const AadhaarIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">🪪</span>
-);
-const LegalIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">⚖️</span>
-);
-const ExperienceIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">💼</span>
-);
-
-const features = [
-  {
-    icon: <PhotoIcon />,
-    title: (<><span className="text-white">Live Photo</span> <span className="text-yellow-400">Verified</span></>),
-    highlight: "Verified",
-    desc: "Eliminating Fake Personas",
-  },
-  {
-    icon: <AadhaarIcon />,
-    title: (<><span className="text-white">Adhaar</span> <span className="text-yellow-400">Verified</span></>),
-    highlight: "Verified",
-    desc: "Preventing Identity Fraud",
-  },
-  {
-    icon: <LegalIcon />,
-    title: (<><span className="text-white">Legal Status</span> <span className="text-yellow-400">Verified</span></>),
-    highlight: "Verified",
-    desc: "Automated Court Case Checks",
-  },
-  {
-    icon: <ExperienceIcon />,
-    title: (<><span className="text-white">Experience</span> <span className="text-yellow-400">Verified</span></>),
-    highlight: "Verified",
-    desc: "Past Employment Check with Rating",
-  },
-];
-
-const workerBenefits = [
-  { icon: '/assets/home/Thumb-up.svg', title: 'Increased', desc: 'Self Esteem' },
-  { icon: '/assets/home/Share.svg', title: 'Sharable', desc: 'Digital Biodata' },
-  { icon: '/assets/home/Work-outline.svg', title: 'Potential for', desc: 'Better Jobs' },
-  { icon: '/assets/home/Check-circle-outline.svg', title: 'Continued', desc: 'Growth' },
-];
-
-const employerBenefits = [
-  { icon: '/assets/home/Verified-user.svg', title: 'Instant Access to', desc: 'Authentic Profiles' },
-  { icon: '/assets/home/Timer.svg', title: 'Significant Reduction in', desc: 'Time to Hire' },
-  { icon: '/assets/home/Mindfulness.svg', title: 'Lower Attrition', desc: 'Higher Productivity' },
-  { icon: '/assets/home/Stars.svg', title: 'Verified past employment', desc: 'history & ratings' },
-];
 
 const sections = [
   {
-    key: "trueid",
-    title: (
-      <>Live on Saathi <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">TrueID</span></>
-    ),
-    content: (
-      <ul className="space-y-5">
-        {features.map((f, i) => (
-          <li key={i} className="flex items-start gap-3">
-            {f.icon}
-            <div>
-              <span className="font-bold text-md md:text-lg text-yellow-400">
-                {f.title}
-              </span>
-              <div className="text-gray-200 text-base md:text-sm font-regular">
-                {f.desc}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    ),
-    image: '/assets/home/identity.png'
+    key: "section1",
+    title: "Section 1",
+    content: "Content for section 1",
+    image: "/assets/home/worker-image.png"
   },
   {
-    key: "worker",
-    title: (
-      <>Benefits for <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Workers</span></>
-    ),
-    content: (
-      <ul className="space-y-5">
-        {workerBenefits.map((item, idx) => (
-          <li key={idx} className="flex items-start gap-3">
-            <div className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center">
-              <img src={item.icon} alt="icon" className="w-7 h-7" />
-            </div>
-            <div>
-              <span className="font-bold text-md md:text-lg text-yellow-400">
-                {item.title} <span className="text-white">{item.desc}</span>
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    ),
-    image: '/assets/home/worker-image.png'
+    key: "section2",
+    title: "Section 2",
+    content: "Content for section 2",
+    image: "/assets/home/worker-image.png"
   },
   {
-    key: "employer",
-    title: (
-      <>Benefits for <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Employers</span></>
-    ),
-    content: (
-      <ul className="space-y-5">
-        {employerBenefits.map((item, idx) => (
-          <li key={idx} className="flex items-start gap-3">
-            <div className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center">
-              <img src={item.icon} alt="icon" className="w-7 h-7" />
-            </div>
-            <div>
-              <span className="font-bold text-md md:text-lg text-yellow-400">
-                {item.title} <span className="text-white">{item.desc}</span>
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    ),
-    image: '/assets/home/worker-image.png'
-  },
+    key: "section3",
+    title: "Section 3",
+    content: "Content for section 3",
+    image: "/assets/home/worker-image.png"
+  }
 ];
 
-const IdentityVerified = () => {
+const JobTrain = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -152,7 +46,7 @@ const IdentityVerified = () => {
           setTimeout(() => {
             setIsFullScreen(true);
             if (isFromBelow.current) {
-              setSelectedIndex(2);
+              setSelectedIndex(sections.length - 1);
             } else {
               setSelectedIndex(0);
             }
@@ -183,7 +77,7 @@ const IdentityVerified = () => {
     const section = sectionRef.current;
     if (!section) return;
 
-    isFromBelow.current = direction === 'down';
+    isFromBelow.current = direction === 'up';
 
     const targetSection = direction === 'down' 
       ? sectionRef.current?.nextElementSibling 
@@ -301,7 +195,7 @@ const IdentityVerified = () => {
               viewport={{ once: true }}
               className="text-center text-3xl md:text-7xl font-bold tracking-tight leading-tight"
             >
-              <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Identity</span> <span className="text-white">Verified</span>
+              <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Job</span> <span className="text-white">Train</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 60 }}
@@ -310,8 +204,7 @@ const IdentityVerified = () => {
               viewport={{ once: true }}
               className="text-center text-gray-400 mt-4 text-md md:text-lg font-medium"
             >
-              A single automated snapshot of authenticated details<br className="hidden md:block" />
-              redefining <b className="text-white">Worker-Employer</b> trust metrics
+              Your path to success starts here
             </motion.p>
           </div>
 
@@ -333,13 +226,11 @@ const IdentityVerified = () => {
                       transitionDelay: '0.2s'
                     }}
                   >
-                    <div className="p-4 flex flex-col justify-center h-full">
+                    <div className="p-4">
                       <h3 className="text-2xl md:text-3xl font-bold pb-5 text-white">
                         {section.title}
                       </h3>
-                      <div className="flex-grow flex items-center">
-                        {section.content}
-                      </div>
+                      <p className="text-gray-400">{section.content}</p>
                     </div>
                   </div>
                 ))}
@@ -402,4 +293,4 @@ const IdentityVerified = () => {
   );
 };
 
-export default IdentityVerified; 
+export default JobTrain; 
