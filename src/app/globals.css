@@ -59,7 +59,13 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    margin-top: 60px; /* Account for fixed header */
+    margin: 0; /* Remove the default margin */
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] w-full;
   }
 }
 
@@ -81,6 +87,40 @@
 
 .animate-pulse {
   animation: custom-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Ticker Animation */
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes ticker-reverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker-reverse {
+  animation: ticker-reverse 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker:hover,
+.animate-ticker-reverse:hover {
+  animation-play-state: paused;
 }
 
 /* Embla Carousel Styles */
@@ -181,4 +221,15 @@
 
 .phone-glow {
   animation: phoneGlow 3s infinite;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

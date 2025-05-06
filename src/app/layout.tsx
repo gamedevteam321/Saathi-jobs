@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Saathi Jobs | Find Your Perfect Career Opportunity",
-  description: "Saathi Jobs connects talented individuals with great career opportunities. Search for jobs, upload your resume, and find your next career move.",
+  title: "Find Your Perfect Career Opportunity",
+  description: "Connect with great career opportunities. Search for jobs, upload your resume, and find your next career move.",
 };
 
 export default function RootLayout({
