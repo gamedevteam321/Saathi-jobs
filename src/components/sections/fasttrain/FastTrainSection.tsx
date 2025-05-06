@@ -48,11 +48,11 @@ export default function FastTrainSection() {
     <section id="fast-train" className="py-12 md:py-16 px-12 md:px-16 bg-[#09090b]">
       <div className="flex flex-col items-start justify-center gap-10">
         <div className="flex flex-col items-start justify-center">
-          <h2 className="text-3xl md:text-7xl font-bold text-white"><span>Fast</span><span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>Train</span></h2>
+          <h2 className="text-3xl md:text-7xl font-bold text-white"><span>Job</span><span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>Train</span></h2>
           <p className="text-gray-400 italic text-sm md:text-mb py-1">The Netflix of Skilling</p>
         </div>
         {/* <StepsSection /> */}
-        <p className="text-white/80 text-xl md:text-5xl py-10 text-center leading-relaxed max-w-5xl">
+        <p className="text-white/80 text-xl md:text-5xl py-10 text-center leading-relaxed max-w-full">
           "A unique storytelling web series approach wrapped with seamless curriculum guided learning objectives ensuring Effective Learning, Completion, and Certification."
         </p>
         
