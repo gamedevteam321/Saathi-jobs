@@ -8,7 +8,7 @@ export default function CommunitySection() {
   const duplicatedEmployees = [...employees, ...employees];
   const duplicatedEmployers = [...employers, ...employers];
   return (
-    <section className="py-10 md:py-20 px-5 md:px-10 bg-black overflow-hidden">
+    <section className="py-10 md:py-20 px-5 md:px-10 bg-black overflow-hidden border-t border-[#19181f]">
       <div className="container flex flex-col w-full items-start justify-left gap-20">
         <h2 className="text-2xl md:text-5xl font-bold text-white">
           What our Customers are Saying
