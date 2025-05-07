@@ -3,6 +3,16 @@
 import { employees, Employee } from "@/components/sections/Reviews/data/employees";
 import { employers } from "@/components/sections/Reviews/data/employers";
 
+const AvatarFallback = () => (
+  <svg
+    className="w-full h-full text-gray-600"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+  </svg>
+);
+
 export default function CommunitySection() {
   // Duplicate employees for seamless scrolling
   const duplicatedEmployees = [...employees, ...employees];
@@ -25,12 +35,16 @@ export default function CommunitySection() {
                   className="flex-shrink-0 w-[350px] bg-black/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-800"
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-full overflow-hidden">
-                      <img
-                        src={employee.image}
-                        alt={employee.name}
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-800">
+                      {employee.image ? (
+                        <img
+                          src={employee.image}
+                          alt={employee.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <AvatarFallback />
+                      )}
                     </div>
                     <div>
                       <h3 className="font-semibold text-white">{employee.name}</h3>
@@ -70,12 +84,16 @@ export default function CommunitySection() {
                     className="flex-shrink-0 w-[350px] bg-black/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-800"
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 rounded-full overflow-hidden">
-                        <img
-                          src={employer.image}
-                          alt={employer.name}
-                          className="w-full h-full object-cover"
-                        />
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-800">
+                        {employer.image ? (
+                          <img
+                            src={employer.image}
+                            alt={employer.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <AvatarFallback />
+                        )}
                       </div>
                       <div>
                         <h3 className="font-semibold text-white">{employer.name}</h3>
