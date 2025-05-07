@@ -17,7 +17,7 @@ import IdentityVerified2 from "@/components/sections/IdentityVerified/IdentityVe
 export default function Home() {
   return (
     // Main container with minimum height of screen and white background
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-black">
       {/* Hero section for main banner/headline */}
       <HeroSection />
       {/* Carousel showcasing key features */}

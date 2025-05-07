@@ -38,15 +38,17 @@ export default function FeatureCarousel() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const scrollDirection = useRef<'up' | 'down' | null>(null);
   const scrollAccumulator = useRef(0);
-  const SCROLL_THRESHOLD = 30;
+  const SCROLL_THRESHOLD = 50;
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
   const lastScrollTime = useRef(0);
-  const SCROLL_COOLDOWN = 200;
+  const SCROLL_COOLDOWN = 100;
   const isFromBelow = useRef(false);
+  const isScrolling = useRef(false);
 
   const scrollToSection = (direction: 'up' | 'down') => {
-    if (isTransitioning) return;
+    if (isTransitioning || isScrolling.current) return;
     setIsTransitioning(true);
+    isScrolling.current = true;
     
     const section = sectionRef.current;
     if (!section) return;
@@ -59,31 +61,65 @@ export default function FeatureCarousel() {
       ? sectionRef.current?.nextElementSibling 
       : sectionRef.current?.previousElementSibling;
 
-    if (!targetSection) return;
+    if (!targetSection) {
+      setIsTransitioning(false);
+      isScrolling.current = false;
+      return;
+    }
+
+    // For upward transition, just exit fullscreen and let user scroll
+    if (direction === 'up') {
+      // Reset to original view
+      section.style.transition = 'none';
+      section.style.transform = 'none';
+      section.style.opacity = '1';
+      setIsFullScreen(false);
+      setIsTransitioning(false);
+      isScrolling.current = false;
+      return;
+    }
+
+    // Create a black overlay for transition (only for downward transitions)
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'black';
+    overlay.style.zIndex = '9999';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s linear';
+    document.body.appendChild(overlay);
 
     // Add a transition class to the section
-    section.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out';
-    section.style.transform = direction === 'down' ? 'translateY(-100%)' : 'translateY(100%)';
-    section.style.opacity = '0';
+    section.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+    section.style.transform = 'translateY(-100%)';
+    section.style.opacity = '1';
 
     // Update state before scrolling
     setIsFullScreen(false);
 
-    // Use requestAnimationFrame for smooth animation
-    requestAnimationFrame(() => {
-      // Scroll to target section with a slight delay to ensure state updates
+    // Fade in the overlay immediately
+    overlay.style.opacity = '1';
+    
+    // Scroll to target section with smooth behavior
+    targetSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // Reset the section and remove overlay after scroll completes
+    transitionTimeout.current = setTimeout(() => {
+      section.style.transition = '';
+      section.style.transform = '';
+      section.style.opacity = '1';
+      setIsTransitioning(false);
+      isScrolling.current = false;
+      
+      // Fade out and remove the overlay
+      overlay.style.opacity = '0';
       setTimeout(() => {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-        
-        // Reset the section after scroll completes
-        transitionTimeout.current = setTimeout(() => {
-          section.style.transition = '';
-          section.style.transform = '';
-          section.style.opacity = '';
-          setIsTransitioning(false);
-        }, 500);
-      }, 50);
-    });
+        document.body.removeChild(overlay);
+      }, 500);
+    }, 500);
   };
 
   useEffect(() => {
@@ -91,21 +127,31 @@ export default function FeatureCarousel() {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && !isTransitioning) {
-          // Add a small delay before setting fullscreen to allow for transition
+          // Only go fullscreen when scrolling down
+          if (!isFromBelow.current) {
+            setTimeout(() => {
+              setIsFullScreen(true);
+              
+              // When coming from below (job train), show first item
+              // When coming from above (hero), show last item
+              if (isFromBelow.current) {
+                setSelectedIndex(0);
+              } else {
+                setSelectedIndex(features.length - 1);
+              }
+            }, 100);
+          }
+        } else if (!entry.isIntersecting) {
+          // Smooth transition out of fullscreen
           setTimeout(() => {
-            setIsFullScreen(true);
-            
-            // When coming from below (job train), show first item
-            // When coming from above (hero), show last item
-            if (isFromBelow.current) {
-              setSelectedIndex(0);
-            } else {
-              setSelectedIndex(features.length - 1);
-            }
-          }, 50);
+            setIsFullScreen(false);
+          }, 100);
         }
       },
-      { threshold: 0.5 }
+      { 
+        threshold: 0.9,
+        rootMargin: '0px'
+      }
     );
 
     if (sectionRef.current) {
@@ -124,45 +170,39 @@ export default function FeatureCarousel() {
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (!isFullScreen || isTransitioning) return;
+      if (!isFullScreen || isTransitioning || isScrolling.current) return;
 
       e.preventDefault();
       
       const now = Date.now();
       if (now - lastScrollTime.current < SCROLL_COOLDOWN) return;
       lastScrollTime.current = now;
-      
+
       // Accumulate scroll delta
       scrollAccumulator.current += e.deltaY;
       
-      // Check if we've accumulated enough scroll to trigger a change
+      // Only trigger if we've accumulated enough scroll
       if (Math.abs(scrollAccumulator.current) >= SCROLL_THRESHOLD) {
         const direction = scrollAccumulator.current > 0 ? 'down' : 'up';
         scrollDirection.current = direction;
         scrollAccumulator.current = 0; // Reset accumulator
 
         // Handle section transitions
-        if (direction === 'down' && selectedIndex === features.length - 1) {
-          // Prevent any further scroll events during transition
-          setIsTransitioning(true);
+        if (direction === 'down' && selectedIndex === 2) {
           scrollToSection('down');
           return;
         }
 
         if (direction === 'up' && selectedIndex === 0) {
-          // Prevent any further scroll events during transition
-          setIsTransitioning(true);
           scrollToSection('up');
           return;
         }
 
-        // Handle feature transitions with a small delay
-        setTimeout(() => {
-          setSelectedIndex((current) => {
-            const next = direction === 'down' ? current + 1 : current - 1;
-            return next;
-          });
-        }, 50);
+        // Handle feature transitions immediately
+        setSelectedIndex((current) => {
+          const next = direction === 'down' ? current + 1 : current - 1;
+          return next;
+        });
       }
     };
 
@@ -178,13 +218,13 @@ export default function FeatureCarousel() {
     };
   }, [isFullScreen, selectedIndex, isTransitioning]);
 
-  // Add keyboard navigation
+  // Add keyboard navigation with faster response
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isFullScreen || isTransitioning) return;
+      if (!isFullScreen || isTransitioning || isScrolling.current) return;
 
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        if (selectedIndex === features.length - 1) {
+        if (selectedIndex === 2) {
           scrollToSection('down');
         } else {
           setSelectedIndex((current) => current + 1);
@@ -216,32 +256,35 @@ export default function FeatureCarousel() {
       ref={sectionRef}
       className={`${
         isFullScreen ? 'fixed inset-0 z-50 bg-black' : 'relative bg-black'
-      } transition-all duration-500 ease-in-out`}
+      } transition-all duration-500 ease-out`}
       style={{ 
         pointerEvents: isTransitioning ? 'none' : 'auto',
-        opacity: isFullScreen ? 1 : 0,
-        transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
-        transition: 'all 0.5s ease-in-out'
+        opacity: 1,
+        transform: isFullScreen ? 'translateY(0)' : 'none',
+        transition: 'all 0.5s ease-out',
+        backgroundColor: 'black'
       }}
     >
       <section 
         className={`${
           isFullScreen ? 'h-screen' : 'min-h-screen'
-        } bg-black relative overflow-hidden transition-all duration-500 ease-in-out`}
+        } bg-black relative overflow-hidden transition-all duration-500 ease-out`}
         style={{
-          opacity: isFullScreen ? 1 : 0,
-          transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'all 0.5s ease-in-out'
+          opacity: 1,
+          transform: isFullScreen ? 'translateY(0)' : 'none',
+          transition: 'all 0.5s ease-out',
+          backgroundColor: 'black'
         }}
       >
-        <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-5 md:px-16">
+        <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-5 md:px-16 bg-black">
           <div 
-            className="mb-4 sm:mb-8 transition-all duration-500 ease-in-out mt-16 sm:mt-0" 
+            className="mb-4 sm:mb-8 transition-all duration-500 linear mt-16 sm:mt-0 bg-black" 
             style={{
-              opacity: isFullScreen ? 1 : 0,
-              transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.5s ease-in-out',
-              transitionDelay: '0.1s'
+              opacity: 1,
+              transform: isFullScreen ? 'translateY(0)' : 'none',
+              transition: 'all 0.5s linear',
+              transitionDelay: '0.1s',
+              backgroundColor: 'black'
             }}
           >
             <h1 className="text-4xl sm:text-3xl md:text-7xl font-bold text-white text-center md:text-left">
@@ -251,29 +294,28 @@ export default function FeatureCarousel() {
             <p className="text-gray-600 italic text-sm sm:text-md md:text-lg py-1 text-center md:text-left">The Instagram of Jobs</p>
           </div>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-10 items-center -mt-16 sm:mt-0">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-0 items-center bg-black">
             {/* Left Side - Feature Text */}
-            <div className="relative min-h-[200px] sm:min-h-[400px] flex flex-col justify-center text-center md:text-left">
-              <div className="h-full">
+            <div className="relative min-h-[200px] sm:min-h-[400px] flex flex-col justify-center items-center md:items-end text-center md:text-left mt-8 md:mt-0 bg-black">
+              <div className="h-full flex items-center justify-center md:justify-end md:pr-4 bg-black">
                 {features.map((feature, index) => (
                   <div
                     key={feature.id}
-                    className={`absolute w-full transition-all duration-500 ease-in-out ${
+                    className={`absolute w-full transition-all duration-500 linear bg-black ${
                       selectedIndex === index
                         ? 'opacity-100 translate-y-0'
                         : 'opacity-0 -translate-y-4 pointer-events-none'
                     }`}
                     style={{ 
                       willChange: 'transform, opacity',
-                      transition: 'all 0.5s ease-in-out',
-                      transitionDelay: '0.2s'
+                      transition: 'all 0.5s linear',
+                      transitionDelay: '0.2s',
+                      backgroundColor: 'black'
                     }}
                   >
-                    <div className="p-2 sm:p-4">
-                      <div className="space-y-2 sm:space-y-4">
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">{feature.title}</h2>
-                        <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0">{feature.description}</p>
-                      </div>
+                    <div className="w-full h-full justify-center items-center space-y-2 sm:space-y-4 bg-black">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">{feature.title}</h2>
+                      <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0">{feature.description}</p>
                     </div>
                   </div>
                 ))}
@@ -282,11 +324,12 @@ export default function FeatureCarousel() {
               {/* Vertical pagination dots */}
               {isFullScreen && (
                 <div 
-                  className="fixed right-4 sm:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2 sm:gap-4"
+                  className="fixed right-4 sm:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2 sm:gap-4 bg-black"
                   style={{
-                    opacity: isFullScreen ? 1 : 0,
-                    transition: 'all 0.5s ease-in-out',
-                    transitionDelay: '0.3s'
+                    opacity: 1,
+                    transition: 'all 0.5s linear',
+                    transitionDelay: '0.3s',
+                    backgroundColor: 'black'
                   }}
                 >
                   {features.map((feature, index) => (
@@ -294,7 +337,7 @@ export default function FeatureCarousel() {
                       key={`progress-${feature.id}`}
                       className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                         selectedIndex === index
-                          ? 'bg-pink-500 scale-125'
+                          ? 'bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] scale-125'
                           : 'bg-gray-600 hover:bg-gray-500'
                       }`}
                     />
@@ -304,20 +347,21 @@ export default function FeatureCarousel() {
             </div>
 
             {/* Right Side - Video Display */}
-            <div className="relative h-full flex items-center justify-center">
-              <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
+            <div className="relative h-full flex items-center justify-center md:justify-start md:pl-4 bg-black">
+              <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black">
                 {features.map((feature, index) => (
                   <div
                     key={`video-${feature.id}`}
-                    className={`absolute inset-0 transition-all duration-500 ease-in-out ${
+                    className={`absolute inset-0 transition-all duration-500 linear bg-black ${
                       selectedIndex === index
                         ? 'opacity-100 scale-100'
                         : 'opacity-0 scale-95 pointer-events-none'
                     }`}
                     style={{ 
                       willChange: 'transform, opacity, scale',
-                      transition: 'all 0.5s ease-in-out',
-                      transitionDelay: '0.2s'
+                      transition: 'all 0.5s linear',
+                      transitionDelay: '0.2s',
+                      backgroundColor: 'black'
                     }}
                   >
                     {feature.phoneImage.endsWith('.mp4') ? (

@@ -105,10 +105,10 @@ export default function CommunitySection() {
               </div>
             </div>
 
-            <h2 className="text-2xl md:text-5xl font-bold text-white py-10">
+            <h2 className="text-2xl md:text-5xl font-bold text-white py-10 md:py-20">
               Trusted by
             </h2>
-            <h2 className="h-full text-4xl md:text-[200px] font-bold text-gray-800 py-5">
+            <h2 className="h-full text-4xl md:text-[200px] lg:text-[270px] font-bold text-gray-800 py-5">
               2,000,000+
             </h2>
         </div>
