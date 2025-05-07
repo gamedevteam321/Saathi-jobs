@@ -92,8 +92,8 @@ const TermsModal: React.FC<TermsModalProps> = ({ onClose }) => (
             <li>
               <strong>Privacy Policy</strong>
               <ol className="list-[lower-alpha] pl-4">
-                <li>All information collected from Users, such as registration (including but not limited to email addresses, mobile phone numbers, government identity documentation) and payment information, is subject to Saathi's <a href="https://terms.saathi.in/privacy-policy.html" target="_blank" className="text-blue-600 underline">Privacy Policy</a>.</li>
-                <li>Saathi does not share personal information of any individual with other companies/entities without obtaining permission. Saathi may share all such information that it has in its possession in accordance with the <a href="https://terms.saathi.in/privacy-policy.html" target="_blank" className="text-blue-600 underline">Privacy Policy</a>.</li>
+                <li>All information collected from Users, such as registration (including but not limited to email addresses, mobile phone numbers, government identity documentation) and payment information, is subject to Saathi's Privacy Policy.</li>
+                <li>Saathi does not share personal information of any individual with other companies/entities without obtaining permission. Saathi may share all such information that it has in its possession in accordance with the Privacy Policy.</li>
                 <li>Once the personal information has been shared with the User, the User shall, at all times, be responsible to secure such information.</li>
                 <li>User warrants and represents that User shall not disclose or transfer personal information shared by Saathi without ensuring that adequate and equivalent safeguards to the personal information.</li>
                 <li>User hereby agrees and acknowledges that User will use the information shared with the User only for the purpose of availing the Services. User shall not use such information for any personal or other business purposes. In the event User is found to be misusing the information shared with User, Saathi shall, at its sole discretion, delete User's account with immediate effect and User will be blocked from using/accessing the Saathi Platform in the future.</li>
@@ -214,7 +214,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ onClose }) => (
             <li>
               <strong>Lucky Draw</strong>
               <ol className="list-[lower-alpha] pl-4">
-                <li>Participation in the lucky draw is open to eligible users who meet the specified criteria. By entering, participants consent to the use of their name and likeness for promotional purposes. We reserve the right to cancel or modify the draw if necessary. For full details, please refer to our <a href="https://terms.saathi.in/lucky-draw-tnc.html" target="_blank" className="text-blue-600 underline">Lucky Draw Policy</a>.</li>
+                <li>Participation in the lucky draw is open to eligible users who meet the specified criteria. By entering, participants consent to the use of their name and likeness for promotional purposes. We reserve the right to cancel or modify the draw if necessary. For full details, please refer to our Lucky Draw Policy.</li>
               </ol>
             </li>
             <li>
