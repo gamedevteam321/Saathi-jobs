@@ -154,7 +154,7 @@ const IdentityVerified = () => {
             if (isFromBelow.current) {
               setSelectedIndex(2);
             } else {
-              setSelectedIndex(0);
+              setSelectedIndex(sections.length - 1);
             }
           }, 50);
         }
@@ -199,7 +199,11 @@ const IdentityVerified = () => {
 
     requestAnimationFrame(() => {
       setTimeout(() => {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
+        if (direction === 'up') {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        } else {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
         
         transitionTimeout.current = setTimeout(() => {
           section.style.transition = '';
