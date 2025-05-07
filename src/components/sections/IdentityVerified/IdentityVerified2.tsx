@@ -286,7 +286,7 @@ const IdentityVerified = () => {
       >
         <div className="absolute inset-0 flex flex-col justify-center px-5 md:px-16">
           <div 
-            className="mb-8 transition-all duration-500 ease-in-out" 
+            className="mb-8 transition-all duration-500 ease-in-out max-w-6xl mx-auto w-full" 
             style={{
               opacity: isFullScreen ? 1 : 0,
               transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
@@ -299,7 +299,7 @@ const IdentityVerified = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
               viewport={{ once: true }}
-              className="text-center text-3xl md:text-7xl font-bold tracking-tight leading-tight"
+              className="text-center text-3xl md:text-6xl font-bold tracking-tight leading-tight"
             >
               <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Identity</span> <span className="text-white">Verified</span>
             </motion.h2>
@@ -308,16 +308,16 @@ const IdentityVerified = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-center text-gray-400 mt-4 text-md md:text-lg font-medium"
+              className="text-center text-gray-400 mt-4 text-sm md:text-base font-medium"
             >
               A single automated snapshot of authenticated details<br className="hidden md:block" />
               redefining <b className="text-white">Worker-Employer</b> trust metrics
             </motion.p>
           </div>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">
+          <div className="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-start px-4">
             {/* Left Side - Content */}
-            <div className="relative min-h-[400px] flex flex-col justify-center">
+            <div className="relative min-h-[350px] flex flex-col pt-16 md:pt-24">
               <div className="h-full">
                 {sections.map((section, index) => (
                   <div
@@ -333,11 +333,11 @@ const IdentityVerified = () => {
                       transitionDelay: '0.2s'
                     }}
                   >
-                    <div className="p-4 flex flex-col justify-center h-full">
-                      <h3 className="text-2xl md:text-3xl font-bold pb-5 text-white">
+                    <div className="flex flex-col h-full">
+                      <h3 className="text-xl md:text-2xl font-bold mb-6 text-white">
                         {section.title}
                       </h3>
-                      <div className="flex-grow flex items-center">
+                      <div className="space-y-4">
                         {section.content}
                       </div>
                     </div>
@@ -348,7 +348,7 @@ const IdentityVerified = () => {
               {/* Vertical pagination dots */}
               {isFullScreen && (
                 <div 
-                  className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4"
+                  className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3"
                   style={{
                     opacity: isFullScreen ? 1 : 0,
                     transition: 'all 0.5s ease-in-out',
@@ -358,7 +358,7 @@ const IdentityVerified = () => {
                   {sections.map((section, index) => (
                     <div
                       key={`progress-${section.key}`}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
                         selectedIndex === index
                           ? 'bg-yellow-400 scale-125'
                           : 'bg-gray-600 hover:bg-gray-500'
@@ -371,7 +371,7 @@ const IdentityVerified = () => {
 
             {/* Right Side - Image Display */}
             <div className="relative h-full flex items-center justify-center">
-              <div className="relative w-full max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
+              <div className="relative w-full max-w-[250px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
                 {sections.map((section, index) => (
                   <div
                     key={`image-${section.key}`}

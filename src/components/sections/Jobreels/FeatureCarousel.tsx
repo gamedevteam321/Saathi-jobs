@@ -95,12 +95,12 @@ export default function FeatureCarousel() {
           setTimeout(() => {
             setIsFullScreen(true);
             
-            // When coming from below (job train), show last item
-            // When coming from above (hero), show first item
+            // When coming from below (job train), show first item
+            // When coming from above (hero), show last item
             if (isFromBelow.current) {
-              setSelectedIndex(features.length - 1);
-            } else {
               setSelectedIndex(0);
+            } else {
+              setSelectedIndex(features.length - 1);
             }
           }, 50);
         }
