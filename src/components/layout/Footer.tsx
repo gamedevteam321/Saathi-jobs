@@ -1,5 +1,11 @@
+// Add this as the first line in src/components/layout/Footer.tsx
+"use client";
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
+import ContactModal from './ContactModal';
+import TermsModal from './TermsModal';
+import PrivacyPolicyModal from './PrivacyPolicyModal';
 
 const socialLinks = [
   {
@@ -29,6 +35,10 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const [isContactOpen, setContactOpen] = useState(false);
+  const [isTermsOpen, setTermsOpen] = useState(false);
+  const [isPrivacyOpen, setPrivacyOpen] = useState(false);
+
   return (
     <footer className="bg-[#070707] pt-16 pb-6 border-t border-[#19181f]">
       <div className="container flex flex-col items-center">
@@ -71,9 +81,9 @@ export default function Footer() {
 
           {/* Center Links */}
           <div className="flex gap-6 text-gray-400 text-base font-medium">
-            <Link href="#" className="hover:text-[#363CD2] transition">Contact Us</Link>
-            <Link href="#" className="hover:text-[#363CD2] transition">Privacy Policy</Link>
-            <Link href="#" className="hover:text-[#363CD2] transition">Terms</Link>
+            <button onClick={() => setContactOpen(true)} className="hover:text-[#363CD2] transition bg-transparent border-none cursor-pointer p-0 m-0">Contact Us</button>
+            <button onClick={() => setPrivacyOpen(true)} className="hover:text-[#363CD2] transition bg-transparent border-none cursor-pointer p-0 m-0">Privacy Policy</button>
+            <button onClick={() => setTermsOpen(true)} className="hover:text-[#363CD2] transition bg-transparent border-none cursor-pointer p-0 m-0">Terms</button>
           </div>
 
           {/* Copyright */}
@@ -82,6 +92,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      {isContactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
+      {isTermsOpen && <TermsModal onClose={() => setTermsOpen(false)} />}
+      {isPrivacyOpen && <PrivacyPolicyModal onClose={() => setPrivacyOpen(false)} />}
     </footer>
   );
 }

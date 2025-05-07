@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const SaathiEcosystem = () => {
   return (
-    <div className="w-full h-full flex flex-col bg-[#070707] items-center gap-7 py-1 border-t border-[#19181f] py-10">
+    <div className="w-full h-full flex flex-col bg-[#070707] items-center gap-7  border-t border-[#19181f] py-10 px-5 md:px-20">
       <div className="flex h-full flex-col items-center mt-10 mb-2">
         <h2 className="text-center text-[38px] md:text-[58px] font-semibold tracking-tight bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-tight">
           <span className="text-white">Saathi</span> Ecosystem
@@ -33,7 +33,7 @@ const SaathiEcosystem = () => {
         />
       </div>
 
-      <p className="mt-5 max-w-[850px] text-gray-300 text-center font-Poppins text-[1.25rem] font-medium leading-[1.75rem] tracking-[-0.8px] sm:px-0 px-[10px]">
+      <p className="pt-5 max-w-full text-gray-300 text-center  text-xl md:text-5xl font-medium leading-[1.75rem] tracking-[-0.8px] ">
         An AI-powered mobile ecosystem transforming blue-collar lives through
         digital verified identities, skilling and certification, culminating
         with financial inclusion and security.

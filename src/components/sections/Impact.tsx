@@ -60,9 +60,10 @@ function ImpactCards() {
 
 export default function Impact() {
   return (
-    <section className="bg-[#070707] py-16 md:py-24">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16">
+    <section className="bg-[#070707] py-16 md:py-20">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 space-y-10">
         <h2 className="text-3xl md:text-7xl font-bold text-white pb-2">Impact</h2>
+        <p className="text-gray-400 text-xl md:text-5xl font-medium leading-[1.75rem] tracking-[-0.8px]">Driving transformational impact at scale - Empower, Educate, Enrich</p>
         <ImpactCards />
         <VideoTickerComponent videos={impactVideoData} title="Media" />
       </div>

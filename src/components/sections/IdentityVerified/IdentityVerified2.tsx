@@ -295,14 +295,14 @@ const IdentityVerified = () => {
               viewport={{ once: true }}
               className="text-center text-3xl md:text-6xl font-bold tracking-tight leading-tight"
             >
-              <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Identity</span> <span className="text-white">Verified</span>
+              <span className="text-white">Saathi </span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">TrueID</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-center text-gray-400 mt-4 text-sm md:text-base font-medium"
+              className="text-center text-gray-400 mt-4 text-xl md:text-5xl  font-medium"
             >
               A single automated snapshot of authenticated details<br className="hidden md:block" />
               redefining <b className="text-white">Worker-Employer</b> trust metrics

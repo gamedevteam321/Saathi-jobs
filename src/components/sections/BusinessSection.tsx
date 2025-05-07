@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function BusinessSection() {
   return (
@@ -7,17 +8,21 @@ export default function BusinessSection() {
         {/* Left Side: Text Content */}
         <div className="flex-1 max-w-xl py-5 md:py-10">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Download</span>
-            <br />
-            <span className="text-white">our app for Skilling</span>
+          <span className="text-white">Post Reels For</span>
+          <br />
+            <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Jobs</span>
           </h2>
           <Link
             href="#"
-            className="inline-block px-6 py-3 rounded-md bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] text-white font-semibold shadow-lg transition hover:opacity-90"
+            className="inline-block transition hover:opacity-90"
           >
-            <span className="inline-flex text-black items-center gap-2">
-              Download Android App
-            </span>
+            <Image
+              src="/images/google-play-btn.png"
+              alt="Download on Google Play"
+              width={200}
+              height={60}
+              className="object-contain"
+            />
           </Link>
         </div>
         {/* Right Side: Phone Mockup */}
