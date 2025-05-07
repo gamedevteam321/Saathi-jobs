@@ -135,15 +135,26 @@ export default function CommunitySection() {
 
         .animate-ticker {
           animation: ticker 30s linear infinite;
+          will-change: transform;
         }
 
         .animate-ticker-reverse {
           animation: ticker-reverse 30s linear infinite;
+          will-change: transform;
         }
 
         .animate-ticker:hover,
         .animate-ticker-reverse:hover {
           animation-play-state: paused;
+        }
+
+        /* Add wrapper styles for smooth animation */
+        .animate-ticker, .animate-ticker-reverse {
+          display: flex;
+          width: max-content;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          perspective: 1000px;
         }
       `}</style>
     </section>
