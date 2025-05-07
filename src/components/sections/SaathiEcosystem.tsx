@@ -21,6 +21,11 @@ const SaathiEcosystem = () => {
           alt="mobile-2"
           className="z-10 max-h-[150px] md:max-h-[400px] relative"
         />
+         <img
+          src="/assets/home/section2_2.png"
+          alt="mobile-2"
+          className="z-10 max-h-[150px] md:max-h-[400px] relative"
+        />
         <img
           src="/assets/home/section2_3.png"
           alt="mobile-3"
