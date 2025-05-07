@@ -127,30 +127,16 @@ export default function FeatureCarousel() {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && !isTransitioning) {
-          // Only go fullscreen when scrolling down
-          if (!isFromBelow.current) {
-            setTimeout(() => {
-              setIsFullScreen(true);
-              
-              // When coming from below (job train), show first item
-              // When coming from above (hero), show last item
-              if (isFromBelow.current) {
-                setSelectedIndex(0);
-              } else {
-                setSelectedIndex(features.length - 1);
-              }
-            }, 100);
-          }
+          // Go fullscreen immediately when section is visible
+          setIsFullScreen(true);
+          setSelectedIndex(0);
         } else if (!entry.isIntersecting) {
-          // Smooth transition out of fullscreen
-          setTimeout(() => {
-            setIsFullScreen(false);
-          }, 100);
+          setIsFullScreen(false);
         }
       },
       { 
-        threshold: 0.9,
-        rootMargin: '0px'
+        threshold: 0.5, // Lower threshold to trigger earlier
+        rootMargin: '-10% 0px' // Add some margin to trigger slightly before full visibility
       }
     );
 
@@ -256,24 +242,35 @@ export default function FeatureCarousel() {
       ref={sectionRef}
       className={`${
         isFullScreen ? 'fixed inset-0 z-50 bg-black' : 'relative bg-black'
-      } transition-all duration-500 ease-out`}
+      } transition-all duration-300 ease-out`}
       style={{ 
         pointerEvents: isTransitioning ? 'none' : 'auto',
         opacity: 1,
         transform: isFullScreen ? 'translateY(0)' : 'none',
-        transition: 'all 0.5s ease-out',
-        backgroundColor: 'black'
+        transition: 'all 0.3s ease-out',
+        backgroundColor: 'black',
+        visibility: 'visible',
+        position: isFullScreen ? 'fixed' : 'relative',
+        top: isFullScreen ? 0 : 'auto',
+        left: isFullScreen ? 0 : 'auto',
+        right: isFullScreen ? 0 : 'auto',
+        bottom: isFullScreen ? 0 : 'auto',
+        width: '100%',
+        height: isFullScreen ? '100vh' : 'auto',
+        zIndex: isFullScreen ? 50 : 'auto'
       }}
     >
       <section 
         className={`${
           isFullScreen ? 'h-screen' : 'min-h-screen'
-        } bg-black relative overflow-hidden transition-all duration-500 ease-out`}
+        } bg-black relative overflow-hidden transition-all duration-300 ease-out`}
         style={{
           opacity: 1,
           transform: isFullScreen ? 'translateY(0)' : 'none',
-          transition: 'all 0.5s ease-out',
-          backgroundColor: 'black'
+          transition: 'all 0.3s ease-out',
+          backgroundColor: 'black',
+          visibility: 'visible',
+          height: isFullScreen ? '100vh' : 'auto'
         }}
       >
         <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-5 md:px-16 bg-black">
