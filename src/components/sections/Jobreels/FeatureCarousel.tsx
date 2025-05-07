@@ -38,12 +38,13 @@ export default function FeatureCarousel() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const scrollDirection = useRef<'up' | 'down' | null>(null);
   const scrollAccumulator = useRef(0);
-  const SCROLL_THRESHOLD = 50;
+  const SCROLL_THRESHOLD = 30;
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
   const lastScrollTime = useRef(0);
-  const SCROLL_COOLDOWN = 100;
+  const SCROLL_COOLDOWN = 80;
   const isFromBelow = useRef(false);
   const isScrolling = useRef(false);
+  const lastScrollPosition = useRef(0);
 
   const scrollToSection = (direction: 'up' | 'down') => {
     if (isTransitioning || isScrolling.current) return;
@@ -79,48 +80,40 @@ export default function FeatureCarousel() {
       return;
     }
 
-    // Create a black overlay for transition (only for downward transitions)
-    const overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'black';
-    overlay.style.zIndex = '9999';
-    overlay.style.opacity = '0';
-    overlay.style.transition = 'opacity 0.3s linear';
-    document.body.appendChild(overlay);
-
-    // Add a transition class to the section
-    section.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
-    section.style.transform = 'translateY(-100%)';
+    // For downward transition, just scroll without overlay
+    section.style.transition = 'none';
+    section.style.transform = 'none';
     section.style.opacity = '1';
-
-    // Update state before scrolling
     setIsFullScreen(false);
-
-    // Fade in the overlay immediately
-    overlay.style.opacity = '1';
     
     // Scroll to target section with smooth behavior
     targetSection.scrollIntoView({ behavior: 'smooth' });
     
-    // Reset the section and remove overlay after scroll completes
+    // Reset the section after scroll completes
     transitionTimeout.current = setTimeout(() => {
       section.style.transition = '';
       section.style.transform = '';
       section.style.opacity = '1';
       setIsTransitioning(false);
       isScrolling.current = false;
-      
-      // Fade out and remove the overlay
-      overlay.style.opacity = '0';
-      setTimeout(() => {
-        document.body.removeChild(overlay);
-      }, 500);
     }, 500);
   };
+
+  useEffect(() => {
+    // Track scroll position
+    const handleScroll = () => {
+      const currentPosition = window.scrollY;
+      if (currentPosition > lastScrollPosition.current) {
+        isFromBelow.current = false; // Scrolling down
+      } else {
+        isFromBelow.current = true; // Scrolling up
+      }
+      lastScrollPosition.current = currentPosition;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -129,14 +122,20 @@ export default function FeatureCarousel() {
         if (entry.isIntersecting && !isTransitioning) {
           // Go fullscreen immediately when section is visible
           setIsFullScreen(true);
-          setSelectedIndex(0);
+          
+          // Set initial index based on scroll direction
+          if (isFromBelow.current) {
+            setSelectedIndex(2); // Show last item when coming from below (job train)
+          } else {
+            setSelectedIndex(0); // Show first item when coming from above (hero)
+          }
         } else if (!entry.isIntersecting) {
           setIsFullScreen(false);
         }
       },
       { 
-        threshold: 0.5, // Lower threshold to trigger earlier
-        rootMargin: '-10% 0px' // Add some margin to trigger slightly before full visibility
+        threshold: 0.8,
+        rootMargin: '-10% 0px'
       }
     );
 
