@@ -1,82 +1,84 @@
 import Link from 'next/link';
+import Image from 'next/image';
+
+const socialLinks = [
+  {
+    name: 'LinkedIn',
+    href: '#',
+    icon: '/assets/home/linkdin.svg',
+    text: 'Follow us on LinkedIn',
+  },
+  {
+    name: 'Facebook',
+    href: '#',
+    icon: '/assets/home/facebook.svg',
+    text: 'Follow us on Facebook',
+  },
+  {
+    name: 'Instagram',
+    href: '#',
+    icon: '/assets/home/instagram.svg',
+    text: 'Follow us on Instagram',
+  },
+  {
+    name: 'YouTube',
+    href: '#',
+    icon: '/assets/home/youtube.svg',
+    text: 'Subscribe our YouTube channel',
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-50 py-12 mt-16">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-          <div>
-            <h3 className="font-semibold mb-4">Job Reels</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Job Reels</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">How It Works</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Career Opportunities</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Success Stories</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-4">Fast Job</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Fast Job</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Job Listings</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Application Process</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">For Employers</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-4">Fast Train</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Fast Train</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Training Programs</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Skill Development</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Certifications</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-4">Fast Social</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Fast Social</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Connect</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Networking</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Communities</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Events</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-4">True Id</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">True Id</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Verification</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Security</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:underline">Privacy</Link></li>
-            </ul>
-          </div>
-        </div>
+    <footer className="bg-[#070707] pt-16 pb-6 border-t border-[#19181f]">
+      <div className="container flex flex-col items-center">
+        {/* Heading */}
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent mb-12 text-center">Get in Touch</h2>
 
-        <div className="flex flex-wrap gap-4 mb-8">
-          <Link href="#" className="text-sm text-gray-600 hover:underline">About Us</Link>
-          <Link href="#" className="text-sm text-gray-600 hover:underline">Our Team</Link>
-          <Link href="#" className="text-sm text-gray-600 hover:underline">Advisory Board</Link>
-          <Link href="#" className="text-sm text-gray-600 hover:underline">Our Impact</Link>
-        </div>
-
-        <div className="flex gap-4 mb-8">
-          {['instagram', 'facebook', 'threads', 'youtube', 'twitter', 'linkedin'].map(platform => (
+        {/* Social Cards */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {socialLinks.map((item) => (
             <Link
-              key={platform}
-              href="#"
-              className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center"
-              aria-label={`${platform} link`}
+              key={item.name}
+              href={item.href}
+              className="flex flex-col items-start justify-between bg-[#07060d] rounded-2xl p-8 min-h-[180px] border border-[#19181f] shadow-sm hover:shadow-lg transition group"
             >
-              <span className="sr-only">{platform}</span>
+              <div className="mb-6">
+                <Image src={item.icon} alt={item.name} width={60} height={60} />
+              </div>
+              <div>
+                <span className="text-xl md:text-2xl font-medium text-white group-hover:underline leading-tight">
+                  {item.text.split(' ').slice(0, -1).join(' ')}
+                </span>
+                <br />
+                <span className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent group-hover:underline leading-tight">
+                  {item.text.split(' ').slice(-1)}
+                </span>
+              </div>
             </Link>
           ))}
         </div>
 
-        <div className="text-sm text-gray-600 border-t border-gray-200 pt-8">
-          <div className="flex flex-wrap gap-4 mb-4">
-            <Link href="#" className="hover:underline">Privacy</Link>
-            <Link href="#" className="hover:underline">Terms</Link>
+        {/* Gradient Border */}
+        <div className="w-full h-0.5 bg-[#19181f] rounded-full " />
+
+        {/* Bottom Bar */}
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <Image src="/assets/home/Logo.svg" alt="Saathi Logo" width={100} height={28} />
+          </div>
+
+          {/* Center Links */}
+          <div className="flex gap-6 text-gray-400 text-base font-medium">
+            <Link href="#" className="hover:text-[#363CD2] transition">Contact Us</Link>
+            <Link href="#" className="hover:text-[#363CD2] transition">Privacy Policy</Link>
+            <Link href="#" className="hover:text-[#363CD2] transition">Terms</Link>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-gray-400 text-base font-medium">
+            2024©SaathiWorld App
           </div>
         </div>
       </div>
