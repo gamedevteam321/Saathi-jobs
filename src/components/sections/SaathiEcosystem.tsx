@@ -11,7 +11,7 @@ const SaathiEcosystem = () => {
           width={117}
           height={28}
         />
-        <h2 className="text-center font-poppins text-[38px] md:text-[58px] font-semibold tracking-tight bg-gradient-to-r from-[#8f3aff] to-[#2a00ff] bg-clip-text text-transparent leading-tight">
+        <h2 className="text-center font-poppins text-[38px] md:text-[58px] font-semibold tracking-tight bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-tight">
           Ecosystem
         </h2>
       </div>

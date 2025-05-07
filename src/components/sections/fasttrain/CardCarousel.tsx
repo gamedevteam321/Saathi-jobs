@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Image from 'next/image';
-import Link from 'next/link';
 
 type CardItem = {
   id: number;
@@ -48,8 +47,7 @@ export default function CardCarousel({ title, cards }: CardCarouselProps) {
           }}
         >
           {cards.map((card) => (
-            <Link 
-              href={card.href} 
+            <div 
               key={card.id}
               className="relative flex-shrink-0 group"
             >
@@ -81,7 +79,7 @@ export default function CardCarousel({ title, cards }: CardCarouselProps) {
                   <h3 className="text-white font-medium truncate">{card.title}</h3>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
