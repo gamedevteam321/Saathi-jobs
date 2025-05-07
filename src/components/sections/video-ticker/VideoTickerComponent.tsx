@@ -37,37 +37,6 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
     };
   }, []);
 
-  // Ticker animation effect
-  useEffect(() => {
-    let animationId: number;
-    let position = 0;
-    const itemWidth = isMobile ? 280 : 300; // Width of each item including margin
-    
-    const animate = () => {
-      if (!tickerRef.current || isHovering) return;
-      
-      position -= 1; // Adjust speed here
-      
-      // When we've scrolled one full set of items, reset to start
-      // This creates a seamless loop since we have duplicate items
-      if (position <= -itemWidth * videos.length) {
-        position = 0;
-      }
-      
-      if (tickerRef.current) {
-        tickerRef.current.style.transform = `translateX(${position}px)`;
-      }
-      
-      animationId = requestAnimationFrame(animate);
-    };
-    
-    animate();
-    
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, [isHovering, isMobile, videos.length]);
-
   // Helper function to get unique video ref key
   const getVideoRefKey = (id: string, isDuplicate: boolean) => {
     return `${id}-${isDuplicate ? 'duplicate' : 'original'}`;
@@ -83,11 +52,21 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
     const videoElement = videoRefs.current[videoRefKey];
     if (videoElement) {
       if (isHovering) {
-        videoElement.volume = 1;
-        videoElement.play().catch(e => console.log("Video play failed:", e));
+        videoElement.currentTime = 0;
+        videoElement.muted = false;
+        const playPromise = videoElement.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Video play failed:", error);
+            // If autoplay fails, try playing muted
+            videoElement.muted = true;
+            videoElement.play().catch(e => console.log("Muted video play failed:", e));
+          });
+        }
       } else {
         videoElement.pause();
         videoElement.currentTime = 0;
+        videoElement.muted = true;
       }
     }
   };
@@ -135,11 +114,14 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
         </div>
       )}
 
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <div 
           ref={tickerRef}
-          className="flex transition-transform"
-          style={{ willChange: 'transform' }}
+          className="flex animate-ticker"
+          style={{ 
+            willChange: 'transform',
+            width: 'fit-content'
+          }}
         >
           {/* Original items */}
           {videos.map((video) => (
@@ -166,6 +148,8 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
                   }`}
                   playsInline
                   loop
+                  muted
+                  preload="auto"
                 />
                 
                 {/* Thumbnail image (shown when not hovering/active) */}
@@ -233,6 +217,8 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
                   }`}
                   playsInline
                   loop
+                  muted
+                  preload="auto"
                 />
                 
                 {/* Thumbnail image (shown when not hovering/active) */}
@@ -276,6 +262,25 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes ticker {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .animate-ticker {
+          animation: ticker 30s linear infinite;
+        }
+
+        .animate-ticker:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 } 
