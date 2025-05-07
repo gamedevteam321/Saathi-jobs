@@ -24,13 +24,13 @@ export default function HeroSection() {
       </div>
       
       {/* Content */}
-      <div className="container h-full pb-10 relative z-10 px-6 flex flex-col justify-end items-center text-white gap-5">
-        <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-3">
-        The Future of Hiring is Here
+      <div className="container h-full pb-6 sm:pb-10 relative z-10 px-4 sm:px-6 flex flex-col justify-end items-center text-white gap-3 sm:gap-5">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold mb-2 sm:mb-3 text-center">
+          The Future of Hiring is Here
         </h1>
         <Button 
           variant="business" 
-          className="text-2xl w-fit font-bold rounded-[7px] transform hover:scale-105 transition-all duration-300 bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] text-black hover:from-[#FF9A01] hover:via-[#FFD955] hover:to-[#FFC01D]"
+          className="text-lg sm:text-2xl w-fit font-bold rounded-[7px] transform hover:scale-105 transition-all duration-300 bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] text-black hover:from-[#FF9A01] hover:via-[#FFD955] hover:to-[#FFC01D]"
         >
           Post. Match. Hire
         </Button>

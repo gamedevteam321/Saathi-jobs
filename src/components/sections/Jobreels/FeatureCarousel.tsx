@@ -234,9 +234,9 @@ export default function FeatureCarousel() {
           transition: 'all 0.5s ease-in-out'
         }}
       >
-        <div className="absolute inset-0 flex flex-col justify-center px-5 md:px-16">
+        <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-5 md:px-16">
           <div 
-            className="mb-8 transition-all duration-500 ease-in-out" 
+            className="mb-4 sm:mb-8 transition-all duration-500 ease-in-out mt-16 sm:mt-0" 
             style={{
               opacity: isFullScreen ? 1 : 0,
               transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
@@ -244,16 +244,16 @@ export default function FeatureCarousel() {
               transitionDelay: '0.1s'
             }}
           >
-            <h1 className="text-3xl md:text-7xl font-bold text-white">
+            <h1 className="text-4xl sm:text-3xl md:text-7xl font-bold text-white text-center md:text-left">
               <span>Job</span>
               <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reels</span>
             </h1>
-            <p className="text-gray-600 italic text-md md:text-lg py-1">The Instagram of Jobs</p>
+            <p className="text-gray-600 italic text-sm sm:text-md md:text-lg py-1 text-center md:text-left">The Instagram of Jobs</p>
           </div>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-10 items-center -mt-16 sm:mt-0">
             {/* Left Side - Feature Text */}
-            <div className="relative min-h-[400px] flex flex-col justify-center">
+            <div className="relative min-h-[200px] sm:min-h-[400px] flex flex-col justify-center text-center md:text-left">
               <div className="h-full">
                 {features.map((feature, index) => (
                   <div
@@ -269,10 +269,10 @@ export default function FeatureCarousel() {
                       transitionDelay: '0.2s'
                     }}
                   >
-                    <div className="p-4">
-                      <div className="space-y-4">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white">{feature.title}</h2>
-                        <p className="text-gray-600 mb-6">{feature.description}</p>
+                    <div className="p-2 sm:p-4">
+                      <div className="space-y-2 sm:space-y-4">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">{feature.title}</h2>
+                        <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0">{feature.description}</p>
                       </div>
                     </div>
                   </div>
@@ -282,7 +282,7 @@ export default function FeatureCarousel() {
               {/* Vertical pagination dots */}
               {isFullScreen && (
                 <div 
-                  className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4"
+                  className="fixed right-4 sm:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2 sm:gap-4"
                   style={{
                     opacity: isFullScreen ? 1 : 0,
                     transition: 'all 0.5s ease-in-out',
@@ -292,7 +292,7 @@ export default function FeatureCarousel() {
                   {features.map((feature, index) => (
                     <div
                       key={`progress-${feature.id}`}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                         selectedIndex === index
                           ? 'bg-pink-500 scale-125'
                           : 'bg-gray-600 hover:bg-gray-500'
@@ -305,7 +305,7 @@ export default function FeatureCarousel() {
 
             {/* Right Side - Video Display */}
             <div className="relative h-full flex items-center justify-center">
-              <div className="relative w-full max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
+              <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
                 {features.map((feature, index) => (
                   <div
                     key={`video-${feature.id}`}

@@ -152,7 +152,7 @@ const IdentityVerified = () => {
           setTimeout(() => {
             setIsFullScreen(true);
             if (isFromBelow.current) {
-              setSelectedIndex(2);
+              setSelectedIndex(0);
             } else {
               setSelectedIndex(sections.length - 1);
             }
@@ -183,7 +183,7 @@ const IdentityVerified = () => {
     const section = sectionRef.current;
     if (!section) return;
 
-    isFromBelow.current = direction === 'down';
+    isFromBelow.current = direction === 'up';
 
     const targetSection = direction === 'down' 
       ? sectionRef.current?.nextElementSibling 
@@ -270,7 +270,7 @@ const IdentityVerified = () => {
       ref={sectionRef}
       className={`${
         isFullScreen ? 'fixed inset-0 z-50 bg-[#09090B]' : 'relative bg-[#09090B]'
-      } transition-all duration-500 ease-in-out`}
+      } transition-all duration-500 ease-in-out pt-4 pb-4`}
       style={{ 
         pointerEvents: isTransitioning ? 'none' : 'auto',
         opacity: isFullScreen ? 1 : 0,
@@ -375,7 +375,7 @@ const IdentityVerified = () => {
 
             {/* Right Side - Image Display */}
             <div className="relative h-full flex items-center justify-center">
-              <div className="relative w-full max-w-[250px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
+              <div className="relative w-full max-w-[180px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
                 {sections.map((section, index) => (
                   <div
                     key={`image-${section.key}`}
