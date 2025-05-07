@@ -149,17 +149,20 @@ const IdentityVerified = () => {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && !isTransitioning) {
-          setTimeout(() => {
+          const intersectionRatio = entry.intersectionRatio;
+          if (intersectionRatio >= 0.8) {
             setIsFullScreen(true);
             if (isFromBelow.current) {
               setSelectedIndex(0);
             } else {
               setSelectedIndex(sections.length - 1);
             }
-          }, 50);
+          } else {
+            setIsFullScreen(false);
+          }
         }
       },
-      { threshold: 0.5 }
+      { threshold: [0.8] }
     );
 
     if (sectionRef.current) {
@@ -191,10 +194,6 @@ const IdentityVerified = () => {
 
     if (!targetSection) return;
 
-    section.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out';
-    section.style.transform = direction === 'down' ? 'translateY(-100%)' : 'translateY(100%)';
-    section.style.opacity = '0';
-
     setIsFullScreen(false);
 
     requestAnimationFrame(() => {
@@ -206,9 +205,6 @@ const IdentityVerified = () => {
         }
         
         transitionTimeout.current = setTimeout(() => {
-          section.style.transition = '';
-          section.style.transform = '';
-          section.style.opacity = '';
           setIsTransitioning(false);
         }, 500);
       }, 50);
@@ -244,12 +240,10 @@ const IdentityVerified = () => {
           return;
         }
 
-        setTimeout(() => {
-          setSelectedIndex((current) => {
-            const next = direction === 'down' ? current + 1 : current - 1;
-            return next;
-          });
-        }, 50);
+        setSelectedIndex((current) => {
+          const next = direction === 'down' ? current + 1 : current - 1;
+          return next;
+        });
       }
     };
 
@@ -270,34 +264,30 @@ const IdentityVerified = () => {
       ref={sectionRef}
       className={`${
         isFullScreen ? 'fixed inset-0 z-50 bg-[#09090B]' : 'relative bg-[#09090B]'
-      } transition-all duration-500 ease-in-out pt-4 pb-4`}
-      style={{ 
-        pointerEvents: isTransitioning ? 'none' : 'auto',
-        opacity: isFullScreen ? 1 : 0,
-        transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
-        transition: 'all 0.5s ease-in-out'
+      } transition-all duration-300 ease-in-out pt-4 pb-4`}
+      style={{
+        transform: isFullScreen ? 'translateY(0)' : 'none',
+        position: isFullScreen ? 'fixed' : 'relative',
+        top: isFullScreen ? '0' : 'auto',
+        left: isFullScreen ? '0' : 'auto',
+        right: isFullScreen ? '0' : 'auto',
+        bottom: isFullScreen ? '0' : 'auto',
+        width: isFullScreen ? '100%' : 'auto',
+        height: isFullScreen ? '100%' : 'auto',
+        zIndex: isFullScreen ? 50 : 'auto'
       }}
     >
       <section 
         className={`${
           isFullScreen ? 'h-screen' : 'min-h-screen'
-        } bg-[#09090B] relative overflow-hidden transition-all duration-500 ease-in-out`}
+        } bg-[#09090B] relative overflow-hidden`}
         style={{
-          opacity: isFullScreen ? 1 : 0,
-          transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'all 0.5s ease-in-out'
+          transform: isFullScreen ? 'translateY(0)' : 'none',
+          transition: 'transform 0.3s ease-in-out'
         }}
       >
         <div className="absolute inset-0 flex flex-col justify-center px-5 md:px-16">
-          <div 
-            className="mb-8 transition-all duration-500 ease-in-out max-w-6xl mx-auto w-full" 
-            style={{
-              opacity: isFullScreen ? 1 : 0,
-              transform: isFullScreen ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.5s ease-in-out',
-              transitionDelay: '0.1s'
-            }}
-          >
+          <div className="mb-8 max-w-6xl mx-auto w-full">
             <motion.h2
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -326,15 +316,13 @@ const IdentityVerified = () => {
                 {sections.map((section, index) => (
                   <div
                     key={section.key}
-                    className={`absolute w-full transition-all duration-500 ease-in-out ${
+                    className={`absolute w-full ${
                       selectedIndex === index
                         ? 'opacity-100 translate-y-0'
                         : 'opacity-0 -translate-y-4 pointer-events-none'
                     }`}
-                    style={{ 
-                      willChange: 'transform, opacity',
-                      transition: 'all 0.5s ease-in-out',
-                      transitionDelay: '0.2s'
+                    style={{
+                      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
                     }}
                   >
                     <div className="flex flex-col h-full">
@@ -354,9 +342,7 @@ const IdentityVerified = () => {
                 <div 
                   className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3"
                   style={{
-                    opacity: isFullScreen ? 1 : 0,
-                    transition: 'all 0.5s ease-in-out',
-                    transitionDelay: '0.3s'
+                    transition: 'opacity 0.3s ease-in-out'
                   }}
                 >
                   {sections.map((section, index) => (
@@ -379,15 +365,13 @@ const IdentityVerified = () => {
                 {sections.map((section, index) => (
                   <div
                     key={`image-${section.key}`}
-                    className={`absolute inset-0 transition-all duration-500 ease-in-out ${
+                    className={`absolute inset-0 ${
                       selectedIndex === index
                         ? 'opacity-100 scale-100'
                         : 'opacity-0 scale-95 pointer-events-none'
                     }`}
-                    style={{ 
-                      willChange: 'transform, opacity, scale',
-                      transition: 'all 0.5s ease-in-out',
-                      transitionDelay: '0.2s'
+                    style={{
+                      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
                     }}
                   >
                     <img
