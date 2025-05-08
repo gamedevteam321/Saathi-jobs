@@ -33,8 +33,8 @@ const SaathiEcosystem = () => {
         />
       </div>
 
-      <p className="pt-5 max-w-full text-gray-300 text-center  text-xl md:text-5xl font-medium leading-[1.75rem] tracking-[-0.8px] ">
-        An AI-powered mobile ecosystem transforming blue-collar lives through
+      <p className="pt-5 max-w-[95%] text-gray-400 text-center  text-xl md:text-[40px] font-medium leading-none tracking-[-0.8px] ">
+        An AI-powered mobile ecosystem <span className="text-white">transforming our workforce </span>with
         digital verified identities, skilling and certification, culminating
         with financial inclusion and security.
       </p>

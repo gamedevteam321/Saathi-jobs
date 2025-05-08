@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const features = [
   {
     icon: (
-      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center font-bold">
         <img src="/assets/home/face_detection.svg" alt="Live Photo Verified" className="w-7 h-7" />
       </span>
     ),
@@ -17,7 +17,7 @@ const features = [
   },
   {
     icon: (
-      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center font-bold">
         <img src="/assets/home/id_card.svg" alt="Aadhaar Verified" className="w-7 h-7" />
       </span>
     ),
@@ -27,7 +27,7 @@ const features = [
   },
   {
     icon: (
-      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center font-bold">
         <img src="/assets/home/legal_2.svg" alt="Legal Status Verified" className="w-7 h-7" />
       </span>
     ),
@@ -37,7 +37,7 @@ const features = [
   },
   {
     icon: (
-      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center font-bold">
         <img src="/assets/home/experience 1.svg" alt="Experience Verified" className="w-7 h-7" />
       </span>
     ),
@@ -66,6 +66,7 @@ const employerBenefits = [
 const sections = [
   {
     key: "trueid",
+    heading: "Live on TrueID",
     title: (
       <>Live on Saathi <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">TrueID</span></>
     ),
@@ -90,6 +91,7 @@ const sections = [
   },
   {
     key: "worker",
+    heading: "TrueID for the Workforce",
     title: (
       <>Benefits for <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Workers</span></>
     ),
@@ -101,7 +103,7 @@ const sections = [
               <img src={item.icon} alt="icon" className="w-7 h-7" />
             </div>
             <div>
-              <span className="font-bold text-md md:text-lg text-white">
+              <span className="font-regular text-md md:text-[18px] text-white">
                 {item.title} <span className="text-[#FFC226]">{item.desc}</span>
               </span>
             </div>
@@ -113,6 +115,7 @@ const sections = [
   },
   {
     key: "employer",
+    heading: "TrueID for Recruiters",
     title: (
       <>Benefits for <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Employers</span></>
     ),
@@ -124,7 +127,7 @@ const sections = [
               <img src={item.icon} alt="icon" className="w-7 h-7" />
             </div>
             <div>
-              <span className="font-bold text-md md:text-lg text-white">
+              <span className="font-regular text-md md:text-[18px] text-white">
                 {item.title} <span className="text-[#FFC226]">{item.desc}</span>
               </span>
             </div>
@@ -306,8 +309,16 @@ const IdentityVerified = () => {
                 <span className=" text-white"> Worker-Employer</span> trust metrics
               </div>
               <div className="mt-8">
-                <div className="text-xl md:text-[28px] font-regular mb-4 text-left text-gray-400 px-9 ">
-                  Live on <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
+                <div className="text-xl md:text-[28px] font-regular mb-2 text-left px-9 text-gray-400">
+                  {selectedIndex === 0 && (<>
+                    Live on <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
+                  </>)}
+                  {selectedIndex === 1 && (<>
+                    <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span> for the Workforce
+                  </>)}
+                  {selectedIndex === 2 && (<>
+                    <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span> for Recruiters
+                  </>)}
                 </div>
                 <div className="flex flex-row items-start">
                   {/* Pagination Dots */}
@@ -323,7 +334,7 @@ const IdentityVerified = () => {
                   )}
                   {/* Dynamic Section Content */}
                   <div className="flex-1">
-                    {sections[selectedIndex].content}
+                    {sections[selectedIndex] && sections[selectedIndex].content}
                   </div>
                 </div>
               </div>

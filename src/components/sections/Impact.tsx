@@ -6,65 +6,56 @@ import Image from "next/image";
 function ImpactCards() {
   const cards = [
     {
-      icon: "/assets/home/card.svg",
+      icon: "/assets/home/Artboard 1.svg",
       title: "Empowering Lives",
       desc: "Providing Identity through Live Digital CVs",
     },
+    
     {
-      icon: "/assets/home/worker.png",
-      title: "Women Empowerment",
-      desc: "Increasing workforce participation",
-    },
-    {
-      icon: "/assets/home/star.svg",
+      icon: "/assets/home/Artboard 2.svg",
       title: "Digital Skilling",
       desc: "Converging traditional learning models with new-age techniques",
     },
     {
-      icon: "/assets/home/fact-check.svg",
-      title: "Legal Financial & Digital Literacy",
-      desc: "",
+      icon: "/assets/home/Artboard 4.svg",
+      title: "Holistic Development",
+      desc: "Imparting Life Skills & Promoting Wellbeing",
     },
     {
-      icon: "/assets/home/Mindfulness.svg",
-      title: "ESG & Sustainability",
-      desc: "Impart POSH Awareness, Respect Towards Women",
+      icon: "/assets/home/Artboard 3.svg",
+      title: "Women Empowerment",
+      desc: "Increasing workforce participation",
     },
-    {
-      icon: "/assets/home/Thumb-up.svg",
-      title: "Communication Skills",
-      desc: "Problem-Solving Abilities, Time & Stress Management",
-    },
+    
   ];
   return (
-    <div>
-      <h3 className="text-xl md:text-3xl font-semibold text-start text-gray-500 pt-8">
-        Towards a Growth Mindset & a Fullfilling Life
-      </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-2 md:py-5 max-w-full mx-auto">
-        {cards.map((card, idx) => (
-          <Card key={idx} className="bg-gray-800/50 backdrop-blur-sm text-white rounded-2xl shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden min-h-[80px] md:min-h-[140px] flex flex-col justify-between">
-            <CardHeader className="flex flex-row items-center gap-4 p-6 pb-2">
-              <Image src={card.icon} alt={card.title} width={48} height={48} className="bg-gray-700/60 rounded-lg p-2" />
-            </CardHeader>
-            <CardContent className="p-6 pt-0 text-base text-grey-400">
-            <CardTitle className="text-lg font-bold text-white">{card.title}</CardTitle>
-            {card.desc}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-2 md:py-5 max-w-7xl mx-auto">
+      {cards.map((card, idx) => (
+        <Card key={idx} className="bg-gray-800/50 backdrop-blur-sm text-white rounded-2xl shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden min-h-[180px] flex flex-col items-center justify-between p-6">
+          <div className="flex flex-col items-center">
+            <Image src={card.icon} alt={card.title} width={60} height={60} className=" p-2 mb-4" />
+            <CardTitle className="text-lg font-regular text-white text-center mb-2">{card.title}</CardTitle>
+            <div className="text-base text-gray-400 text-center">{card.desc}</div>
+          </div>
+        </Card>
+      ))}
     </div>
   );
 }
 
 export default function Impact() {
   return (
-    <section className="bg-[#070707] py-16 md:py-20">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 space-y-10">
-        <h2 className="text-3xl md:text-7xl font-bold text-white pb-2">Impact</h2>
-        <p className="text-gray-400 text-xl md:text-5xl font-medium leading-[1.75rem] tracking-[-0.8px]">Driving transformational impact at scale - Empower, Educate, Enrich</p>
+    <section className="bg-gradient-to-b from-[#070707] via-[#18181b] to-[#232325] py-16 md:py-20">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 space-y-5 flex flex-col items-center">
+        <h2 className="text-3xl md:text-7xl font-bold text-white text-center">
+          Impacting <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">Bharat</span>
+        </h2>
+        <div className="flex flex-col items-center pb-6">
+          <p className="text-gray-400 text-xl md:text-3xl font-regular text-center leading-[1.75rem] tracking-[-0.8px]">Driving transformational impact at scale</p>
+          <p className="text-white text-2xl md:text-4xl font-regular text-center mt-2">Empower, Educate, Enrich</p>
+        </div>
         <ImpactCards />
+        
         <VideoTickerComponent videos={impactVideoData} title="Media" />
       </div>
     </section>
