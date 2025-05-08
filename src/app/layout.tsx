@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientBody from "./ClientBody";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Find Your Perfect Career Opportunity",
@@ -19,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
-      <body suppressHydrationWarning className="antialiased">
+    <html lang="en">
+      <body suppressHydrationWarning className="antialiased font-['Helvetica']">
         <ClientBody>{children}</ClientBody>
       </body>
     </html>

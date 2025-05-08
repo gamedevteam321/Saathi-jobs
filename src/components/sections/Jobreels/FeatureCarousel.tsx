@@ -4,7 +4,7 @@ import { useState, useEffect, ReactNode, useRef } from "react";
 
 type FeatureItem = {
   id: string;
-  title: string;
+  title: string | ReactNode;
   description: string | ReactNode;
   phoneImage: string;
 };
@@ -14,19 +14,19 @@ const features: FeatureItem[] = [
     id: "explore",
     title: "Reels not Resumes",
     description: <><p>Disruptive hiring with short video reels</p></>,
-    phoneImage: "videos/jobreels.mp4"
+    phoneImage: "images/JobReel.png"
   },
   {
     id: "reels",
     title: "Watch Listen Apply",
     description:  <><p>Complex Job Descriptions become Simple Short Video Job Posts</p><p>AI/ML algorithms for an Instant Match</p></>,
-    phoneImage: "videos/empnew.mp4"
+    phoneImage: "images/JobPost.png"
   },
   {
     id: "stories",
-    title: "24/7 Ai Recruiter",
-    description:  <><p>Instant interview with Employers Ai Avatar</p></>,
-    phoneImage: "videos/ai-interviewer.mp4"
+    title: <>24/7 <span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>AI Recruiter</span></>,
+    description:  <><p>Instant interview with Employers AI Avatar</p></>,
+    phoneImage: "images/AIinterview.png"
   },
 ];
 
@@ -285,24 +285,24 @@ export default function FeatureCarousel() {
               zIndex: 50
             }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white text-center md:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white text-center md:text-left font-['Helvetica']">
               <span>Job</span>
               <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reels</span>
             </h1>
-            <p className="text-gray-600 italic text-sm sm:text-md md:text-lg py-1 text-center md:text-left">The Instagram of Jobs</p>
+            <p className="text-gray-400 italic text-sm sm:text-md md:text-[18px] py-1 text-center md:text-left font-['Helvetica']">The Instagram of Jobs</p>
             <div className="mt-6 md:mt-8 text-center md:text-left">
-              <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight mb-2">When Resume's meet Reel's<br/>hiring happens instantly.</h2>
-              <div className="text-gray-400 text-lg sm:text-xl md:text-2xl font-medium leading-snug">
-                Post. Swyp. Match. Hire<br/>
-                Fast. Fun. Effortless
+              <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight mb-6 font-['Helvetica'] ">When Resume's meet Reel's<br/>hiring happens instantly.</h2>
+              <div className="text-gray-400 text-lg sm:text-xl md:text-[28px] font-medium leading-snug font-['Helvetica'] space-y-1">
+               <p> Post. Swyp. Match. Hire</p>
+               <p> Fast. Fun. Effortless</p>
               </div>
             </div>
           </div>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-0 items-center bg-black -mt-32 sm:-mt-36 md:-mt-40">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-0 items-center -mt-32 sm:-mt-36 md:-mt-40">
             {/* Left Side - Feature Text */}
             <div className="relative min-h-[200px] sm:min-h-[400px] flex flex-col justify-center items-center md:items-end text-center md:text-left mt-20 md:mt-32">
-              <div className="h-full flex items-center justify-center md:justify-end md:pr-4 bg-black">
+              <div className="h-full flex items-center justify-center md:justify-end md:pr-4">
                 {features.map((feature, index) => (
                   <div
                     key={feature.id}
@@ -318,42 +318,36 @@ export default function FeatureCarousel() {
                       backgroundColor: 'black'
                     }}
                   >
-                    <div className="w-full h-full justify-center items-center space-y-2 sm:space-y-4 bg-black">
-                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">{feature.title}</h2>
-                      <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0">{feature.description}</p>
+                    <div className="w-full h-full flex flex-row items-start space-x-4 bg-black">
+                      {/* Pagination dots on the left */}
+                      <div className="flex flex-col items-center justify-center space-y-4 mr-2 mt-3">
+                        {features.map((_, dotIdx) => (
+                          <div
+                            key={`progress-${dotIdx}`}
+                            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                              selectedIndex === dotIdx
+                                ? 'bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01]'
+                                : 'bg-gray-600'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      {/* Feature text on the right */}
+                      <div className="flex-1">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-3">
+                          {feature.id === "stories" ? feature.title : feature.title}
+                        </h2>
+                        <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic">{feature.description}</p>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* Vertical pagination dots */}
-              {isFullScreen && (
-                <div 
-                  className="fixed right-4 sm:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2 sm:gap-4 bg-black"
-                  style={{
-                    opacity: 1,
-                    transition: 'all 0.5s linear',
-                    transitionDelay: '0.3s',
-                    backgroundColor: 'black'
-                  }}
-                >
-                  {features.map((feature, index) => (
-                    <div
-                      key={`progress-${feature.id}`}
-                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                        selectedIndex === index
-                          ? 'bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] scale-125'
-                          : 'bg-gray-600 hover:bg-gray-500'
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
             </div>
 
             {/* Right Side - Video Display */}
             <div className="relative h-full flex items-center justify-center md:justify-start md:pl-4 bg-black -mt-40 sm:-mt-56 md:-mt-64">
-              <div className="relative w-full max-w-[420px] sm:max-w-[460px] md:max-w-[420px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black">
+              <div className="relative w-full max-w-[400px] sm:max-w-[280px] md:max-w-[380px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black">
                 {features.map((feature, index) => (
                   <div
                     key={`video-${feature.id}`}
@@ -371,7 +365,7 @@ export default function FeatureCarousel() {
                   >
                     {feature.phoneImage.endsWith('.mp4') ? (
                       <video
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                         autoPlay
                         loop
                         muted
@@ -382,8 +376,8 @@ export default function FeatureCarousel() {
                     ) : (
                       <img
                         src={feature.phoneImage}
-                        alt={feature.title}
-                        className="w-full h-full object-cover"
+                        alt={typeof feature.title === 'string' ? feature.title : ''}
+                        className="w-full h-full object-contain"
                       />
                     )}
                   </div>

@@ -3,58 +3,64 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 // Placeholder icons (replace with your icon library or SVGs as needed)
-const PhotoIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">📷</span>
-);
-const AadhaarIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">🪪</span>
-);
-const LegalIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">⚖️</span>
-);
-const ExperienceIcon = () => (
-  <span className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center text-white">💼</span>
-);
 
 const features = [
   {
-    icon: <PhotoIcon />,
-    title: (<><span className="text-white">Live Photo</span> <span className="text-yellow-400">Verified</span></>),
+    icon: (
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+        <img src="/assets/home/face_detection.svg" alt="Live Photo Verified" className="w-7 h-7" />
+      </span>
+    ),
+    title: (<><span className="text-white">Live Photo</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: "Eliminating Fake Personas",
+    desc: <><span className='text-gray-400 italic text-[18px]'>Eliminating Fake Personas</span></>,
   },
   {
-    icon: <AadhaarIcon />,
-    title: (<><span className="text-white">Adhaar</span> <span className="text-yellow-400">Verified</span></>),
+    icon: (
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+        <img src="/assets/home/id_card.svg" alt="Aadhaar Verified" className="w-7 h-7" />
+      </span>
+    ),
+    title: (<><span className="text-white">Adhaar</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: "Preventing Identity Fraud",
+    desc: <><span className='text-gray-400 italic text-[18px]'>Preventing Identity Fraud</span></>,
   },
   {
-    icon: <LegalIcon />,
-    title: (<><span className="text-white">Legal Status</span> <span className="text-yellow-400">Verified</span></>),
+    icon: (
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+        <img src="/assets/home/legal_2.svg" alt="Legal Status Verified" className="w-7 h-7" />
+      </span>
+    ),
+    title: (<><span className="text-white">Legal Status</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: "Automated Court Case Checks",
+    desc: <><span className='text-gray-400 italic text-[18px]'>Automated Court Case Checks</span></>,
   },
   {
-    icon: <ExperienceIcon />,
-    title: (<><span className="text-white">Experience</span> <span className="text-yellow-400">Verified</span></>),
+    icon: (
+      <span className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
+        <img src="/assets/home/experience 1.svg" alt="Experience Verified" className="w-7 h-7" />
+      </span>
+    ),
+    title: (<><span className="text-white">Experience</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: "Past Employment Check with Rating",
+    desc: <span className='text-gray-400 italic text-[18px]'>Past Employment Check with Rating</span>,
   },
 ];
 
 const workerBenefits = [
-  { icon: '/assets/home/Thumb-up.svg', title: 'Increased', desc: 'Self Esteem' },
+  
   { icon: '/assets/home/Share.svg', title: 'Sharable', desc: 'Digital Biodata' },
   { icon: '/assets/home/Work-outline.svg', title: 'Potential for', desc: 'Better Jobs' },
+  { icon: '/assets/home/Thumb-up.svg', title: 'Increased', desc: 'Self Esteem' },
   { icon: '/assets/home/Check-circle-outline.svg', title: 'Continued', desc: 'Growth' },
 ];
 
 const employerBenefits = [
   { icon: '/assets/home/Verified-user.svg', title: 'Instant Access to', desc: 'Authentic Profiles' },
-  { icon: '/assets/home/Timer.svg', title: 'Significant Reduction in', desc: 'Time to Hire' },
+  { icon: '/assets/home/Timer.svg', title: 'Reduced', desc: 'Time-to-Hire' },
+  { icon: '/assets/home/Stars.svg', title: 'Past employment History & ', desc: 'Ratings' },
   { icon: '/assets/home/Mindfulness.svg', title: 'Lower Attrition', desc: 'Higher Productivity' },
-  { icon: '/assets/home/Stars.svg', title: 'Verified past employment', desc: 'history & ratings' },
+  
 ];
 
 const sections = [
@@ -69,7 +75,7 @@ const sections = [
           <li key={i} className="flex items-start gap-3">
             {f.icon}
             <div>
-              <span className="font-bold text-md md:text-lg text-yellow-400">
+              <span className="font-bold text-md md:text-lg text-[#FFC226]">
                 {f.title}
               </span>
               <div className="text-gray-200 text-base md:text-sm font-regular">
@@ -90,20 +96,20 @@ const sections = [
     content: (
       <ul className="space-y-5">
         {workerBenefits.map((item, idx) => (
-          <li key={idx} className="flex items-start gap-3">
-            <div className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center">
+          <li key={idx} className="flex items-center gap-3">
+            <div className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
               <img src={item.icon} alt="icon" className="w-7 h-7" />
             </div>
             <div>
-              <span className="font-bold text-md md:text-lg text-yellow-400">
-                {item.title} <span className="text-white">{item.desc}</span>
+              <span className="font-bold text-md md:text-lg text-white">
+                {item.title} <span className="text-[#FFC226]">{item.desc}</span>
               </span>
             </div>
           </li>
         ))}
       </ul>
     ),
-    image: '/assets/home/worker-image.png'
+    image: '/assets/home/identity.png'
   },
   {
     key: "employer",
@@ -113,20 +119,20 @@ const sections = [
     content: (
       <ul className="space-y-5">
         {employerBenefits.map((item, idx) => (
-          <li key={idx} className="flex items-start gap-3">
-            <div className="inline-block w-10 h-10 bg-yellow-400 rounded-md flex items-center justify-center">
+          <li key={idx} className="flex items-center gap-3">
+            <div className="inline-block w-12 h-12 bg-[#FFC226] rounded-full flex items-center justify-center">
               <img src={item.icon} alt="icon" className="w-7 h-7" />
             </div>
             <div>
-              <span className="font-bold text-md md:text-lg text-yellow-400">
-                {item.title} <span className="text-white">{item.desc}</span>
+              <span className="font-bold text-md md:text-lg text-white">
+                {item.title} <span className="text-[#FFC226]">{item.desc}</span>
               </span>
             </div>
           </li>
         ))}
       </ul>
     ),
-    image: '/assets/home/worker-image.png'
+    image: '/assets/home/identity.png'
   },
 ];
 
@@ -287,81 +293,44 @@ const IdentityVerified = () => {
         }}
       >
         <div className="absolute inset-0 flex flex-col justify-center px-5 md:px-16">
-          <div className="mb-8 max-w-6xl mx-auto w-full">
-            <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true }}
-              className="text-center text-3xl md:text-6xl font-bold tracking-tight leading-tight"
-            >
-              <span className="text-white">Saathi </span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">TrueID</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center text-gray-400 mt-4 text-xl md:text-5xl  font-medium"
-            >
-              A single automated snapshot of authenticated details<br className="hidden md:block" />
-              redefining <b className="text-white">Worker-Employer</b> trust metrics
-            </motion.p>
-          </div>
-
-          <div className="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-start px-4">
-            {/* Left Side - Content */}
-            <div className="relative min-h-[350px] flex flex-col pt-16 md:pt-24">
-              <div className="h-full">
-                {sections.map((section, index) => (
-                  <div
-                    key={section.key}
-                    className={`absolute w-full ${
-                      selectedIndex === index
-                        ? 'opacity-100 translate-y-0'
-                        : 'opacity-0 -translate-y-4 pointer-events-none'
-                    }`}
-                    style={{
-                      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
-                    }}
-                  >
-                    <div className="flex flex-col h-full">
-                      <h3 className="text-xl md:text-2xl font-bold mb-6 text-white">
-                        {section.title}
-                      </h3>
-                      <div className="space-y-4">
-                        {section.content}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+          <div className="w-full flex">
+            <div className="max-w-2xl w-full">
+              <h2 className="text-left text-4xl md:text-5xl font-bold text-white leading-tight mb-1">
+                Saathi True<span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
+              </h2>
+              <div className="text-left text-base md:text-[18px] text-gray-400 italic font-medium mb-6">
+                LinkedIn of the Workforce
               </div>
-
-              {/* Vertical pagination dots */}
-              {isFullScreen && (
-                <div 
-                  className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3"
-                  style={{
-                    transition: 'opacity 0.3s ease-in-out'
-                  }}
-                >
-                  {sections.map((section, index) => (
-                    <div
-                      key={`progress-${section.key}`}
-                      className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
-                        selectedIndex === index
-                          ? 'bg-yellow-400 scale-125'
-                          : 'bg-gray-600 hover:bg-gray-500'
-                      }`}
-                    />
-                  ))}
+              <div className="text-left text-gray-300 text-2xl md:text-[40px] leading-tight font-regular mb-10 max-w-5xl">
+                A single automated snapshot of authenticated details redefining
+                <span className=" text-white"> Worker-Employer</span> trust metrics
+              </div>
+              <div className="mt-8">
+                <div className="text-xl md:text-[28px] font-regular mb-4 text-left text-gray-400 px-9 ">
+                  Live on <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
                 </div>
-              )}
+                <div className="flex flex-row items-start">
+                  {/* Pagination Dots */}
+                  {isFullScreen && (
+                    <div className="flex flex-col items-center mr-4 mt-2">
+                      {sections.map((_, idx) => (
+                        <div
+                          key={idx}
+                          className={`w-3 h-3 rounded-full mb-3 transition-all duration-300 ${selectedIndex === idx ? 'bg-[#FFC226]' : 'bg-gray-600'}`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {/* Dynamic Section Content */}
+                  <div className="flex-1">
+                    {sections[selectedIndex].content}
+                  </div>
+                </div>
+              </div>
             </div>
-
             {/* Right Side - Image Display */}
-            <div className="relative h-full flex items-center justify-center">
-              <div className="relative w-full max-w-[180px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg">
+            <div className="flex-1 flex justify-center items-center">
+              <div className="relative w-full max-w-[220px] md:max-w-[350px] aspect-[9/16] mx-auto overflow-hidden rounded-lg flex items-center">
                 {sections.map((section, index) => (
                   <div
                     key={`image-${section.key}`}
@@ -371,13 +340,14 @@ const IdentityVerified = () => {
                         : 'opacity-0 scale-95 pointer-events-none'
                     }`}
                     style={{
-                      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
+                      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
+                      transform: selectedIndex === index ? 'scale(1)' : 'scale(0.95)'
                     }}
                   >
                     <img
                       src={section.image}
                       alt={section.key}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-contain drop-shadow-2xl"
                     />
                   </div>
                 ))}

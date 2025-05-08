@@ -24,16 +24,16 @@ export default function HeroSection() {
       </div>
       
       {/* Content */}
-      <div className="container h-full pb-6 sm:pb-10 relative z-10 px-4 sm:px-6 flex flex-col justify-end items-center text-white gap-3 sm:gap-5">
-        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold mb-2 sm:mb-3 text-center">
+      <div className="container h-full pb-8 sm:pb-12 relative z-10 px-4 sm:px-6 flex flex-col justify-center items-center text-white gap-3 sm:gap-5 mt-48 sm:mt-64">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold mb-2 sm:mb-3 text-center font-['helvetica']">
           The Future of Hiring is Here
         </h1>
-        <Button 
+        {/* <Button 
           variant="business" 
           className="text-lg sm:text-2xl w-fit font-bold rounded-[7px] transform hover:scale-105 transition-all duration-300 bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] text-black hover:from-[#FF9A01] hover:via-[#FFD955] hover:to-[#FFC01D]"
         >
           Post. Match. Hire
-        </Button>
+        </Button> */}
       </div>
     </section>
   );

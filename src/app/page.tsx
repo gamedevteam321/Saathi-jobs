@@ -29,8 +29,7 @@ export default function Home() {
       <IdentityVerified2 />
       {/* Section explaining the Saathi ecosystem */}
       <SaathiEcosystem />
-      {/* Section about community features */}
-      <CommunitySection />
+      
       {/* Section for creators */}
       <Impact />
       {/* Section for business features */}
@@ -38,6 +37,8 @@ export default function Home() {
       {/* Section with app download call-to-action */}
       <DownloadAppSection />
       {/* Footer component */}
+      {/* Section about community features */}
+      <CommunitySection />
       <Footer />
     </main>
   );

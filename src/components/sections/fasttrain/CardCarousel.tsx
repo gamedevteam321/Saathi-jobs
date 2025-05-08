@@ -32,14 +32,14 @@ export default function CardCarousel({ title, cards }: CardCarouselProps) {
   };
 
   return (
-    <div className="w-full mx-auto scrollbar-hide ">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-500 mb-6 ">{title}</h2>
+    <div className="w-full mx-auto scrollbar-hide">
+      <h2 className="text-2xl md:text-[28px] font-bold text-gray-500 mb-6">{title}</h2>
       
       <div className="relative">
         {/* Cards Container */}
         <div 
           ref={carouselRef}
-          className="flex overflow-x-auto scrollbar-hide gap-4 px-4 md:px-8 pb-4"
+          className="flex overflow-x-auto scrollbar-hide gap-4 md:gap-6 px-2 md:px-4 pb-4 justify-between"
           style={{ 
             scrollbarWidth: 'none', 
             msOverflowStyle: 'none', 
@@ -51,7 +51,7 @@ export default function CardCarousel({ title, cards }: CardCarouselProps) {
               key={card.id}
               className="relative flex-shrink-0 group"
             >
-              <div className="relative w-[216px] h-[288px] rounded-md overflow-hidden transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-[200px] md:w-[220px] h-[280px] md:h-[300px] rounded-md overflow-hidden transition-transform duration-300 group-hover:scale-105">
                 {/* Fallback gradient background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${getCardColor(card.id)}`} />
                 
