@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,6 +14,7 @@ interface NavLink {
 }
 
 const Header: React.FC<HeaderProps> = (): JSX.Element => {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   
   // Prevent scrolling when menu is open
@@ -56,8 +58,7 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
   ];
 
   const handleBusinessClick = () => {
-    // Add your business navigation logic here
-    console.log("Business button clicked");
+    router.push('/business-sub');
   };
 
   return (
