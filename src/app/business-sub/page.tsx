@@ -35,6 +35,23 @@ const checklistIcons = [
 const BusinessSubPage = () => {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col md:flex-row">
+      <style jsx>{`
+        @keyframes gradient-rotate {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        .animate-gradient-rotate {
+          background-size: 200% 200%;
+          animation: gradient-rotate 3s ease infinite;
+        }
+      `}</style>
       {/* Left Section */}
       <div className="md:w-1/3 flex flex-col justify-between p-6 md:p-10 bg-black gap-5 md:gap-10 text-center md:text-left">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight pb-1 md:pb-5">
