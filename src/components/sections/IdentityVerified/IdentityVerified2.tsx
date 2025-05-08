@@ -312,7 +312,7 @@ const IdentityVerified = () => {
                 <div className="flex flex-row items-start">
                   {/* Pagination Dots */}
                   {isFullScreen && (
-                    <div className="flex flex-col items-center mr-4 mt-2">
+                    <div className="flex flex-col items-center mr-4 pt-24">
                       {sections.map((_, idx) => (
                         <div
                           key={idx}
