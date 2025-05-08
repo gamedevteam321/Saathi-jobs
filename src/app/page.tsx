@@ -12,6 +12,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import SaathiEcosystem from "@/components/sections/SaathiEcosystem";
 // import IdentityVerified from "@/components/sections/IdentityVerified/IdentityVerified";
 import IdentityVerified2 from "@/components/sections/IdentityVerified/IdentityVerified2";
+import DownloadAndHireSection from "@/components/sections/DownloadAndHireSection";
 
 // Main page component that serves as the landing page
 export default function Home() {
@@ -32,10 +33,8 @@ export default function Home() {
       
       {/* Section for creators */}
       <Impact />
-      {/* Section for business features */}
-      <BusinessSection />
-      {/* Section with app download call-to-action */}
-      <DownloadAppSection />
+      <DownloadAndHireSection />
+      
       {/* Footer component */}
       {/* Section about community features */}
       <CommunitySection />

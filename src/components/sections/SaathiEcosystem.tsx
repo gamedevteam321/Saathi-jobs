@@ -12,24 +12,24 @@ const SaathiEcosystem = () => {
 
       <div className="flex justify-center w-full gap-4">
         <img
-          src="/assets/home/section2_1.png"
+          src="/images/identity.png"
           alt="mobile-1"
-          className="max-h-[150px] md:max-h-[400px]"
+          className="max-h-[150px] md:max-h-[420px] -mt-4 md:-mt-4"
         />
         <img
-          src="/assets/home/section2_2.png"
+          src="/images/skilling.png"
           alt="mobile-2"
           className="z-10 max-h-[150px] md:max-h-[400px] relative"
         />
          <img
-          src="/assets/home/section2_2.png"
-          alt="mobile-2"
+          src="/images/jobs.png"
+          alt="mobile-3"
           className="z-10 max-h-[150px] md:max-h-[400px] relative"
         />
         <img
-          src="/assets/home/section2_3.png"
-          alt="mobile-3"
-          className="max-h-[150px] md:max-h-[400px]"
+          src="/images/community.png"
+          alt="mobile-4"
+          className="max-h-[150px] md:max-h-[420px] -mt-4 md:-mt-4"
         />
       </div>
 

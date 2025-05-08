@@ -1,37 +1,34 @@
 export const impactVideoData = [
   {
     id: "impact1",
-    title: "Feature on Business Today - Eklavya Chandra",
+    title: "",
     
-    thumbnailUrl: "/videos/impact-water-thumbnail.jpg",
-    videoUrl: "/videos/impact-water.mp4"
+    thumbnailUrl: "/images/Media/business-today.png",
+    videoUrl: "",
+    youtubeUrl: "https://www.youtube.com/embed/rLVH_VB0Ohw?si=QtcByiTVUf3XYiSp"
   },
   {
     id: "impact2",
-    title: "Education for All",
-    
-    thumbnailUrl: "/videos/impact-education-thumbnail.jpg",
-    videoUrl: "/videos/impact-education.mp4"
+    title: "",
+    thumbnailUrl: "/images/Media/startup-story.png",
+    videoUrl: "",
+    youtubeUrl: "https://www.youtube.com/watch?v=X1TgklSIOGo"
   },
   {
     id: "impact3",
-    title: "Healthcare Access",
+    title: "",
     
-    thumbnailUrl: "/videos/impact-health-thumbnail.jpg",
-    videoUrl: "/videos/impact-health.mp4"
+    thumbnailUrl: "/images/Media/et-interview.png",
+    videoUrl: "",
+    youtubeUrl: "https://www.youtube.com/watch?v=EkGFcdI92Sg"
   },
   {
     id: "impact4",
-    title: "Renewable Energy",
+    title: "",
     
-    thumbnailUrl: "/videos/impact-energy-thumbnail.jpg",
-    videoUrl: "/videos/impact-energy.mp4"
+    thumbnailUrl: "/images/Media/vikas.png",
+    videoUrl: "",
+    youtubeUrl: "https://www.youtube.com/watch?v=F5DRWyz2KBk"
   },
-  {
-    id: "impact5",
-    title: "Women Empowerment",
-    
-    thumbnailUrl: "/videos/impact-women-thumbnail.jpg",
-    videoUrl: "/videos/impact-women.mp4"
-  }
+  
 ]; 

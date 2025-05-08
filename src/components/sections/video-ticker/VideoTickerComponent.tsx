@@ -8,6 +8,7 @@ interface VideoItem {
   title: string;
   thumbnailUrl: string;
   videoUrl: string;
+  youtubeUrl: string;
 }
 
 interface VideoTickerProps {
@@ -137,20 +138,32 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
               onClick={() => handleCardClick(video.id, false)}
             >
               <div className="w-full h-full relative rounded-lg overflow-hidden">
+                {/* YouTube iframe (shown on hover) */}
+                {isHovering === video.id && video.youtubeUrl && (
+                  <iframe
+                    src={`${video.youtubeUrl.includes('embed') ? video.youtubeUrl : video.youtubeUrl.replace('watch?v=', 'embed/')}?autoplay=1&controls=0&loop=1&playlist=${video.youtubeUrl.includes('embed') ? video.youtubeUrl.split('/').pop()?.split('?')[0] : video.youtubeUrl.split('v=')[1]}`}
+                    className="absolute inset-0 w-full h-full object-cover z-10"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
+                
                 {/* Video element (hidden until hover/click) */}
-                <video
-                  ref={el => {
-                    if (el) videoRefs.current[getVideoRefKey(video.id, false)] = el;
-                  }}
-                  src={video.videoUrl}
-                  className={`absolute inset-0 w-full h-full object-cover ${
-                    isHovering === video.id ? 'opacity-100 z-10' : 'opacity-0'
-                  }`}
-                  playsInline
-                  loop
-                  muted
-                  preload="auto"
-                />
+                {!video.youtubeUrl && (
+                  <video
+                    ref={el => {
+                      if (el) videoRefs.current[getVideoRefKey(video.id, false)] = el;
+                    }}
+                    src={video.videoUrl}
+                    className={`absolute inset-0 w-full h-full object-cover ${
+                      isHovering === video.id ? 'opacity-100 z-10' : 'opacity-0'
+                    }`}
+                    playsInline
+                    loop
+                    muted
+                    preload="auto"
+                  />
+                )}
                 
                 {/* Thumbnail image (shown when not hovering/active) */}
                 <div className={`absolute inset-0 transition-opacity duration-300 ${
@@ -206,20 +219,32 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
               onClick={() => handleCardClick(video.id, true)}
             >
               <div className="w-full h-full relative rounded-lg overflow-hidden">
+                {/* YouTube iframe (shown on hover) */}
+                {isHovering === video.id && video.youtubeUrl && (
+                  <iframe
+                    src={`${video.youtubeUrl.includes('embed') ? video.youtubeUrl : video.youtubeUrl.replace('watch?v=', 'embed/')}?autoplay=1&controls=0&loop=1&playlist=${video.youtubeUrl.includes('embed') ? video.youtubeUrl.split('/').pop()?.split('?')[0] : video.youtubeUrl.split('v=')[1]}`}
+                    className="absolute inset-0 w-full h-full object-cover z-10"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
+                
                 {/* Video element (hidden until hover/click) */}
-                <video
-                  ref={el => {
-                    if (el) videoRefs.current[getVideoRefKey(video.id, true)] = el;
-                  }}
-                  src={video.videoUrl}
-                  className={`absolute inset-0 w-full h-full object-cover ${
-                    isHovering === video.id ? 'opacity-100 z-10' : 'opacity-0'
-                  }`}
-                  playsInline
-                  loop
-                  muted
-                  preload="auto"
-                />
+                {!video.youtubeUrl && (
+                  <video
+                    ref={el => {
+                      if (el) videoRefs.current[getVideoRefKey(video.id, true)] = el;
+                    }}
+                    src={video.videoUrl}
+                    className={`absolute inset-0 w-full h-full object-cover ${
+                      isHovering === video.id ? 'opacity-100 z-10' : 'opacity-0'
+                    }`}
+                    playsInline
+                    loop
+                    muted
+                    preload="auto"
+                  />
+                )}
                 
                 {/* Thumbnail image (shown when not hovering/active) */}
                 <div className={`absolute inset-0 transition-opacity duration-300 ${
