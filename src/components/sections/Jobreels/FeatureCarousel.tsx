@@ -38,10 +38,10 @@ export default function FeatureCarousel() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const scrollDirection = useRef<'up' | 'down' | null>(null);
   const scrollAccumulator = useRef(0);
-  const SCROLL_THRESHOLD = 30;
+  const SCROLL_THRESHOLD = 50;
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
   const lastScrollTime = useRef(0);
-  const SCROLL_COOLDOWN = 80;
+  const SCROLL_COOLDOWN = 100;
   const isFromBelow = useRef(false);
   const isScrolling = useRef(false);
   const lastScrollPosition = useRef(0);
@@ -272,9 +272,9 @@ export default function FeatureCarousel() {
           height: isFullScreen ? '100vh' : 'auto'
         }}
       >
-        <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-5 md:px-16">
+        <div className="absolute inset-0 flex flex-col justify-start px-2 sm:px-4 md:px-16 pt-2">
           <div 
-            className="mb-4 sm:mb-8 transition-all duration-500 linear mt-24 sm:mt-32 md:mt-40 px-4"
+            className="mb-2 sm:mb-4 transition-all duration-500 linear mt-1 sm:mt-4 md:mt-20 px-0 sm:px-4"
             style={{
               opacity: 1,
               transform: isFullScreen ? 'translateY(0)' : 'none',
@@ -285,24 +285,24 @@ export default function FeatureCarousel() {
               zIndex: 50
             }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white text-center md:text-left font-['Helvetica']">
+            <h1 className="pt-4 text-4xl sm:text-4xl md:text-6xl font-bold text-white text-center md:text-left font-['Helvetica']">
               <span>Job</span>
               <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reels</span>
             </h1>
-            <p className="text-gray-400 italic text-sm sm:text-md md:text-[18px] py-1 text-center md:text-left font-['Helvetica']">The Instagram of Jobs</p>
-            <div className="mt-6 md:mt-8 text-center md:text-left">
-              <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight mb-6 font-['Helvetica'] ">When Resume's meet Reel's<br/>hiring happens instantly.</h2>
-              <div className="text-gray-400 text-lg sm:text-xl md:text-[28px] font-medium leading-snug font-['Helvetica'] space-y-1">
+            <p className="text-gray-400 italic text-md sm:text-md md:text-[18px] py-1 text-center md:text-left font-['Helvetica']">The Instagram of Jobs</p>
+            <div className="mt-3 md:mt-8 text-center md:text-left">
+              <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight mb-4 md:mb-6 font-['Helvetica'] ">When Resume's meet Reel's<br/>hiring happens instantly.</h2>
+              <div className="text-gray-400 text-lg sm:text-xl md:text-[28px] font-medium leading-tight font-['Helvetica']  md:space-y-1">
                <p> Post. Swyp. Match. Hire</p>
                <p> Fast. Fun. Effortless</p>
               </div>
             </div>
           </div>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-0 items-center -mt-32 sm:-mt-36 md:-mt-40">
+          <div className="container mx-auto flex flex-col md:grid md:grid-cols-2 gap-2 sm:gap-5 md:gap-0 items-center mt-0 sm:-mt-36 md:-mt-40">
             {/* Left Side - Feature Text */}
-            <div className="relative min-h-[200px] sm:min-h-[400px] flex flex-col justify-center items-center md:items-end text-center md:text-left mt-20 md:mt-32">
-              <div className="h-full flex items-center justify-center md:justify-end md:pr-4">
+            <div className="relative min-h-[120px] sm:min-h-[300px] flex flex-col justify-center items-center md:items-end text-center md:text-left mt-6 md:mt-32 order-1 md:order-none w-full px-4">
+              <div className="h-full flex items-center justify-center md:justify-end md:pr-4 w-full">
                 {features.map((feature, index) => (
                   <div
                     key={feature.id}
@@ -318,9 +318,9 @@ export default function FeatureCarousel() {
                       backgroundColor: 'black'
                     }}
                   >
-                    <div className="w-full h-full flex flex-row items-start space-x-4 bg-black">
-                      {/* Pagination dots on the left */}
-                      <div className="flex flex-col items-center justify-center space-y-4 mr-2 mt-3">
+                    <div className="w-full h-full flex flex-row items-start space-x-2 md:space-x-4 bg-black">
+                      {/* Pagination dots for desktop only (vertical) */}
+                      <div className="hidden md:flex flex-col items-center justify-center space-y-4 mr-2 mt-3">
                         {features.map((_, dotIdx) => (
                           <div
                             key={`progress-${dotIdx}`}
@@ -334,10 +334,10 @@ export default function FeatureCarousel() {
                       </div>
                       {/* Feature text on the right */}
                       <div className="flex-1">
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-3">
+                        <h2 className="text-xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-2 md:pb-3">
                           {feature.id === "stories" ? feature.title : feature.title}
                         </h2>
-                        <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic">{feature.description}</p>
+                        <p className="text-md sm:text-base text-gray-400 mb-2 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic leading-tight">{feature.description}</p>
                       </div>
                     </div>
                   </div>
@@ -345,9 +345,23 @@ export default function FeatureCarousel() {
               </div>
             </div>
 
+            {/* Pagination dots for mobile only (horizontal, centered) */}
+            <div className="flex md:hidden flex-row items-center justify-center space-x-4 w-full order-2 mt-2 mb-2">
+              {features.map((_, dotIdx) => (
+                <div
+                  key={`progress-mobile-${dotIdx}`}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    selectedIndex === dotIdx
+                      ? 'bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01]'
+                      : 'bg-gray-600'
+                  }`}
+                />
+              ))}
+            </div>
+
             {/* Right Side - Video Display */}
-            <div className="relative h-full flex items-center justify-center md:justify-start md:pl-4 bg-black -mt-40 sm:-mt-56 md:-mt-64">
-              <div className="relative w-full max-w-[400px] sm:max-w-[280px] md:max-w-[380px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black">
+            <div className="relative h-full flex flex-col items-center justify-center md:justify-start md:pl-4 bg-black mt-6 md:-mt-64 order-2 md:order-none w-full px-4">
+              <div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-[480px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black">
                 {features.map((feature, index) => (
                   <div
                     key={`video-${feature.id}`}
@@ -365,7 +379,7 @@ export default function FeatureCarousel() {
                   >
                     {feature.phoneImage.endsWith('.mp4') ? (
                       <video
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain max-w-[240px] sm:max-w-[280px] md:max-w-[480px] mx-auto"
                         autoPlay
                         loop
                         muted
@@ -377,7 +391,7 @@ export default function FeatureCarousel() {
                       <img
                         src={feature.phoneImage}
                         alt={typeof feature.title === 'string' ? feature.title : ''}
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain max-w-[240px] sm:max-w-[280px] md:max-w-[480px] mx-auto"
                       />
                     )}
                   </div>

@@ -82,7 +82,7 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
 
   return (
     <div className="w-full overflow-hidden py-8">
-      <h2 className="text-2xl md:text-[28px] font-bold text-gray-500 mb-6">{title}</h2>
+      <h2 className="text-lg md:text-[28px] font-bold text-gray-500 mb-6">{title}</h2>
       
       {/* Video Modal */}
       {selectedVideo && (
@@ -109,7 +109,7 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
               />
             </div>
             <div className="p-4 bg-gradient-to-t from-black to-transparent">
-              <h3 className="text-white text-xl font-bold">{selectedVideo.title}</h3>
+              <h3 className="text-white text-xl md:text-xl font-bold">{selectedVideo.title}</h3>
             </div>
           </div>
         </div>

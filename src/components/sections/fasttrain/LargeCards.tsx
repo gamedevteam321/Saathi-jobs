@@ -2,12 +2,12 @@ import React from "react";
 
 const LargeCards = () => {
   return (
-    <div className="flex flex-row md:flex-row gap-5 w-full h-full">
+    <div className="flex flex-col md:flex-row gap-5 w-full h-full">
       {/* Card 1 */}
       <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl w-full h-full md:h-[150px] shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300">
-        <div className="flex flex-row items-center h-full">
+        <div className="flex flex-col md:flex-row items-center h-full">
           {/* Image part */}
-          <div className="w-1/3 flex items-center justify-center p-4">
+          <div className="w-full md:w-1/3 flex items-center justify-center p-4">
             <img 
               src="/images/Certificate.png" 
               alt="Certificate Icon" 
@@ -15,15 +15,16 @@ const LargeCards = () => {
             />
           </div>
           {/* Content part */}
-          <div className="w-2/3 p-4 flex flex-col justify-center">
+          <div className="w-full md:w-2/3 p-4 flex flex-col justify-center text-center md:text-left">
             <h3 className="text-xl md:text-2xl font-regular text-white mb-2 font-['Helvetica']">
               Saathi Certificate
             </h3>
             <div className="space-y-1">
-              <p className="text-sm md:text-md text-gray-400 italic font-['Helvetica']">
-                The new Gold Standard in Digital Skilling
+              <p className="text-md md:text-md text-gray-400 italic font-['Helvetica']">
+                <span className="block md:inline">The new Gold Standard in</span>
+                <span className="block md:inline"> Digital Skilling</span>
               </p>
-              <p className="text-sm md:text-md text-gray-400 italic font-['Helvetica']">
+              <p className="text-md md:text-md text-gray-400 italic font-['Helvetica']">
                 Delivering credibility with proof of skills and knowledge.
               </p>
             </div>
@@ -33,9 +34,9 @@ const LargeCards = () => {
 
       {/* Card 2 */}
       <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl w-full h-full md:h-[150px] shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300">
-        <div className="flex flex-row items-center h-full">
+        <div className="flex flex-col md:flex-row items-center h-full">
           {/* Image part */}
-          <div className="w-1/3 flex items-center justify-center p-4">
+          <div className="w-full md:w-1/3 flex items-center justify-center p-4 sm:pt-2">
             <img 
               src="/images/rating.png" 
               alt="Rating Icon" 
@@ -43,15 +44,15 @@ const LargeCards = () => {
             />
           </div>
           {/* Content part */}
-          <div className="w-2/3 p-4 flex flex-col justify-center">
+          <div className="w-full md:w-2/3 p-4 flex flex-col justify-center text-center md:text-left">
             <h3 className="text-xl md:text-2xl font-regular text-white mb-2 font-['Helvetica']">
               Saathi Rating
             </h3>
             <div className="space-y-1">
-              <p className="text-sm md:text-md text-gray-400 italic font-['Helvetica']">
+              <p className="text-md md:text-md text-gray-400 italic font-['Helvetica']">
                 A single glance metric of capability and suitability.
               </p>
-              <p className="text-sm md:text-md text-gray-400 italic font-['Helvetica']">
+              <p className="text-md md:text-md text-gray-400 italic font-['Helvetica']">
                 Skill grading, KYC, Psychometrics & Past employer ratings.
               </p>
             </div>
