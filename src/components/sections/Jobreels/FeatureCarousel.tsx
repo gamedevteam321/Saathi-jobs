@@ -240,8 +240,8 @@ export default function FeatureCarousel() {
     <div 
       ref={sectionRef}
       className={`${
-        isFullScreen ? 'fixed inset-0 z-50 bg-black' : 'relative bg-black'
-      } transition-all duration-300 ease-out`}
+        isFullScreen ? 'fixed inset-0 z-50' : 'relative'
+      } transition-all duration-300 ease-out bg-black`}
       style={{ 
         pointerEvents: isTransitioning ? 'none' : 'auto',
         opacity: 1,
@@ -262,7 +262,7 @@ export default function FeatureCarousel() {
       <section 
         className={`${
           isFullScreen ? 'h-screen' : 'min-h-screen'
-        } bg-black relative overflow-hidden transition-all duration-300 ease-out`}
+        } relative overflow-hidden transition-all duration-300 ease-out bg-black`}
         style={{
           opacity: 1,
           transform: isFullScreen ? 'translateY(0)' : 'none',
@@ -272,27 +272,36 @@ export default function FeatureCarousel() {
           height: isFullScreen ? '100vh' : 'auto'
         }}
       >
-        <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-5 md:px-16 bg-black">
+        <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-5 md:px-16">
           <div 
-            className="mb-4 sm:mb-8 transition-all duration-500 linear mt-16 sm:mt-0 bg-black" 
+            className="mb-4 sm:mb-8 transition-all duration-500 linear mt-24 sm:mt-32 md:mt-40 px-4"
             style={{
               opacity: 1,
               transform: isFullScreen ? 'translateY(0)' : 'none',
               transition: 'all 0.5s linear',
               transitionDelay: '0.1s',
-              backgroundColor: 'black'
+              visibility: 'visible',
+              position: 'relative',
+              zIndex: 50
             }}
           >
-            <h1 className="text-4xl sm:text-3xl md:text-7xl font-bold text-white text-center md:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white text-center md:text-left">
               <span>Job</span>
               <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reels</span>
             </h1>
             <p className="text-gray-600 italic text-sm sm:text-md md:text-lg py-1 text-center md:text-left">The Instagram of Jobs</p>
+            <div className="mt-6 md:mt-8 text-center md:text-left">
+              <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight mb-2">When Resume's meet Reel's<br/>hiring happens instantly.</h2>
+              <div className="text-gray-400 text-lg sm:text-xl md:text-2xl font-medium leading-snug">
+                Post. Swyp. Match. Hire<br/>
+                Fast. Fun. Effortless
+              </div>
+            </div>
           </div>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-0 items-center bg-black">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-0 items-center bg-black -mt-32 sm:-mt-36 md:-mt-40">
             {/* Left Side - Feature Text */}
-            <div className="relative min-h-[200px] sm:min-h-[400px] flex flex-col justify-center items-center md:items-end text-center md:text-left mt-8 md:mt-0 bg-black">
+            <div className="relative min-h-[200px] sm:min-h-[400px] flex flex-col justify-center items-center md:items-end text-center md:text-left mt-20 md:mt-32">
               <div className="h-full flex items-center justify-center md:justify-end md:pr-4 bg-black">
                 {features.map((feature, index) => (
                   <div
@@ -343,8 +352,8 @@ export default function FeatureCarousel() {
             </div>
 
             {/* Right Side - Video Display */}
-            <div className="relative h-full flex items-center justify-center md:justify-start md:pl-4 bg-black">
-              <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[300px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black">
+            <div className="relative h-full flex items-center justify-center md:justify-start md:pl-4 bg-black -mt-40 sm:-mt-56 md:-mt-64">
+              <div className="relative w-full max-w-[420px] sm:max-w-[460px] md:max-w-[420px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black">
                 {features.map((feature, index) => (
                   <div
                     key={`video-${feature.id}`}
