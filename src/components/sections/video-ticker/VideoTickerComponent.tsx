@@ -81,7 +81,7 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
   };
 
   return (
-    <div className="w-full overflow-hidden py-8">
+    <div className="w-full overflow-hidden  md:py-10">
       <h2 className="text-lg md:text-[28px] font-bold text-gray-500 mb-6">{title}</h2>
       
       {/* Video Modal */}

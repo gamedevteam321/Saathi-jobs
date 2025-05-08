@@ -46,7 +46,7 @@ export default function Footer() {
         <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent mb-12 text-center">Get in Touch</h2>
 
         {/* Social Cards */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="w-full grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {socialLinks.map((item) => (
             <Link
               key={item.name}

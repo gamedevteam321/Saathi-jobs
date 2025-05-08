@@ -13,6 +13,7 @@ import SaathiEcosystem from "@/components/sections/SaathiEcosystem";
 // import IdentityVerified from "@/components/sections/IdentityVerified/IdentityVerified";
 import IdentityVerified2 from "@/components/sections/IdentityVerified/IdentityVerified2";
 import DownloadAndHireSection from "@/components/sections/DownloadAndHireSection";
+import FullWidthTextSection from "@/components/sections/FullWidthTextSection";
 
 // Main page component that serves as the landing page
 export default function Home() {
@@ -34,10 +35,10 @@ export default function Home() {
       {/* Section for creators */}
       <Impact />
       <DownloadAndHireSection />
+      <FullWidthTextSection />
       
       {/* Footer component */}
-      {/* Section about community features */}
-      <CommunitySection />
+      
       <Footer />
     </main>
   );

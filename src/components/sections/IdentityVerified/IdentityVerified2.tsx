@@ -309,15 +309,15 @@ const IdentityVerified = () => {
         }}
       >
         <div className="absolute inset-0 flex flex-col px-2 sm:px-4 md:px-16 pt-6">
-          <div className="w-full flex flex-col md:flex-row items-center md:items-center">
-            <div className="max-w-2xl w-full h-full flex flex-col items-center md:items-center">
-              <h2 className="text-center md:text-center text-4xl sm:text-3xl md:text-5xl font-bold text-white leading-tight mb-1">
+          <div className="w-full flex flex-col md:flex-row items-center md:items-left">
+            <div className="max-w-2xl w-full h-full flex flex-col items-center md:items-start">
+              <h2 className="text-center md:text-left text-4xl sm:text-3xl md:text-5xl font-bold text-white leading-tight mb-1">
                 Saathi True<span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
               </h2>
-              <div className="text-center md:text-center text-md sm:text-base md:text-[18px] text-gray-400 italic font-medium mb-4 md:mb-6">
+              <div className="text-center md:text-left text-md sm:text-base md:text-[18px] text-gray-400 italic font-medium mb-4 md:mb-6">
                 LinkedIn of the Workforce
               </div>
-              <div className="text-center md:text-center text-gray-300 text-2xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">
+              <div className="text-center md:text-left text-gray-400 text-2xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">
                 A single automated snapshot of authenticated details redefining
                 <span className=" text-white"> Worker-Employer</span> trust metrics
               </div>
