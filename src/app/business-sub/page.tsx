@@ -32,9 +32,78 @@ const checklistIcons = [
   ),
 ];
 
+const LeftSections = () => (
+  <div className="w-full md:h-screen overflow-y-auto md:snap-y md:snap-mandatory flex flex-col bg-black gap-4 md:gap-10">
+    {/* HIRE Section */}
+    <section className="w-full md:min-h-screen flex flex-col justify-between md:snap-start p-4 md:p-10">
+      <div>
+        <h1 className="text-3xl md:text-5xl font-bold leading-tight pb-1 md:pb-5 text-center md:text-left">
+          <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">HIRE</span> FASTER<br />
+          BETTER &<br />
+          EASIER
+        </h1>
+        <p className="text-[18px] md:text-[25px] font-semibold pb-2 text-center md:text-left">
+          <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reel</span> Banao <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Naukri</span> Lagao
+        </p>
+        <ul className="pb-4 md:pb-8 pt-3 md:pt-6 space-y-4">
+          {checklist.map((item, idx) => (
+            <li key={idx} className="flex items-start justify-center md:justify-start">
+              <span className="w-6 h-6 mr-4 mt-1 inline-flex items-center justify-center">{checklistIcons[idx]}</span>
+              <span className="text-base md:text-lg text-gray-200">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="flex flex-col gap-[10px] hidden md:block">
+        <img src="/logo.svg" alt="logo" className="w-30 h-30" />
+        <p className="text-gray-400 text-xs pt-2">Standard T&C to Apply</p>
+      </div>
+    </section>
+    {/* JOB REEL Section */}
+    <section className="w-full md:min-h-screen flex flex-col justify-center items-center md:snap-start p-4 md:p-10">
+      <h2 className="text-3xl md:text-5xl font-bold pb-5 text-center">
+        JOB<span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">REELS</span>
+      </h2>
+      <div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-[320px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black mt-4 flex items-center justify-center">
+        <img
+          src="/images/JobReel.png"
+          alt="Job Reel Preview"
+          className="w-full h-full object-contain max-w-[240px] sm:max-w-[280px] md:max-w-[320px] mx-auto rounded-lg"
+        />
+      </div>
+    </section>
+    {/* JOB POST Section */}
+    <section className="w-full md:min-h-screen flex flex-col justify-center items-center md:snap-start p-4 md:p-10">
+      <h2 className="text-3xl md:text-5xl font-bold pb-5 text-center">
+        JOB<span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">POST</span>
+      </h2>
+      <div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-[320px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black mt-4 flex items-center justify-center">
+        <img
+          src="/images/JobPost.png"
+          alt="Job Post Preview"
+          className="w-full h-full object-contain max-w-[240px] sm:max-w-[280px] md:max-w-[320px] mx-auto rounded-lg"
+        />
+      </div>
+    </section>
+    {/* AI RECRUITER Section */}
+    <section className="w-full md:min-h-screen flex flex-col justify-center items-center md:snap-start p-4 md:p-10">
+      <h2 className="text-3xl md:text-5xl font-bold pb-5 text-center">
+        <span className="text-yellow-400">AI</span> RECRUITER
+      </h2>
+      <div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-[320px] aspect-[9/16] mx-auto overflow-hidden rounded-lg bg-black mt-4 flex items-center justify-center">
+        <img
+          src="/images/AIinterview.png"
+          alt="AI Interview Preview"
+          className="w-full h-full object-contain max-w-[240px] sm:max-w-[280px] md:max-w-[320px] mx-auto rounded-lg"
+        />
+      </div>
+    </section>
+  </div>
+);
+
 const BusinessSubPage = () => {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col md:flex-row">
+    <div className="min-h-screen bg-black text-white flex flex-col-reverse md:flex-row-reverse">
       <style jsx>{`
         @keyframes gradient-rotate {
           0% {
@@ -52,32 +121,8 @@ const BusinessSubPage = () => {
           animation: gradient-rotate 3s ease infinite;
         }
       `}</style>
-      {/* Left Section */}
-      <div className="md:w-1/3 flex flex-col justify-between p-6 md:p-10 bg-black gap-5 md:gap-10 text-center md:text-left">
-        <h1 className="text-3xl md:text-5xl font-bold leading-tight pb-1 md:pb-5">
-          <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">HIRE</span> FASTER<br />
-          BETTER &<br />
-          EASIER
-        </h1>
-        <p className="text-[18px] md:text-[25px] font-semibold pb-2">
-          <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reel</span> Banao <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Naukri</span> Lagao
-        </p>
-        <ul className="pb-4 md:pb-8 pt-3 md:pt-6 space-y-4">
-          {checklist.map((item, idx) => (
-            <li key={idx} className="flex items-start justify-center md:justify-start">
-              <span className="w-6 h-6 mr-4 mt-1 inline-flex items-center justify-center">{checklistIcons[idx]}</span>
-              <span className="text-base md:text-lg text-gray-200">{item}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="flex flex-col gap-[10px] hidden md:block">
-          <img src="/logo.svg" alt="logo" className="w-30 h-30" />
-          <p className="text-gray-400 text-xs pt-2">Standard T&C to Apply</p>
-        </div>
-      </div>
-
-      {/* Right Section */}
-      <div className="md:w-3/4 flex flex-col bg-[#111] px-4 py-6 md:px-20 md:py-11 relative">
+      {/* Right Section: Now appears first on mobile */}
+      <div className="md:w-3/4 flex flex-col bg-[#111] px-4 py-6 md:px-20 md:py-11 relative order-1 md:order-none">
         <div className="flex flex-col h-full w-full gap-8 md:gap-[150px]">
           <div className="w-full text-center md:text-left">
             <h2 className="text-2xl md:text-5xl font-bold">
@@ -120,6 +165,10 @@ const BusinessSubPage = () => {
           <img src="/logo.svg" alt="logo" className="w-24 h-24 mb-2" />
           <p className="text-gray-400 text-xs">Standard T&C to Apply</p>
         </div>
+      </div>
+      {/* Left Section: Scrollable features, appears after right section on mobile */}
+      <div className="md:w-1/3 flex flex-col justify-between bg-black gap-5 md:gap-10 text-center md:text-left order-2 md:order-none">
+        <LeftSections />
       </div>
     </div>
   );
