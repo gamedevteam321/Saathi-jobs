@@ -1,5 +1,9 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import ContactModal from '@/components/layout/ContactModal';
+import TermsModal from '@/components/layout/TermsModal';
+import PrivacyPolicyModal from '@/components/layout/PrivacyPolicyModal';
 
 const checklist = [
   'Reduce Cost to Hire by 80%',
@@ -102,6 +106,10 @@ const LeftSections = () => (
 );
 
 const BusinessSubPage = () => {
+  const [isContactOpen, setContactOpen] = useState(false);
+  const [isTermsOpen, setTermsOpen] = useState(false);
+  const [isPrivacyOpen, setPrivacyOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col-reverse md:flex-row-reverse">
       <style jsx>{`
@@ -156,10 +164,10 @@ const BusinessSubPage = () => {
           </div>
         </div>
         <div className="flex justify-center md:justify-end space-x-4 md:space-x-8 text-gray-400 text-xs md:text-sm mt-8">
-          <a href="#" className="hover:text-yellow-400">Home</a>
-          <a href="#" className="hover:text-yellow-400">Contact Us</a>
-          <a href="#" className="hover:text-yellow-400">Terms</a>
-          <a href="#" className="hover:text-yellow-400">Privacy Policy</a>
+          <Link href="/" className="hover:text-yellow-400">Home</Link>
+          <button onClick={() => setContactOpen(true)} className="hover:text-yellow-400 bg-transparent border-none cursor-pointer p-0 m-0">Contact Us</button>
+          <button onClick={() => setTermsOpen(true)} className="hover:text-yellow-400 bg-transparent border-none cursor-pointer p-0 m-0">Terms</button>
+          <button onClick={() => setPrivacyOpen(true)} className="hover:text-yellow-400 bg-transparent border-none cursor-pointer p-0 m-0">Privacy Policy</button>
         </div>
         <div className="flex flex-col items-center md:hidden mt-4">
           <img src="/logo.svg" alt="logo" className="w-24 h-24 mb-2" />
@@ -170,6 +178,35 @@ const BusinessSubPage = () => {
       <div className="md:w-1/3 flex flex-col justify-between bg-black gap-5 md:gap-10 text-center md:text-left order-2 md:order-none">
         <LeftSections />
       </div>
+      {isContactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
+      {isTermsOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div className="relative bg-white rounded-2xl shadow-xl max-w-5xl w-full p-8 text-left overflow-y-auto max-h-[80vh] text-black">
+            <button
+              onClick={() => setTermsOpen(false)}
+              className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 text-2xl font-bold focus:outline-none"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <TermsModal onClose={() => setTermsOpen(false)} />
+          </div>
+        </div>
+      )}
+      {isPrivacyOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div className="relative bg-white rounded-2xl shadow-xl max-w-5xl w-full p-8 text-left overflow-y-auto max-h-[80vh] text-black">
+            <button
+              onClick={() => setPrivacyOpen(false)}
+              className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 text-2xl font-bold focus:outline-none"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <PrivacyPolicyModal onClose={() => setPrivacyOpen(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

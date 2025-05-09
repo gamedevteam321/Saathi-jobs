@@ -76,7 +76,17 @@ export default function Footer() {
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <Image src="/assets/home/Logo.svg" alt="Saathi Logo" width={100} height={28} />
+            <a
+              href="/"
+              onClick={e => {
+                e.preventDefault();
+                window.__disableJobReelsFullScreen = true;
+                window.__disableIdentityVerifiedFullScreen = true;
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <Image src="/assets/home/Logo.svg" alt="Saathi Logo" width={100} height={28} />
+            </a>
           </div>
 
           {/* Center Links */}
