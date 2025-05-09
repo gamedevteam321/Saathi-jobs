@@ -12,11 +12,15 @@ export default function DownloadAndHireSection() {
             Post a <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">Reel</span>
           </h2>
           <p className="text-gray-400 text-2xl md:text-[40px] mb-8">Get a Job</p>
-          <Link href="/download-app">
+          <a 
+            href="https://play.google.com/store/apps/details?id=in.saathi&pcampaignid=web_share"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <button className="flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 text-black font-semibold px-8 py-3 rounded-md shadow transition hover:scale-105 text-lg md:text-xl">
               <Image src="/assets/home/playstore.svg" alt="Play Store" width={24} height={24} /> Download Now
             </button>
-          </Link>
+          </a>
         </div>
         {/* Divider */}
         <div className="hidden md:block h-40 w-px bg-gray-600 mx-8" />

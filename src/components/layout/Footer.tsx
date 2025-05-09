@@ -10,25 +10,25 @@ import PrivacyPolicyModal from './PrivacyPolicyModal';
 const socialLinks = [
   {
     name: 'LinkedIn',
-    href: '#',
+    href: 'https://www.linkedin.com/company/thesaathiapp',
     icon: '/assets/home/linkdin.svg',
     text: 'Follow us on LinkedIn',
   },
   {
     name: 'Facebook',
-    href: '#',
+    href: 'https://www.facebook.com/thesaathiapp/',
     icon: '/assets/home/facebook.svg',
     text: 'Follow us on Facebook',
   },
   {
     name: 'Instagram',
-    href: '#',
+    href: 'https://www.instagram.com/thesaathiapp/',
     icon: '/assets/home/instagram.svg',
     text: 'Follow us on Instagram',
   },
   {
     name: 'YouTube',
-    href: '#',
+    href: 'https://www.youtube.com/@thesaathiapp',
     icon: '/assets/home/youtube.svg',
     text: 'Subscribe our YouTube channel',
   },
@@ -43,7 +43,7 @@ export default function Footer() {
     <footer className="bg-[#070707] pt-16 pb-6 border-t border-[#19181f]">
       <div className="container flex flex-col items-center">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent mb-12 text-center">Get in Touch</h2>
+        
 
         {/* Social Cards */}
         <div className="w-full grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -51,18 +51,16 @@ export default function Footer() {
             <Link
               key={item.name}
               href={item.href}
-              className="flex flex-col items-start justify-between bg-[#07060d] rounded-2xl p-8 min-h-[180px] border border-[#19181f] shadow-sm hover:shadow-lg transition group"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-start justify-between bg-[#07060d] rounded-2xl p-6 min-h-[140px] border border-[#19181f] shadow-sm hover:shadow-lg transition group"
             >
-              <div className="mb-6">
-                <Image src={item.icon} alt={item.name} width={60} height={60} />
+              <div className="mb-4">
+                <Image src={item.icon} alt={item.name} width={50} height={50} />
               </div>
               <div>
-                <span className="text-xl md:text-2xl font-medium text-white group-hover:underline leading-tight">
-                  {item.text.split(' ').slice(0, -1).join(' ')}
-                </span>
-                <br />
                 <span className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent group-hover:underline leading-tight">
-                  {item.text.split(' ').slice(-1)}
+                  {item.name}
                 </span>
               </div>
             </Link>
