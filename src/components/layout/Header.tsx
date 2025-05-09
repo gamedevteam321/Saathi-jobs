@@ -13,6 +13,14 @@ interface NavLink {
   text: string;
 }
 
+// Add global flag type for disabling JobReels fullpage mode
+declare global {
+  interface Window {
+    __disableJobReelsFullScreen?: boolean;
+    __disableIdentityVerifiedFullScreen?: boolean;
+  }
+}
+
 const Header: React.FC<HeaderProps> = (): JSX.Element => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -47,14 +55,13 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
   ];
 
   const menuOptions: NavLink[] = [
-    { href: "#", text: "JobReels" },
-    { href: "#", text: "FastTrain" },
-    { href: "#", text: "TrueID" },
-    { href: "#", text: "Ecosystem" },
-    { href: "#", text: "Testimonials" },
-    { href: "#", text: "Impact" },
-    { href: "#", text: "Media" },
-    { href: "#", text: "Business" },
+    { href: "#jobreels", text: "JobReels" },
+    { href: "#jobtrain", text: "JobTrain" },
+    { href: "#trueid", text: "TrueID" },
+    { href: "#ecosystem", text: "Ecosystem" },
+    { href: "#impact", text: "Impact" },
+    { href: "#media", text: "Media" },
+    { href: "/business-sub", text: "Business" },
   ];
 
   const handleBusinessClick = () => {
@@ -74,7 +81,14 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
       }}
     >
       <div>
-        <a href={"/"}>
+        <a
+          href="/"
+          onClick={e => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            setIsMenuOpen(false);
+          }}
+        >
           <img
             width={100}
             height={24}
@@ -173,12 +187,21 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
 
               {/* 1. Logo at the top */}
               <div className="ml-3 mb-10 flex flex-row items-left justify-between gap-5">
-                <img
-                  width={100}
-                  height={24}
-                  src="/assets/home/Logo.svg"
-                  alt="saathi-logo"
-                />
+                <a
+                  href="/"
+                  onClick={e => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <img
+                    width={100}
+                    height={24}
+                    src="/assets/home/Logo.svg"
+                    alt="saathi-logo"
+                  />
+                </a>
 
                 {/* Close button */} 
                 <div>
@@ -212,7 +235,28 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
                       key={index}
                       className="px-3 text-white font-poppins text-xl font-medium hover:text-gray-500 transition-colors "
                       href={option.href}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={e => {
+                        if (option.href.startsWith("#")) {
+                          e.preventDefault();
+                          setIsMenuOpen(false);
+                          // Set disable fullpage flag if navigating to a section below JobReels
+                          if (["#jobtrain", "#trueid", "#ecosystem", "#impact", "#media"].includes(option.href)) {
+                            window.__disableJobReelsFullScreen = true;
+                          }
+                          // Set disable fullpage flag for IdentityVerified if navigating to a section below it
+                          if (["#ecosystem", "#impact", "#media"].includes(option.href)) {
+                            window.__disableIdentityVerifiedFullScreen = true;
+                          }
+                          const id = option.href.replace("#", "");
+                          const el = document.getElementById(id);
+                          if (el) {
+                            el.scrollIntoView({ behavior: "smooth" });
+                          }
+                        } else if (option.href === "/business-sub") {
+                          setIsMenuOpen(false);
+                          router.push(option.href);
+                        }
+                      }}
                     >
                       {option.text}
                     </Link>
@@ -228,7 +272,28 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
                         key={index}
                         className="px-3  text-white font-poppins text-xl font-medium hover:text-gray-500 transition-colors"
                         href={option.href}
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={e => {
+                          if (option.href.startsWith("#")) {
+                            e.preventDefault();
+                            setIsMenuOpen(false);
+                            // Set disable fullpage flag if navigating to a section below JobReels
+                            if (["#jobtrain", "#trueid", "#ecosystem", "#impact", "#media"].includes(option.href)) {
+                              window.__disableJobReelsFullScreen = true;
+                            }
+                            // Set disable fullpage flag for IdentityVerified if navigating to a section below it
+                            if (["#ecosystem", "#impact", "#media"].includes(option.href)) {
+                              window.__disableIdentityVerifiedFullScreen = true;
+                            }
+                            const id = option.href.replace("#", "");
+                            const el = document.getElementById(id);
+                            if (el) {
+                              el.scrollIntoView({ behavior: "smooth" });
+                            }
+                          } else if (option.href === "/business-sub") {
+                            setIsMenuOpen(false);
+                            router.push(option.href);
+                          }
+                        }}
                       >
                         {option.text}
                       </Link>
@@ -242,7 +307,28 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
                         key={index}
                         className="px-3 text-white font-poppins text-xl font-medium hover:text-gray-500 transition-colors"
                         href={option.href}
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={e => {
+                          if (option.href.startsWith("#")) {
+                            e.preventDefault();
+                            setIsMenuOpen(false);
+                            // Set disable fullpage flag if navigating to a section below JobReels
+                            if (["#jobtrain", "#trueid", "#ecosystem", "#impact", "#media"].includes(option.href)) {
+                              window.__disableJobReelsFullScreen = true;
+                            }
+                            // Set disable fullpage flag for IdentityVerified if navigating to a section below it
+                            if (["#ecosystem", "#impact", "#media"].includes(option.href)) {
+                              window.__disableIdentityVerifiedFullScreen = true;
+                            }
+                            const id = option.href.replace("#", "");
+                            const el = document.getElementById(id);
+                            if (el) {
+                              el.scrollIntoView({ behavior: "smooth" });
+                            }
+                          } else if (option.href === "/business-sub") {
+                            setIsMenuOpen(false);
+                            router.push(option.href);
+                          }
+                        }}
                       >
                         {option.text}
                       </Link>

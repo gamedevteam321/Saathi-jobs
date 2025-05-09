@@ -94,7 +94,7 @@ const sections = [
         </ul>
       </>
     ),
-    image: '/assets/home/identity.png'
+    image: '/assets/home/identity1.png'
   },
   {
     key: "worker",
@@ -121,7 +121,7 @@ const sections = [
         </ul>
       </>
     ),
-    image: '/assets/home/identity.png'
+    image: '/assets/home/identity1.png'
   },
   {
     key: "employer",
@@ -148,7 +148,7 @@ const sections = [
         </ul>
       </>
     ),
-    image: '/assets/home/identity.png'
+    image: '/assets/home/identity1.png'
   },
 ];
 
@@ -170,6 +170,11 @@ const IdentityVerified = () => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
+        if (typeof window !== 'undefined' && window.__disableIdentityVerifiedFullScreen) {
+          setIsFullScreen(false);
+          window.__disableIdentityVerifiedFullScreen = false;
+          return;
+        }
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
           if (intersectionRatio >= 0.8) {
@@ -283,6 +288,7 @@ const IdentityVerified = () => {
 
   return (
     <div 
+      id="trueid"
       ref={sectionRef}
       className={`${
         isFullScreen ? 'fixed inset-0 z-50 bg-[#09090B]' : 'relative bg-[#09090B]'
@@ -384,4 +390,11 @@ const IdentityVerified = () => {
   );
 };
 
-export default IdentityVerified; 
+export default IdentityVerified;
+
+// Add global flag type for disabling IdentityVerified fullpage mode
+declare global {
+  interface Window {
+    __disableIdentityVerifiedFullScreen?: boolean;
+  }
+} 

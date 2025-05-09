@@ -40,10 +40,10 @@ const trainCards = [
 
 export default function FastTrainSection() {
   return (
-    <section id="fast-train" className="py-12 md:py-16 px-12 md:px-16 bg-[#09090b]">
+    <section id="jobtrain" className="py-12 md:py-16 px-12 md:px-16 bg-[#09090b]">
       <div className="flex flex-col items-start justify-center gap-2 md:gap-5">
         <div className="flex flex-col items-center md:items-start justify-center w-full">
-          <h2 className="text-4xl md:text-7xl font-bold text-white text-center md:text-left"><span>Job</span><span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>Train</span></h2>
+          <h2 className="text-4xl md:text-6xl font-bold text-white text-center md:text-left"><span>Job</span><span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>Train</span></h2>
           <p className="text-gray-400 italic text-md md:text-[18px] py-1 text-center md:text-left">The Netflix of Skilling</p>
         </div>
         {/* <StepsSection /> */}

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const SaathiEcosystem = () => {
   return (
-    <div className="w-full h-full flex flex-col bg-[#070707] items-center gap-7  border-t border-[#19181f] py-10 px-5 md:px-20">
+    <div id="ecosystem" className="w-full h-full flex flex-col bg-[#070707] items-center gap-7  border-t border-[#19181f] py-10 px-5 md:px-20">
       <div className="flex h-full flex-col items-center mt-10 mb-2">
         <h2 className="text-center text-4xl md:text-[58px] font-semibold tracking-tight bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-tight">
           <span className="text-white">Saathi</span> Ecosystem

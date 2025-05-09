@@ -119,6 +119,12 @@ export default function FeatureCarousel() {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
+        // Prevent fullpage mode if disabled by menu navigation
+        if (typeof window !== 'undefined' && window.__disableJobReelsFullScreen) {
+          setIsFullScreen(false);
+          window.__disableJobReelsFullScreen = false;
+          return;
+        }
         if (entry.isIntersecting && !isTransitioning) {
           // Go fullscreen immediately when section is visible
           setIsFullScreen(true);
@@ -238,6 +244,7 @@ export default function FeatureCarousel() {
 
   return (
     <div 
+      id="jobreels"
       ref={sectionRef}
       className={`${
         isFullScreen ? 'fixed inset-0 z-50' : 'relative'
