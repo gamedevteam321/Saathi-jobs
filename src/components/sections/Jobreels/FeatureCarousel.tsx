@@ -38,10 +38,10 @@ export default function FeatureCarousel() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const scrollDirection = useRef<'up' | 'down' | null>(null);
   const scrollAccumulator = useRef(0);
-  const SCROLL_THRESHOLD = 50;
+  const SCROLL_THRESHOLD = 100;
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
   const lastScrollTime = useRef(0);
-  const SCROLL_COOLDOWN = 100;
+  const SCROLL_COOLDOWN = 200;
   const isFromBelow = useRef(false);
   const isScrolling = useRef(false);
   const lastScrollPosition = useRef(0);
@@ -190,8 +190,10 @@ export default function FeatureCarousel() {
         }
 
         // Handle feature transitions immediately
+        // Handle feature transitions with a single step
         setSelectedIndex((current) => {
-          const next = direction === 'down' ? current + 1 : current - 1;
+          // const next = direction === 'down' ? current + 1 : current - 1;
+          const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
           return next;
         });
       }
