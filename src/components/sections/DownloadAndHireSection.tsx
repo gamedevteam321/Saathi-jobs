@@ -30,7 +30,7 @@ export default function DownloadAndHireSection() {
             Post a <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">Job</span>
           </h2>
           <p className="text-gray-400 text-2xl md:text-[40px] mb-8">Get a Candidate</p>
-          <Link href="/hire">
+          <Link href="/business-sub">
             <button className="flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 text-black font-semibold px-8 py-3 rounded-md shadow transition hover:scale-105 text-lg md:text-xl">
               <FaGlobe className="text-xl" /> Hire Now
             </button>
