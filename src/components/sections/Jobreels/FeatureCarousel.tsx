@@ -31,21 +31,49 @@ const features: FeatureItem[] = [
 ];
 
 export default function FeatureCarousel() {
+  // State to track which feature is currently selected (0, 1, or 2)
   const [selectedIndex, setSelectedIndex] = useState(0);
+  
+  // State to control whether the component is in fullscreen mode
   const [isFullScreen, setIsFullScreen] = useState(false);
+  
+  // State to prevent multiple transitions from happening simultaneously
   const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Ref to the main section element for intersection observer
   const sectionRef = useRef<HTMLDivElement>(null);
+  
+  // Ref to store the intersection observer instance
   const observerRef = useRef<IntersectionObserver | null>(null);
+  
+  // Ref to track scroll direction (up or down)
   const scrollDirection = useRef<'up' | 'down' | null>(null);
+  
+  // Ref to accumulate scroll delta values before triggering a feature change
   const scrollAccumulator = useRef(0);
+  
+  // Threshold value that must be reached before triggering a feature change (higher than IdentityVerified for more deliberate scrolling)
   const SCROLL_THRESHOLD = 100;
+  
+  // Ref to store the transition timeout
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
+  
+  // Ref to track the last scroll time for debouncing
   const lastScrollTime = useRef(0);
+  
+  // Cooldown period between scroll events (in milliseconds)
   const SCROLL_COOLDOWN = 200;
+  
+  // Ref to track if the user scrolled from below the section
   const isFromBelow = useRef(false);
+  
+  // Ref to prevent multiple scroll events from firing simultaneously
   const isScrolling = useRef(false);
+  
+  // Ref to track the last scroll position for direction detection
   const lastScrollPosition = useRef(0);
 
+  // Function to handle smooth scrolling between sections
   const scrollToSection = (direction: 'up' | 'down') => {
     if (isTransitioning || isScrolling.current) return;
     setIsTransitioning(true);
@@ -68,9 +96,8 @@ export default function FeatureCarousel() {
       return;
     }
 
-    // For upward transition, just exit fullscreen and let user scroll
+    // For upward transition, exit fullscreen and let user scroll naturally
     if (direction === 'up') {
-      // Reset to original view
       section.style.transition = 'none';
       section.style.transform = 'none';
       section.style.opacity = '1';
@@ -80,16 +107,16 @@ export default function FeatureCarousel() {
       return;
     }
 
-    // For downward transition, just scroll without overlay
+    // For downward transition, exit fullscreen and scroll to next section
     section.style.transition = 'none';
     section.style.transform = 'none';
     section.style.opacity = '1';
     setIsFullScreen(false);
     
-    // Scroll to target section with smooth behavior
+    // Smooth scroll to target section
     targetSection.scrollIntoView({ behavior: 'smooth' });
     
-    // Reset the section after scroll completes
+    // Reset section styles after scroll completes
     transitionTimeout.current = setTimeout(() => {
       section.style.transition = '';
       section.style.transform = '';
@@ -99,8 +126,8 @@ export default function FeatureCarousel() {
     }, 500);
   };
 
+  // Effect to track global scroll position and direction
   useEffect(() => {
-    // Track scroll position
     const handleScroll = () => {
       const currentPosition = window.scrollY;
       if (currentPosition > lastScrollPosition.current) {
@@ -115,6 +142,7 @@ export default function FeatureCarousel() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Effect to handle intersection observer for fullscreen mode
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -126,14 +154,14 @@ export default function FeatureCarousel() {
           return;
         }
         if (entry.isIntersecting && !isTransitioning) {
-          // Go fullscreen immediately when section is visible
+          // Enter fullscreen mode when section is 80% visible
           setIsFullScreen(true);
           
-          // Set initial index based on scroll direction
+          // Set initial feature based on scroll direction
           if (isFromBelow.current) {
-            setSelectedIndex(2); // Show last item when coming from below (job train)
+            setSelectedIndex(2); // Show last feature when coming from below
           } else {
-            setSelectedIndex(0); // Show first item when coming from above (hero)
+            setSelectedIndex(0); // Show first feature when coming from above
           }
         } else if (!entry.isIntersecting) {
           setIsFullScreen(false);
@@ -141,7 +169,7 @@ export default function FeatureCarousel() {
       },
       { 
         threshold: 0.8,
-        rootMargin: '-10% 0px'
+        rootMargin: '-10% 0px' // Add margin to trigger slightly before full visibility
       }
     );
 
@@ -159,12 +187,14 @@ export default function FeatureCarousel() {
     };
   }, []);
 
+  // Effect to handle wheel events for feature navigation
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (!isFullScreen || isTransitioning || isScrolling.current) return;
 
       e.preventDefault();
       
+      // Debounce scroll events
       const now = Date.now();
       if (now - lastScrollTime.current < SCROLL_COOLDOWN) return;
       lastScrollTime.current = now;
@@ -178,7 +208,7 @@ export default function FeatureCarousel() {
         scrollDirection.current = direction;
         scrollAccumulator.current = 0; // Reset accumulator
 
-        // Handle section transitions
+        // Handle section transitions at edges
         if (direction === 'down' && selectedIndex === 2) {
           scrollToSection('down');
           return;
@@ -189,10 +219,8 @@ export default function FeatureCarousel() {
           return;
         }
 
-        // Handle feature transitions immediately
-        // Handle feature transitions with a single step
+        // Update selected feature index
         setSelectedIndex((current) => {
-          // const next = direction === 'down' ? current + 1 : current - 1;
           const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
           return next;
         });
@@ -211,7 +239,7 @@ export default function FeatureCarousel() {
     };
   }, [isFullScreen, selectedIndex, isTransitioning]);
 
-  // Add keyboard navigation with faster response
+  // Effect to handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isFullScreen || isTransitioning || isScrolling.current) return;

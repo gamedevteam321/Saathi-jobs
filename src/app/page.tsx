@@ -27,14 +27,14 @@ export default function Home() {
       {/* Section about fast train feature */}
       <FastTrainSection />
       {/* Identity Verified section (added above Saathi Ecosystem) */}
-      {/* <IdentityVerified /> */}
       <IdentityVerified2 />
       {/* Section explaining the Saathi ecosystem */}
       <SaathiEcosystem />
-      
       {/* Section for creators */}
       <Impact />
+      {/* Section for Download and Hire */}
       <DownloadAndHireSection />
+      {/* Section for Full Width Text */}
       <FullWidthTextSection />
       
       {/* Footer component */}

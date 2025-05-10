@@ -241,7 +241,7 @@ export default function VideoTickerComponent({ videos, title }: VideoTickerProps
                     }`}
                     playsInline
                     loop
-                    muted
+                    muted={false}
                     preload="auto"
                   />
                 )}

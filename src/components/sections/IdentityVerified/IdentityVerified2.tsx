@@ -153,32 +153,59 @@ const sections = [
 ];
 
 const IdentityVerified = () => {
+  // State to track which section is currently selected (0, 1, or 2)
   const [selectedIndex, setSelectedIndex] = useState(0);
+  
+  // State to control whether the component is in fullscreen mode
   const [isFullScreen, setIsFullScreen] = useState(false);
+  
+  // State to prevent multiple scroll transitions from happening simultaneously
   const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Ref to the main section element for intersection observer
   const sectionRef = useRef<HTMLDivElement>(null);
+  
+  // Ref to store the intersection observer instance
   const observerRef = useRef<IntersectionObserver | null>(null);
+  
+  // Ref to track scroll direction (up or down)
   const scrollDirection = useRef<'up' | 'down' | null>(null);
+  
+  // Ref to accumulate scroll delta values before triggering a section change
   const scrollAccumulator = useRef(0);
+  
+  // Threshold value that must be reached before triggering a section change
   const SCROLL_THRESHOLD = 30;
+  
+  // Ref to store the transition timeout
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
+  
+  // Ref to track the last scroll time for debouncing
   const lastScrollTime = useRef(0);
+  
+  // Cooldown period between scroll events (in milliseconds)
   const SCROLL_COOLDOWN = 200;
+  
+  // Ref to track if the user scrolled from below the section
   const isFromBelow = useRef(false);
 
+  // Effect to set up intersection observer for fullscreen mode
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
+        // Check if fullscreen mode should be disabled
         if (typeof window !== 'undefined' && window.__disableIdentityVerifiedFullScreen) {
           setIsFullScreen(false);
           window.__disableIdentityVerifiedFullScreen = false;
           return;
         }
+        // When section is 80% visible and not transitioning
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
           if (intersectionRatio >= 0.8) {
             setIsFullScreen(true);
+            // Set initial section based on scroll direction
             if (isFromBelow.current) {
               setSelectedIndex(0);
             } else {
@@ -192,10 +219,12 @@ const IdentityVerified = () => {
       { threshold: [0.8] }
     );
 
+    // Start observing the section
     if (sectionRef.current) {
       observerRef.current.observe(sectionRef.current);
     }
 
+    // Cleanup observer and timeout on unmount
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
@@ -206,6 +235,7 @@ const IdentityVerified = () => {
     };
   }, []);
 
+  // Function to handle smooth scrolling between sections
   const scrollToSection = (direction: 'up' | 'down') => {
     if (isTransitioning) return;
     setIsTransitioning(true);
@@ -213,24 +243,30 @@ const IdentityVerified = () => {
     const section = sectionRef.current;
     if (!section) return;
 
+    // Track if user scrolled from below
     isFromBelow.current = direction === 'up';
 
+    // Get the next/previous section element
     const targetSection = direction === 'down' 
       ? sectionRef.current?.nextElementSibling 
       : sectionRef.current?.previousElementSibling;
 
     if (!targetSection) return;
 
+    // Exit fullscreen mode
     setIsFullScreen(false);
 
+    // Use requestAnimationFrame for smooth animation
     requestAnimationFrame(() => {
       setTimeout(() => {
+        // Scroll to the target section
         if (direction === 'up') {
           targetSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
         } else {
           targetSection.scrollIntoView({ behavior: 'smooth' });
         }
         
+        // Reset transition state after animation
         transitionTimeout.current = setTimeout(() => {
           setIsTransitioning(false);
         }, 500);
@@ -238,23 +274,29 @@ const IdentityVerified = () => {
     });
   };
 
+  // Effect to handle wheel events for section navigation
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
+      // Only handle scroll in fullscreen mode and when not transitioning
       if (!isFullScreen || isTransitioning) return;
 
       e.preventDefault();
       
+      // Debounce scroll events
       const now = Date.now();
       if (now - lastScrollTime.current < SCROLL_COOLDOWN) return;
       lastScrollTime.current = now;
       
+      // Accumulate scroll delta
       scrollAccumulator.current += e.deltaY;
       
+      // Check if accumulated scroll exceeds threshold
       if (Math.abs(scrollAccumulator.current) >= SCROLL_THRESHOLD) {
         const direction = scrollAccumulator.current > 0 ? 'down' : 'up';
         scrollDirection.current = direction;
         scrollAccumulator.current = 0;
 
+        // Handle edge cases for first and last sections
         if (direction === 'down' && selectedIndex === sections.length - 1) {
           setIsTransitioning(true);
           scrollToSection('down');
@@ -267,6 +309,7 @@ const IdentityVerified = () => {
           return;
         }
 
+        // Update selected section index
         setSelectedIndex((current) => {
           const next = direction === 'down' ? current + 1 : current - 1;
           return next;
@@ -274,6 +317,7 @@ const IdentityVerified = () => {
       }
     };
 
+    // Add and remove wheel event listener
     const section = sectionRef.current;
     if (section) {
       section.addEventListener('wheel', handleWheel, { passive: false });
