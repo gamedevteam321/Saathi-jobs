@@ -152,44 +152,37 @@ export default function FeatureCarousel() {
         // Check if fullscreen mode should be disabled
         if (typeof window !== 'undefined' && window.__disableJobReelsFullScreen) {
           setIsFullScreen(false);
-          window.__disableJobReelsFullScreen = false;
+          window.__disableJobReelsFullScreen  = false;
           return;
         }
-
-        // When section is visible and not transitioning
+        // When section is 80% visible and not transitioning
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
-          // Lower threshold for faster activation
           if (intersectionRatio >= 0.3) {
-            // Disable IdentityVerified fullscreen mode
             if (typeof window !== 'undefined') {
               window.__disableIdentityVerifiedFullScreen = true;
             }
             setIsFullScreen(true);
-            
-            // Set initial feature based on scroll direction
+            // Set initial section based on scroll direction
             if (isFromBelow.current) {
-              setSelectedIndex(2); // Show last feature when coming from below
+              setSelectedIndex(features.length - 1);
             } else {
-              setSelectedIndex(0); // Show first feature when coming from above
+              setSelectedIndex(0);
             }
           } else {
             setIsFullScreen(false);
           }
-        } else if (!entry.isIntersecting) {
-          setIsFullScreen(false);
         }
       },
-      { 
-        threshold: [0.3, 0.5, 0.8], // Multiple thresholds for smoother transitions
-        rootMargin: '-10% 0px' // Trigger slightly before full visibility
-      }
+      { threshold: [0.8] }
     );
 
+    // Start observing the section
     if (sectionRef.current) {
       observerRef.current.observe(sectionRef.current);
     }
 
+    // Cleanup observer and timeout on unmount
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();

@@ -39,7 +39,6 @@ export default function Home() {
       
         <IdentityVerified2 />
     
-      
       {/* Section explaining the Saathi ecosystem */}
       <section className="section-transition min-h-screen" id="ecosystem">
         <SaathiEcosystem />
