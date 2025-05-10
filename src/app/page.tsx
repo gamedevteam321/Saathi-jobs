@@ -1,5 +1,6 @@
 // Importing layout components
 import Footer from "@/components/layout/Footer";
+import ScrollToTop from "@/components/common/ScrollToTop";
 
 // Importing section components for different parts of the landing page
 import FeatureCarousel from "@/components/sections/Jobreels/FeatureCarousel";
@@ -61,6 +62,7 @@ export default function Home() {
       
       {/* Footer component */}
       <Footer />
+      <ScrollToTop />
     </main>
   );
 }

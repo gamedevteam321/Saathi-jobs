@@ -79,7 +79,7 @@ const BusinessSubPage = () => {
             <span className="ml-2 text-xl md:text-2xl font-bold text-white">JOB POSTS !!</span>
           </div>
           {/* Pay Now Button */}
-          <button className={`mt-2 mb-2 w-full relative overflow-hidden text-black font-bold py-3 rounded text-lg md:text-xl shadow-lg transition hover:scale-105`}>
+          <button onClick={() => window.location.href = "https://hire.saathi.in"} className={`mt-2 mb-2 w-full relative overflow-hidden text-black font-bold py-3 rounded text-lg md:text-xl shadow-lg transition hover:scale-105`}>
             <span className="relative z-10">PAY NOW</span>
             <div className="absolute inset-0 bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] animate-gradient-rotate"></div>
           </button>

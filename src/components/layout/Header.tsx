@@ -62,6 +62,7 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
     { href: "#impact", text: "Impact" },
     { href: "#media", text: "Media" },
     { href: "/business-sub", text: "Business" },
+    { href: "https://hire.saathi.in", text: "Sign In / Sign Up" },
   ];
 
   const handleBusinessClick = () => {

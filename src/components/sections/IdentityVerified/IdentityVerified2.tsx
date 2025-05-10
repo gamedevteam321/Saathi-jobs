@@ -204,7 +204,7 @@ const IdentityVerified = () => {
         // When section is 80% visible and not transitioning
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
-          if (intersectionRatio >= 0.8) {
+          if (intersectionRatio >= 0.7) {
             if (typeof window !== 'undefined') {
               window.__disableIdentityVerifiedFullScreen = true;
             }
