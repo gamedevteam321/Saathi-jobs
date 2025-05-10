@@ -200,10 +200,18 @@ const IdentityVerified = () => {
           window.__disableIdentityVerifiedFullScreen = false;
           return;
         }
-        // When section is 80% visible and not transitioning
+
+        // When section is visible and not transitioning
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
+          // Higher threshold to ensure FeatureCarousel has priority
           if (intersectionRatio >= 0.8) {
+            // Check if FeatureCarousel is in fullscreen mode
+            const jobReelsSection = document.getElementById('jobreels');
+            if (jobReelsSection && jobReelsSection.getBoundingClientRect().top < window.innerHeight) {
+              return; // Don't enter fullscreen if FeatureCarousel is visible
+            }
+            
             setIsFullScreen(true);
             // Set initial section based on scroll direction
             if (isFromBelow.current) {
@@ -214,17 +222,20 @@ const IdentityVerified = () => {
           } else {
             setIsFullScreen(false);
           }
+        } else if (!entry.isIntersecting) {
+          setIsFullScreen(false);
         }
       },
-      { threshold: [0.8] }
+      { 
+        threshold: [0.8],
+        rootMargin: '0px' // No margin to ensure precise triggering
+      }
     );
 
-    // Start observing the section
     if (sectionRef.current) {
       observerRef.current.observe(sectionRef.current);
     }
 
-    // Cleanup observer and timeout on unmount
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();

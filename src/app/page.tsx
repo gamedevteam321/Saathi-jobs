@@ -21,24 +21,46 @@ export default function Home() {
     // Main container with minimum height of screen and white background
     <main className="min-h-screen bg-black">
       {/* Hero section for main banner/headline */}
-      <HeroSection />
+      <section className="section-transition min-h-screen">
+        <HeroSection />
+      </section>
+      
       {/* Carousel showcasing key features */}
-      <FeatureCarousel />
+      
+        <FeatureCarousel />
+      
+      
       {/* Section about fast train feature */}
-      <FastTrainSection />
-      {/* Identity Verified section (added above Saathi Ecosystem) */}
-      <IdentityVerified2 />
+      <section className="section-transition min-h-screen" id="jobtrain">
+        <FastTrainSection />
+      </section>
+      
+      {/* Identity Verified section */}
+      
+        <IdentityVerified2 />
+    
+      
       {/* Section explaining the Saathi ecosystem */}
-      <SaathiEcosystem />
+      <section className="section-transition min-h-screen" id="ecosystem">
+        <SaathiEcosystem />
+      </section>
+      
       {/* Section for creators */}
-      <Impact />
+      <section className="section-transition min-h-screen" id="impact">
+        <Impact />
+      </section>
+      
       {/* Section for Download and Hire */}
-      <DownloadAndHireSection />
+      <section className="section-transition min-h-screen" id="download">
+        <DownloadAndHireSection />
+      </section>
+      
       {/* Section for Full Width Text */}
-      <FullWidthTextSection />
+      <section className="section-transition min-h-screen" id="media">
+        <FullWidthTextSection />
+      </section>
       
       {/* Footer component */}
-      
       <Footer />
     </main>
   );

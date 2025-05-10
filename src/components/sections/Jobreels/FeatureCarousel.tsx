@@ -82,8 +82,10 @@ export default function FeatureCarousel() {
     const section = sectionRef.current;
     if (!section) return;
 
+    // Set the direction flag before transition
     isFromBelow.current = direction === 'up';
 
+    // Get the target section
     const targetSection = direction === 'down' 
       ? sectionRef.current?.nextElementSibling 
       : sectionRef.current?.previousElementSibling;
@@ -94,22 +96,36 @@ export default function FeatureCarousel() {
       return;
     }
 
+    // Exit fullscreen mode first
     setIsFullScreen(false);
     
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        if (direction === 'up') {
-          targetSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        } else {
-          targetSection.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        transitionTimeout.current = setTimeout(() => {
-          setIsTransitioning(false);
-          isScrolling.current = false;
-        }, 500);
-      }, 50);
-    });
+    // Add a small delay before scrolling to ensure the fullscreen exit animation completes
+    setTimeout(() => {
+      // For upward transition, let user scroll naturally
+      if (direction === 'up') {
+        section.style.transition = 'none';
+        section.style.transform = 'none';
+        section.style.opacity = '1';
+        setIsTransitioning(false);
+        isScrolling.current = false;
+        return;
+      }
+
+      // For downward transition, scroll to next section
+      targetSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Reset section styles after scroll completes
+      transitionTimeout.current = setTimeout(() => {
+        section.style.transition = '';
+        section.style.transform = '';
+        section.style.opacity = '1';
+        setIsTransitioning(false);
+        isScrolling.current = false;
+      }, 800); // Increased timeout to ensure smooth transition
+    }, 100);
   };
 
   // Effect to track global scroll position and direction
@@ -133,29 +149,40 @@ export default function FeatureCarousel() {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
-        // Prevent fullpage mode if disabled by menu navigation
+        // Check if fullscreen mode should be disabled
         if (typeof window !== 'undefined' && window.__disableJobReelsFullScreen) {
           setIsFullScreen(false);
           window.__disableJobReelsFullScreen = false;
           return;
         }
+
+        // When section is visible and not transitioning
         if (entry.isIntersecting && !isTransitioning) {
-          // Enter fullscreen mode when section is 80% visible
-          setIsFullScreen(true);
-          
-          // Set initial feature based on scroll direction
-          if (isFromBelow.current) {
-            setSelectedIndex(2); // Show last feature when coming from below
+          const intersectionRatio = entry.intersectionRatio;
+          // Lower threshold for faster activation
+          if (intersectionRatio >= 0.3) {
+            // Disable IdentityVerified fullscreen mode
+            if (typeof window !== 'undefined') {
+              window.__disableIdentityVerifiedFullScreen = true;
+            }
+            setIsFullScreen(true);
+            
+            // Set initial feature based on scroll direction
+            if (isFromBelow.current) {
+              setSelectedIndex(2); // Show last feature when coming from below
+            } else {
+              setSelectedIndex(0); // Show first feature when coming from above
+            }
           } else {
-            setSelectedIndex(0); // Show first feature when coming from above
+            setIsFullScreen(false);
           }
         } else if (!entry.isIntersecting) {
           setIsFullScreen(false);
         }
       },
       { 
-        threshold: 0.8,
-        rootMargin: '-10% 0px' // Add margin to trigger slightly before full visibility
+        threshold: [0.3, 0.5, 0.8], // Multiple thresholds for smoother transitions
+        rootMargin: '-10% 0px' // Trigger slightly before full visibility
       }
     );
 
@@ -180,29 +207,32 @@ export default function FeatureCarousel() {
 
       e.preventDefault();
       
+      // Debounce scroll events
       const now = Date.now();
       if (now - lastScrollTime.current < SCROLL_COOLDOWN) return;
       lastScrollTime.current = now;
 
+      // Accumulate scroll delta
       scrollAccumulator.current += e.deltaY;
       
+      // Only trigger if we've accumulated enough scroll
       if (Math.abs(scrollAccumulator.current) >= SCROLL_THRESHOLD) {
         const direction = scrollAccumulator.current > 0 ? 'down' : 'up';
         scrollDirection.current = direction;
-        scrollAccumulator.current = 0;
+        scrollAccumulator.current = 0; // Reset accumulator
 
+        // Handle section transitions at edges
         if (direction === 'down' && selectedIndex === 2) {
-          setIsTransitioning(true);
           scrollToSection('down');
           return;
         }
 
         if (direction === 'up' && selectedIndex === 0) {
-          setIsTransitioning(true);
           scrollToSection('up');
           return;
         }
 
+        // Update selected feature index
         setSelectedIndex((current) => {
           const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
           return next;
