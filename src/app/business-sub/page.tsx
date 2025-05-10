@@ -12,6 +12,30 @@ const BusinessSubPage = () => {
   const [isContactOpen, setContactOpen] = useState(false);
   const [isTermsOpen, setTermsOpen] = useState(false);
   const [isPrivacyOpen, setPrivacyOpen] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+
+  const handleVideoClick = (videoId: string) => {
+    const video = document.getElementById(videoId) as HTMLVideoElement;
+    if (video) {
+      if (playingVideo === videoId) {
+        video.pause();
+        video.muted = true;
+        setPlayingVideo(null);
+      } else {
+        // Pause any currently playing video
+        if (playingVideo) {
+          const currentVideo = document.getElementById(playingVideo) as HTMLVideoElement;
+          if (currentVideo) {
+            currentVideo.pause();
+            currentVideo.muted = true;
+          }
+        }
+        video.play();
+        video.muted = false;
+        setPlayingVideo(videoId);
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen w-full bg-black text-white flex flex-col md:flex-row overflow-hidden">
@@ -85,7 +109,7 @@ const BusinessSubPage = () => {
       </div>
 
       {/* Right: Features & Visuals */}
-      <div className="md:w-[70%] w-full flex flex-col justify-between bg-[#111] px-4 md:px-12 py-8 md:py-12 relative">
+      <div className="md:w-[70%] w-full flex flex-col justify-between bg-[#1B1B1B] px-4 md:px-12 py-8 md:py-12 relative">
         <div className="flex flex-col items-center text-center w-full">
           <h1 className="text-2xl md:text-4xl font-bold mb-2 text-center">
             HIRE FASTER BETTER & <span className={gradientText}>EASIER</span>
@@ -105,8 +129,16 @@ const BusinessSubPage = () => {
             <span className="text-lg md:text-2xl font-bold text-white text-center mb-2">
               JOB<span className={gradientText}>REELS</span>
             </span>
-            <div className="relative w-[220px] md:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg">
-              <img src="/images/JobReel.png" alt="Job Reel Preview" className="w-full h-full object-contain" />
+            <div className="relative w-[220px] md:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
+                 onClick={() => handleVideoClick('jobreel-video')}>
+              <video 
+                id="jobreel-video"
+                src="/videos/jobreel.mp4" 
+                className="w-full h-full object-contain"
+                loop
+                playsInline
+                muted
+              />
             </div>
           </div>
           {/* JobPosts */}
@@ -114,8 +146,16 @@ const BusinessSubPage = () => {
             <span className="text-lg md:text-2xl font-bold text-white text-center mb-2">
               JOB<span className={gradientText}>POSTS</span>
             </span>
-            <div className="relative w-[220px] md:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg">
-              <img src="/images/JobPost.png" alt="Job Post Preview" className="w-full h-full object-contain" />
+            <div className="relative w-[220px] md:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
+                 onClick={() => handleVideoClick('jobpost-video')}>
+              <video 
+                id="jobpost-video"
+                src="/videos/jobpost.mp4" 
+                className="w-full h-full object-contain"
+                loop
+                playsInline
+                muted
+              />
             </div>
           </div>
           {/* AI Recruiter */}
@@ -123,8 +163,16 @@ const BusinessSubPage = () => {
             <span className="text-lg md:text-2xl font-bold text-white text-center mb-2">
               AI<span className={gradientText}> RECRUITER</span>
             </span>
-            <div className="relative w-[220px] md:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg">
-              <img src="/images/AIinterview.png" alt="AI Interview Preview" className="w-full h-full object-contain" />
+            <div className="relative w-[220px] md:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
+                 onClick={() => handleVideoClick('ai-video')}>
+              <video 
+                id="ai-video"
+                src="/videos/ai.mp4" 
+                className="w-full h-full object-contain"
+                loop
+                playsInline
+                muted
+              />
             </div>
           </div>
         </div>
