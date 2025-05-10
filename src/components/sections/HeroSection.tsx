@@ -24,7 +24,7 @@ export default function HeroSection() {
       </div>
       
       {/* Content */}
-      <div className="container h-full pb-8 sm:pb-12 relative z-10 px-4 sm:px-6 flex flex-col justify-center items-center text-white gap-3 sm:gap-5 mt-64 sm:mt-64">
+      <div className="container h-full pb-5 sm:pb-10 relative z-10 px-4 sm:px-6 flex flex-col justify-end items-center text-white gap-3 sm:gap-5 pt-64 sm:pt-64">
         <h1 className="text-4xl xs:text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold mb-2 sm:mb-3 text-center font-['helvetica']">
           The Future of Hiring is Here
         </h1>
