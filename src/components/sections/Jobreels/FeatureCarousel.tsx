@@ -53,7 +53,7 @@ export default function FeatureCarousel() {
   const scrollAccumulator = useRef(0);
   
   // Threshold value that must be reached before triggering a feature change (higher than IdentityVerified for more deliberate scrolling)
-  const SCROLL_THRESHOLD = 100;
+  const SCROLL_THRESHOLD = 30;
   
   // Ref to store the transition timeout
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -82,10 +82,8 @@ export default function FeatureCarousel() {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Set the direction flag before transition
     isFromBelow.current = direction === 'up';
 
-    // Get the target section
     const targetSection = direction === 'down' 
       ? sectionRef.current?.nextElementSibling 
       : sectionRef.current?.previousElementSibling;
@@ -96,34 +94,22 @@ export default function FeatureCarousel() {
       return;
     }
 
-    // For upward transition, exit fullscreen and let user scroll naturally
-    if (direction === 'up') {
-      section.style.transition = 'none';
-      section.style.transform = 'none';
-      section.style.opacity = '1';
-      setIsFullScreen(false);
-      setIsTransitioning(false);
-      isScrolling.current = false;
-      return;
-    }
-
-    // For downward transition, exit fullscreen and scroll to next section
-    section.style.transition = 'none';
-    section.style.transform = 'none';
-    section.style.opacity = '1';
     setIsFullScreen(false);
     
-    // Smooth scroll to target section
-    targetSection.scrollIntoView({ behavior: 'smooth' });
-    
-    // Reset section styles after scroll completes
-    transitionTimeout.current = setTimeout(() => {
-      section.style.transition = '';
-      section.style.transform = '';
-      section.style.opacity = '1';
-      setIsTransitioning(false);
-      isScrolling.current = false;
-    }, 500);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        if (direction === 'up') {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        } else {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        transitionTimeout.current = setTimeout(() => {
+          setIsTransitioning(false);
+          isScrolling.current = false;
+        }, 500);
+      }, 50);
+    });
   };
 
   // Effect to track global scroll position and direction
@@ -194,32 +180,29 @@ export default function FeatureCarousel() {
 
       e.preventDefault();
       
-      // Debounce scroll events
       const now = Date.now();
       if (now - lastScrollTime.current < SCROLL_COOLDOWN) return;
       lastScrollTime.current = now;
 
-      // Accumulate scroll delta
       scrollAccumulator.current += e.deltaY;
       
-      // Only trigger if we've accumulated enough scroll
       if (Math.abs(scrollAccumulator.current) >= SCROLL_THRESHOLD) {
         const direction = scrollAccumulator.current > 0 ? 'down' : 'up';
         scrollDirection.current = direction;
-        scrollAccumulator.current = 0; // Reset accumulator
+        scrollAccumulator.current = 0;
 
-        // Handle section transitions at edges
         if (direction === 'down' && selectedIndex === 2) {
+          setIsTransitioning(true);
           scrollToSection('down');
           return;
         }
 
         if (direction === 'up' && selectedIndex === 0) {
+          setIsTransitioning(true);
           scrollToSection('up');
           return;
         }
 
-        // Update selected feature index
         setSelectedIndex((current) => {
           const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
           return next;
