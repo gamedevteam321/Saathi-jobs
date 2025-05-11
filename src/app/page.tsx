@@ -32,7 +32,7 @@ export default function Home() {
       
       
       {/* Section about fast train feature */}
-      <section className="section-transition" id="jobtrain">
+      <section className="" id="jobtrain">
         <FastTrainSection />
       </section>
       
@@ -41,22 +41,22 @@ export default function Home() {
         <IdentityVerified2 />
     
       {/* Section explaining the Saathi ecosystem */}
-      <section className="section-transition" id="ecosystem">
+      <section className="" id="ecosystem">
         <SaathiEcosystem />
       </section>
       
       {/* Section for creators */}
-      <section className="section-transition" id="impact">
+      <section className="" id="impact">
         <Impact />
       </section>
       
       {/* Section for Download and Hire */}
-      <section className="section-transition" id="download">
+      <section className="" id="download">
         <DownloadAndHireSection />
       </section>
       
       {/* Section for Full Width Text */}
-      <section className="section-transition " id="media">
+      <section className="" id="media">
         <FullWidthTextSection />
       </section>
       

@@ -189,6 +189,10 @@ const IdentityVerified = () => {
   // Ref to track if the user scrolled from below the section
   const isFromBelow = useRef(false);
 
+  // Refs for touch handling
+  const touchStartY = useRef(0);
+  const touchStartTime = useRef(0);
+
   // Effect to set up intersection observer for fullscreen mode
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -321,15 +325,59 @@ const IdentityVerified = () => {
       }
     };
 
-    // Add and remove wheel event listener
+    // Touch event handlers
+    const handleTouchStart = (e: TouchEvent) => {
+      if (!isFullScreen || isTransitioning) return;
+      touchStartY.current = e.touches[0].clientY;
+      touchStartTime.current = Date.now();
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!isFullScreen || isTransitioning) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const touchEndTime = Date.now();
+      const deltaY = touchEndY - touchStartY.current;
+      const deltaTime = touchEndTime - touchStartTime.current;
+
+      // Only process if the touch was quick enough (less than 300ms) and moved enough (more than 50px)
+      if (deltaTime < 300 && Math.abs(deltaY) > 50) {
+        const direction = deltaY > 0 ? 'up' : 'down';
+
+        // Handle edge cases for first and last sections
+        if (direction === 'down' && selectedIndex === sections.length - 1) {
+          setIsTransitioning(true);
+          scrollToSection('down');
+          return;
+        }
+
+        if (direction === 'up' && selectedIndex === 0) {
+          setIsTransitioning(true);
+          scrollToSection('up');
+          return;
+        }
+
+        // Update selected section index
+        setSelectedIndex((current) => {
+          const next = direction === 'down' ? current + 1 : current - 1;
+          return next;
+        });
+      }
+    };
+
+    // Add and remove event listeners
     const section = sectionRef.current;
     if (section) {
       section.addEventListener('wheel', handleWheel, { passive: false });
+      section.addEventListener('touchstart', handleTouchStart, { passive: true });
+      section.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
     return () => {
       if (section) {
         section.removeEventListener('wheel', handleWheel);
+        section.removeEventListener('touchstart', handleTouchStart);
+        section.removeEventListener('touchend', handleTouchEnd);
       }
     };
   }, [isFullScreen, selectedIndex, isTransitioning]);

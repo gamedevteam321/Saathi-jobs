@@ -73,10 +73,6 @@ export default function FeatureCarousel() {
   // Ref to track the last scroll position for direction detection
   const lastScrollPosition = useRef(0);
 
-  // Ref to track touch start position
-  const touchStartY = useRef(0);
-  const touchStartTime = useRef(0);
-
   // Function to handle smooth scrolling between sections
   const scrollToSection = (direction: 'up' | 'down') => {
     if (isTransitioning || isScrolling.current) return;
@@ -237,56 +233,14 @@ export default function FeatureCarousel() {
       }
     };
 
-    // Touch event handlers
-    const handleTouchStart = (e: TouchEvent) => {
-      if (!isFullScreen || isTransitioning || isScrolling.current) return;
-      touchStartY.current = e.touches[0].clientY;
-      touchStartTime.current = Date.now();
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (!isFullScreen || isTransitioning || isScrolling.current) return;
-
-      const touchEndY = e.changedTouches[0].clientY;
-      const touchEndTime = Date.now();
-      const deltaY = touchEndY - touchStartY.current;
-      const deltaTime = touchEndTime - touchStartTime.current;
-
-      // Only process if the touch was quick enough (less than 300ms) and moved enough (more than 50px)
-      if (deltaTime < 300 && Math.abs(deltaY) > 50) {
-        const direction = deltaY > 0 ? 'up' : 'down';
-
-        // Handle section transitions at edges
-        if (direction === 'down' && selectedIndex === 2) {
-          scrollToSection('down');
-          return;
-        }
-
-        if (direction === 'up' && selectedIndex === 0) {
-          scrollToSection('up');
-          return;
-        }
-
-        // Update selected feature index
-        setSelectedIndex((current) => {
-          const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
-          return next;
-        });
-      }
-    };
-
     const section = sectionRef.current;
     if (section) {
       section.addEventListener('wheel', handleWheel, { passive: false });
-      section.addEventListener('touchstart', handleTouchStart, { passive: true });
-      section.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
     return () => {
       if (section) {
         section.removeEventListener('wheel', handleWheel);
-        section.removeEventListener('touchstart', handleTouchStart);
-        section.removeEventListener('touchend', handleTouchEnd);
       }
     };
   }, [isFullScreen, selectedIndex, isTransitioning]);
