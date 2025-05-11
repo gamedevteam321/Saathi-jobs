@@ -32,9 +32,9 @@ export default function Home() {
       
       
       {/* Section about fast train feature */}
-      <section className="" id="jobtrain">
+      
         <FastTrainSection />
-      </section>
+      
       
       {/* Identity Verified section */}
       

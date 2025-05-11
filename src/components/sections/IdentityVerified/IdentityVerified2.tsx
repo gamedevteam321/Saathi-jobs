@@ -189,10 +189,13 @@ const IdentityVerified = () => {
   // Ref to track if the user scrolled from below the section
   const isFromBelow = useRef(false);
   const lastScrollPosition = useRef(0);
-  
+
   // Refs for touch handling
   const touchStartY = useRef(0);
   const touchStartTime = useRef(0);
+
+  // Ref to prevent multiple scroll events from firing simultaneously
+  const isScrolling = useRef(false);
 
   // Effect to set up intersection observer for fullscreen mode
   useEffect(() => {
@@ -209,7 +212,7 @@ const IdentityVerified = () => {
         // When section is 80% visible and not transitioning
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
-          if (intersectionRatio >= 0.7) {
+          if (intersectionRatio >= 0.8) {
             // if (typeof window !== 'undefined') {
             //   window.__disableIdentityVerifiedFullScreen = true;
             //   window.__disableIdentityVerifiedFullScreen = false;
@@ -247,9 +250,10 @@ const IdentityVerified = () => {
 
   // Function to handle smooth scrolling between sections
   const scrollToSection = (direction: 'up' | 'down') => {
-    if (isTransitioning) return;
+    if (isTransitioning || isScrolling.current) return;
     setIsTransitioning(true);
-    
+    isScrolling.current = true;
+
     const section = sectionRef.current;
     if (!section) return;
 
@@ -261,7 +265,11 @@ const IdentityVerified = () => {
       ? sectionRef.current?.nextElementSibling 
       : sectionRef.current?.previousElementSibling;
 
-    if (!targetSection) return;
+     if (!targetSection) {
+      setIsTransitioning(false);
+      isScrolling.current = false;
+      return;
+    }
 
     // Exit fullscreen mode
     setIsFullScreen(false);
@@ -279,6 +287,7 @@ const IdentityVerified = () => {
         // Reset transition state after animation
         transitionTimeout.current = setTimeout(() => {
           setIsTransitioning(false);
+          isScrolling.current = false;
         }, 500);
       }, 50);
     });
@@ -397,6 +406,30 @@ const IdentityVerified = () => {
         section.removeEventListener('touchend', handleTouchEnd);
       }
     };
+  }, [isFullScreen, selectedIndex, isTransitioning]);
+
+   // Effect to handle keyboard navigation
+   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isFullScreen || isTransitioning || isScrolling.current) return;
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        if (selectedIndex === 2) {
+          scrollToSection('down');
+        } else {
+          setSelectedIndex((current) => current + 1);
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        if (selectedIndex === 0) {
+          scrollToSection('up');
+        } else {
+          setSelectedIndex((current) => current - 1);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isFullScreen, selectedIndex, isTransitioning]);
 
   return (

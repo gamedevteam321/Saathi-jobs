@@ -13,19 +13,19 @@ const features: FeatureItem[] = [
   {
     id: "explore",
     title: "Reels not Resumes",
-    description: <><p>Disruptive hiring with short video reels</p></>,
+    description: <>Disruptive hiring with short video reels</>,
     phoneImage: "images/JobReel.png"
   },
   {
     id: "reels",
     title: "Watch Listen Apply",
-    description:  <><p>Complex Job Descriptions become Simple Short Video Job Posts</p><p>AI/ML algorithms for an Instant Match</p></>,
+    description:  <>Complex Job Descriptions become Simple Short Video Job Posts <br/> AI/ML algorithms for an Instant Match</>,
     phoneImage: "images/JobPost.png"
   },
   {
     id: "stories",
     title: <>24/7 <span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>AI Recruiter</span></>,
-    description:  <><p>Instant interview with Employers AI Avatar</p></>,
+    description:  <>Instant interview with Employers AI Avatar</>,
     phoneImage: "images/AIinterview.png"
   },
 ];
@@ -162,13 +162,13 @@ export default function FeatureCarousel() {
         // When section is 80% visible and not transitioning
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
-          if (intersectionRatio >= 0.3) {
+          if (intersectionRatio >= 0.8) {
             if (typeof window !== 'undefined') {
               window.__disableIdentityVerifiedFullScreen = true;
               window.__disableJobReelsFullScreen  = false;
               setTimeout(() => {
                 window.__disableIdentityVerifiedFullScreen = false;
-              }, 500);
+              }, 1200);
              }
             setIsFullScreen(true);
             // Set initial section based on scroll direction
@@ -248,6 +248,11 @@ export default function FeatureCarousel() {
       touchStartTime.current = Date.now();
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isFullScreen || isTransitioning || isScrolling.current) return;
+      e.preventDefault(); // Prevent default to stop page scrolling
+    };
+
     const handleTouchEnd = (e: TouchEvent) => {
       if (!isFullScreen || isTransitioning || isScrolling.current) return;
 
@@ -283,6 +288,7 @@ export default function FeatureCarousel() {
     if (section) {
       section.addEventListener('wheel', handleWheel, { passive: false });
       section.addEventListener('touchstart', handleTouchStart, { passive: true });
+      section.addEventListener('touchmove', handleTouchMove, { passive: false });
       section.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
@@ -290,6 +296,7 @@ export default function FeatureCarousel() {
       if (section) {
         section.removeEventListener('wheel', handleWheel);
         section.removeEventListener('touchstart', handleTouchStart);
+        section.removeEventListener('touchmove', handleTouchMove);
         section.removeEventListener('touchend', handleTouchEnd);
       }
     };
@@ -334,7 +341,7 @@ export default function FeatureCarousel() {
       ref={sectionRef}
       className={`${
         isFullScreen ? 'fixed inset-0 z-50' : 'relative'
-      } transition-all duration-300 ease-out bg-black`}
+      } transition-all duration-300 ease-out bg-black touch-handler`}
       style={{ 
         pointerEvents: isTransitioning ? 'none' : 'auto',
         opacity: 1,

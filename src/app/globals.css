@@ -12,7 +12,7 @@ html {
 * {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  overscroll-behavior-y: contain;
+  overscroll-behavior-y: none;
 }
 
 /* Full-screen section styles */
@@ -364,4 +364,9 @@ html {
 
 .fullscreen-slide-out {
   animation: fullscreenSlideOut 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Add touch-action manipulation to prevent default touch behaviors */
+.touch-handler {
+  touch-action: pan-y pinch-zoom;
 }
