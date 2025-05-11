@@ -3,8 +3,11 @@ import "./globals.css";
 import ClientBody from "./ClientBody";
 
 export const metadata: Metadata = {
-  title: "Find Your Perfect Career Opportunity",
+  title: "Saathi World App",
   description: "Connect with great career opportunities. Search for jobs, upload your resume, and find your next career move.",
+  icons: {
+    icon: "/Logo.svg",
+  },  
 };
 
 export default function RootLayout({
