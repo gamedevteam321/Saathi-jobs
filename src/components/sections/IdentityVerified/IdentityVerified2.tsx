@@ -357,6 +357,17 @@ const IdentityVerified = () => {
       touchStartY.current = e.touches[0].clientY;
       touchStartTime.current = Date.now();
     };
+    
+    // Add touchmove handler specifically for iOS to prevent background scrolling
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isFullScreen || isTransitioning) return;
+      
+      // Always prevent default for iOS devices to stop background scrolling
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      if (isIOS) {
+        e.preventDefault();
+      }
+    };
 
     const handleTouchEnd = (e: TouchEvent) => {
       if (!isFullScreen || isTransitioning) return;
@@ -366,28 +377,64 @@ const IdentityVerified = () => {
       const deltaY = touchEndY - touchStartY.current;
       const deltaTime = touchEndTime - touchStartTime.current;
 
-      // Only process if the touch was quick enough (less than 300ms) and moved enough (more than 50px)
-      if (deltaTime < 300 && Math.abs(deltaY) > 50) {
+      // Adjusted thresholds for iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      const touchThreshold = isIOS ? 30 : 50; // Lower threshold for iOS
+      const timeThreshold = isIOS ? 400 : 300; // Higher time threshold for iOS
+
+      // Only process if the touch was quick enough and moved enough
+      if (deltaTime < timeThreshold && Math.abs(deltaY) > touchThreshold) {
         const direction = deltaY > 0 ? 'up' : 'down';
 
-        // Handle edge cases for first and last sections
-        if (direction === 'down' && selectedIndex === sections.length - 1) {
-          setIsTransitioning(true);
-          scrollToSection('down');
+        // Special case for iOS at the last section to prevent looping
+        if (isIOS && direction === 'down' && selectedIndex === sections.length - 1) {
+          // Force exit fullscreen and prevent re-entry
+          setIsFullScreen(false);
+          window.__disableIdentityVerifiedFullScreen = true;
+          
+          // Allow scrolling to next section with a delay
+          setTimeout(() => {
+            isScrolling.current = false;
+            setIsTransitioning(false);
+            
+            // Scroll to next section
+            const targetSection = sectionRef.current?.nextElementSibling;
+            if (targetSection) {
+              targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+            
+            // Re-enable fullscreen after a longer delay
+            setTimeout(() => {
+              window.__disableIdentityVerifiedFullScreen = false;
+            }, 1500);
+          }, 300);
           return;
         }
 
-        if (direction === 'up' && selectedIndex === 0) {
-          setIsTransitioning(true);
-          scrollToSection('up');
-          return;
-        }
+        // Add a small delay for iOS
+        setTimeout(() => {
+          // Handle edge cases for first and last sections
+          if (direction === 'down' && selectedIndex === sections.length - 1) {
+            setIsTransitioning(true);
+            scrollToSection('down');
+            return;
+          }
 
-        // Update selected section index
-        setSelectedIndex((current) => {
-          const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
-          return next;
-        });
+          if (direction === 'up' && selectedIndex === 0) {
+            setIsTransitioning(true);
+            scrollToSection('up');
+            return;
+          }
+
+          // Update selected section index
+          setSelectedIndex((current) => {
+            const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
+            return next;
+          });
+        }, isIOS ? 100 : 0);
       }
     };
 
@@ -395,7 +442,12 @@ const IdentityVerified = () => {
     const section = sectionRef.current;
     if (section) {
       section.addEventListener('wheel', handleWheel, { passive: false });
+      
+      // For iOS, we need different passive settings for touchmove
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      
       section.addEventListener('touchstart', handleTouchStart, { passive: true });
+      section.addEventListener('touchmove', handleTouchMove, { passive: isIOS ? false : true });
       section.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
@@ -403,13 +455,50 @@ const IdentityVerified = () => {
       if (section) {
         section.removeEventListener('wheel', handleWheel);
         section.removeEventListener('touchstart', handleTouchStart);
+        section.removeEventListener('touchmove', handleTouchMove);
         section.removeEventListener('touchend', handleTouchEnd);
       }
     };
   }, [isFullScreen, selectedIndex, isTransitioning]);
+  
+  // Add an effect to prevent body scrolling when in fullscreen on iOS
+  useEffect(() => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    
+    if (isIOS && isFullScreen) {
+      // Save the current body style and scroll position
+      const scrollY = window.scrollY;
+      const originalStyle = {
+        position: document.body.style.position,
+        top: document.body.style.top,
+        overflow: document.body.style.overflow,
+        width: document.body.style.width,
+        height: document.body.style.height
+      };
+      
+      // Prevent scrolling on the body
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.overflow = 'hidden';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      
+      return () => {
+        // Restore body styles when fullscreen is exited
+        document.body.style.position = originalStyle.position;
+        document.body.style.top = originalStyle.top;
+        document.body.style.overflow = originalStyle.overflow;
+        document.body.style.width = originalStyle.width;
+        document.body.style.height = originalStyle.height;
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isFullScreen]);
 
-   // Effect to handle keyboard navigation
-   useEffect(() => {
+  // Effect to handle keyboard navigation
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isFullScreen || isTransitioning || isScrolling.current) return;
 

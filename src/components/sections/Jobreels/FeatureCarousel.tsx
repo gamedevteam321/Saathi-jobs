@@ -77,6 +77,9 @@ export default function FeatureCarousel() {
   const touchStartY = useRef(0);
   const touchStartTime = useRef(0);
 
+  const TOUCH_DEBOUNCE = 300; // milliseconds
+  const TOUCH_THRESHOLD = 50; // pixels
+
   // Function to handle smooth scrolling between sections
   const scrollToSection = (direction: 'up' | 'down') => {
     if (isTransitioning || isScrolling.current) return;
@@ -250,7 +253,14 @@ export default function FeatureCarousel() {
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!isFullScreen || isTransitioning || isScrolling.current) return;
-      e.preventDefault(); // Prevent default to stop page scrolling
+      
+      // Always prevent default for iOS to stop background scrolling
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      if (isIOS) {
+        e.preventDefault();
+      } else if (Math.abs(e.touches[0].clientY - touchStartY.current) > 10) {
+        e.preventDefault();
+      }
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
@@ -261,34 +271,74 @@ export default function FeatureCarousel() {
       const deltaY = touchEndY - touchStartY.current;
       const deltaTime = touchEndTime - touchStartTime.current;
 
-      // Only process if the touch was quick enough (less than 300ms) and moved enough (more than 50px)
-      if (deltaTime < 300 && Math.abs(deltaY) > 50) {
-        const direction = deltaY > 0 ? 'up' : 'down';
-
-        // Handle section transitions at edges
-        if (direction === 'down' && selectedIndex === 2) {
-          scrollToSection('down');
-          return;
+      // Special iOS handling with more lenient thresholds
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      const thresholdToUse = isIOS ? 30 : TOUCH_THRESHOLD; // Lower threshold for iOS
+      const debounceToUse = isIOS ? 400 : TOUCH_DEBOUNCE; // Higher debounce for iOS
+      
+      if (deltaTime < debounceToUse && Math.abs(deltaY) > thresholdToUse) {
+        // Fix for iOS: ensure direction is correctly interpreted
+        let direction;
+        if (isIOS) {
+          // For iOS, we need to be more forceful in direction calculation
+          // and add additional checks to prevent looping
+          direction = deltaY > 0 ? 'up' : 'down';
+          
+          // Special case for iOS: prevent immediate re-entry after exiting fullscreen
+          if (direction === 'down' && selectedIndex === features.length - 1) {
+            // Force exit fullscreen and prevent re-entry
+            setIsFullScreen(false);
+            window.__disableJobReelsFullScreen = true;
+            
+            // Allow scrolling to next section with a delay
+            setTimeout(() => {
+              isScrolling.current = false;
+              setIsTransitioning(false);
+              
+              // Scroll to next section
+              const targetSection = sectionRef.current?.nextElementSibling;
+              if (targetSection) {
+                targetSection.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+              
+              // Re-enable fullscreen after a longer delay
+              setTimeout(() => {
+                window.__disableJobReelsFullScreen = false;
+              }, 1500);
+            }, 300);
+            return;
+          }
+        } else {
+          direction = deltaY > 0 ? 'up' : 'down';
         }
-
-        if (direction === 'up' && selectedIndex === 0) {
-          scrollToSection('up');
-          return;
-        }
-
-        // Update selected feature index
-        setSelectedIndex((current) => {
-          const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
-          return next;
-        });
+        
+        // Add a delay for iOS
+        setTimeout(() => {
+          if (direction === 'down' && selectedIndex === features.length - 1) {
+            scrollToSection('down');
+          } else if (direction === 'up' && selectedIndex === 0) {
+            scrollToSection('up');
+          } else {
+            setSelectedIndex((current) => {
+              const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
+              return next;
+            });
+          }
+        }, isIOS ? 100 : 50);
       }
     };
 
     const section = sectionRef.current;
     if (section) {
       section.addEventListener('wheel', handleWheel, { passive: false });
+      
+      // For iOS, we need different passive settings
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
       section.addEventListener('touchstart', handleTouchStart, { passive: true });
-      section.addEventListener('touchmove', handleTouchMove, { passive: false });
+      section.addEventListener('touchmove', handleTouchMove, { passive: isIOS ? false : false });
       section.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
@@ -301,6 +351,42 @@ export default function FeatureCarousel() {
       }
     };
   }, [isFullScreen, selectedIndex, isTransitioning]);
+
+  // Add an effect to prevent body scrolling when in fullscreen on iOS
+  useEffect(() => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    
+    if (isIOS && isFullScreen) {
+      // Save the current body style
+      const originalStyle = {
+        position: document.body.style.position,
+        top: document.body.style.top,
+        overflow: document.body.style.overflow,
+        width: document.body.style.width,
+        height: document.body.style.height
+      };
+      
+      // Prevent scrolling on the body
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.overflow = 'hidden';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      
+      return () => {
+        // Restore body styles when fullscreen is exited
+        document.body.style.position = originalStyle.position;
+        document.body.style.top = originalStyle.top;
+        document.body.style.overflow = originalStyle.overflow;
+        document.body.style.width = originalStyle.width;
+        document.body.style.height = originalStyle.height;
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isFullScreen]);
 
   // Effect to handle keyboard navigation
   useEffect(() => {
@@ -332,6 +418,27 @@ export default function FeatureCarousel() {
       if (transitionTimeout.current) {
         clearTimeout(transitionTimeout.current);
       }
+    };
+  }, []);
+
+  // Add to your component's useEffect
+  useEffect(() => {
+    // Fix for iOS Safari 100vh issue
+    const setVhVariable = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    setVhVariable();
+    window.addEventListener('resize', setVhVariable);
+    window.addEventListener('orientationchange', setVhVariable);
+
+    // Fix for iOS Safari momentum scrolling
+    document.body.style.webkitOverflowScrolling = 'touch';
+
+    return () => {
+      window.removeEventListener('resize', setVhVariable);
+      window.removeEventListener('orientationchange', setVhVariable);
     };
   }, []);
 
