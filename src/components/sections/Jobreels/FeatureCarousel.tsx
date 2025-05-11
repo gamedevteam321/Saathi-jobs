@@ -156,7 +156,7 @@ export default function FeatureCarousel() {
         // Check if fullscreen mode should be disabled
         if (typeof window !== 'undefined' && window.__disableJobReelsFullScreen) {
           setIsFullScreen(false);
-          window.__disableJobReelsFullScreen  = false;
+          
           return;
         }
         // When section is 80% visible and not transitioning
@@ -165,7 +165,11 @@ export default function FeatureCarousel() {
           if (intersectionRatio >= 0.3) {
             if (typeof window !== 'undefined') {
               window.__disableIdentityVerifiedFullScreen = true;
-            }
+              window.__disableJobReelsFullScreen  = false;
+              setTimeout(() => {
+                window.__disableIdentityVerifiedFullScreen = false;
+              }, 500);
+             }
             setIsFullScreen(true);
             // Set initial section based on scroll direction
             if (isFromBelow.current) {

@@ -201,7 +201,7 @@ const IdentityVerified = () => {
         // Check if fullscreen mode should be disabled
         if (typeof window !== 'undefined' && window.__disableIdentityVerifiedFullScreen) {
           setIsFullScreen(false);
-          window.__disableIdentityVerifiedFullScreen = false;
+          //window.__disableIdentityVerifiedFullScreen = false;
           return;
         }
         
@@ -209,9 +209,10 @@ const IdentityVerified = () => {
         if (entry.isIntersecting && !isTransitioning) {
           const intersectionRatio = entry.intersectionRatio;
           if (intersectionRatio >= 0.7) {
-            if (typeof window !== 'undefined') {
-              window.__disableIdentityVerifiedFullScreen = true;
-            }
+            // if (typeof window !== 'undefined') {
+            //   window.__disableIdentityVerifiedFullScreen = true;
+            //   window.__disableIdentityVerifiedFullScreen = false;
+            // }
             setIsFullScreen(true);
             // Set initial section based on scroll direction
             if (isFromBelow.current) {
