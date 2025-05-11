@@ -30,6 +30,10 @@ const ScrollToTop = () => {
       top: 0,
       behavior: 'smooth',
     });
+    setTimeout(() => {
+      window.__disableJobReelsFullScreen = false;
+      window.__disableIdentityVerifiedFullScreen = false;
+    }, 1000);
   };
 
   return (

@@ -243,10 +243,18 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
                           // Set disable fullpage flag if navigating to a section below JobReels
                           if (["#jobtrain", "#trueid", "#ecosystem", "#impact", "#media"].includes(option.href)) {
                             window.__disableJobReelsFullScreen = true;
+                            setTimeout(() => {
+                              window.__disableJobReelsFullScreen = false;
+                              //window.__disableIdentityVerifiedFullScreen = false;
+                            }, 1000);
                           }
                           // Set disable fullpage flag for IdentityVerified if navigating to a section below it
                           if (["#ecosystem", "#impact", "#media"].includes(option.href)) {
                             window.__disableIdentityVerifiedFullScreen = true;
+                            setTimeout(() => {
+                              //window.__disableJobReelsFullScreen = false;
+                              window.__disableIdentityVerifiedFullScreen = false;
+                            }, 1000);
                           }
                           const id = option.href.replace("#", "");
                           const el = document.getElementById(id);
@@ -280,10 +288,18 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
                             // Set disable fullpage flag if navigating to a section below JobReels
                             if (["#jobtrain", "#trueid", "#ecosystem", "#impact", "#media"].includes(option.href)) {
                               window.__disableJobReelsFullScreen = true;
+                              setTimeout(() => {
+                                window.__disableJobReelsFullScreen = false;
+                                //window.__disableIdentityVerifiedFullScreen = false;
+                              }, 1000);
                             }
                             // Set disable fullpage flag for IdentityVerified if navigating to a section below it
                             if (["#ecosystem", "#impact", "#media"].includes(option.href)) {
                               window.__disableIdentityVerifiedFullScreen = true;
+                              setTimeout(() => {
+                                //window.__disableJobReelsFullScreen = false;
+                                window.__disableIdentityVerifiedFullScreen = false;
+                              }, 1000);
                             }
                             const id = option.href.replace("#", "");
                             const el = document.getElementById(id);
@@ -315,10 +331,18 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
                             // Set disable fullpage flag if navigating to a section below JobReels
                             if (["#jobtrain", "#trueid", "#ecosystem", "#impact", "#media"].includes(option.href)) {
                               window.__disableJobReelsFullScreen = true;
+                              setTimeout(() => {
+                                window.__disableJobReelsFullScreen = false;
+                                //window.__disableIdentityVerifiedFullScreen = false;
+                              }, 1000);
                             }
                             // Set disable fullpage flag for IdentityVerified if navigating to a section below it
                             if (["#ecosystem", "#impact", "#media"].includes(option.href)) {
                               window.__disableIdentityVerifiedFullScreen = true;
+                              setTimeout(() => {
+                                //window.__disableJobReelsFullScreen = false;
+                                window.__disableIdentityVerifiedFullScreen = false;
+                              }, 1000);
                             }
                             const id = option.href.replace("#", "");
                             const el = document.getElementById(id);

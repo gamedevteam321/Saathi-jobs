@@ -81,6 +81,10 @@ export default function Footer() {
                 window.__disableJobReelsFullScreen = true;
                 window.__disableIdentityVerifiedFullScreen = true;
                 window.scrollTo({ top: 0, behavior: "smooth" });
+                setTimeout(() => {
+                  window.__disableJobReelsFullScreen = false;
+                  window.__disableIdentityVerifiedFullScreen = false;
+                }, 1000);
               }}
             >
               <Image src="/assets/home/Logo.svg" alt="Saathi Logo" width={100} height={28} />
