@@ -428,7 +428,7 @@ const IdentityVerified = () => {
                 <div className="flex flex-row items-start justify-center w-full">
                   {/* Vertical Pagination Dots for Desktop */}
                   {isFullScreen && (
-                    <div className="hidden sm:flex flex-col items-center mr-2 sm:mr-4 pt-8 sm:pt-24">
+                    <div className="sm:flex flex-col items-center mr-2 sm:mr-4 pt-8 sm:pt-24">
                       {sections.map((_, idx) => (
                         <div
                           key={idx}
@@ -443,7 +443,7 @@ const IdentityVerified = () => {
                   </div>
                 </div>
                 {/* Horizontal Pagination Dots for Mobile (now below the feature text) */}
-                {isFullScreen && (
+                {/* {isFullScreen && (
                   <div className="flex flex-row items-center justify-center mt-4 sm:hidden">
                     {sections.map((_, idx) => (
                       <div
@@ -452,7 +452,7 @@ const IdentityVerified = () => {
                       />
                     ))}
                   </div>
-                )}
+                )} */}
               </div>
             </div>
             {/* Right Side - Image Display (now below text on mobile) */}

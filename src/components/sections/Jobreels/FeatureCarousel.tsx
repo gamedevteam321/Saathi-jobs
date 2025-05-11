@@ -413,7 +413,7 @@ export default function FeatureCarousel() {
                   >
                     <div className="w-full h-full flex flex-row items-start space-x-2 md:space-x-4 bg-black">
                       {/* Pagination dots for desktop only (vertical) */}
-                      <div className="hidden md:flex flex-col items-center justify-center space-y-4 mr-2 mt-3">
+                      <div className="md:flex flex-col items-center justify-center space-y-4 mr-2 mt-3">
                         {features.map((_, dotIdx) => (
                           <div
                             key={`progress-${dotIdx}`}
@@ -439,7 +439,7 @@ export default function FeatureCarousel() {
             </div>
 
             {/* Pagination dots for mobile only (horizontal, centered) */}
-            <div className="flex md:hidden flex-row items-center justify-center space-x-4 w-full order-2 mt-2 mb-2">
+            {/* <div className="flex md:hidden flex-row items-center justify-center space-x-4 w-full order-2 mt-2 mb-2">
               {features.map((_, dotIdx) => (
                 <div
                   key={`progress-mobile-${dotIdx}`}
@@ -450,7 +450,7 @@ export default function FeatureCarousel() {
                   }`}
                 />
               ))}
-            </div>
+            </div> */}
 
             {/* Right Side - Video Display */}
             <div className="relative h-full flex flex-col items-center justify-center md:justify-start md:pl-4 bg-black mt-6 md:-mt-64 order-2 md:order-none w-full px-4">
