@@ -22,7 +22,7 @@ export default function Home() {
     // Main container with minimum height of screen and white background
     <main className="min-h-screen bg-black">
       {/* Hero section for main banner/headline */}
-      <section className="section-transition min-h-screen">
+      <section className="section-transition">
         <HeroSection />
       </section>
       
@@ -32,7 +32,7 @@ export default function Home() {
       
       
       {/* Section about fast train feature */}
-      <section className="section-transition min-h-screen" id="jobtrain">
+      <section className="section-transition" id="jobtrain">
         <FastTrainSection />
       </section>
       
@@ -41,22 +41,22 @@ export default function Home() {
         <IdentityVerified2 />
     
       {/* Section explaining the Saathi ecosystem */}
-      <section className="section-transition min-h-screen" id="ecosystem">
+      <section className="section-transition" id="ecosystem">
         <SaathiEcosystem />
       </section>
       
       {/* Section for creators */}
-      <section className="section-transition min-h-screen" id="impact">
+      <section className="section-transition" id="impact">
         <Impact />
       </section>
       
       {/* Section for Download and Hire */}
-      <section className="section-transition min-h-screen" id="download">
+      <section className="section-transition" id="download">
         <DownloadAndHireSection />
       </section>
       
       {/* Section for Full Width Text */}
-      <section className="section-transition min-h-screen" id="media">
+      <section className="section-transition " id="media">
         <FullWidthTextSection />
       </section>
       
