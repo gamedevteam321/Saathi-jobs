@@ -188,7 +188,8 @@ const IdentityVerified = () => {
   
   // Ref to track if the user scrolled from below the section
   const isFromBelow = useRef(false);
-
+  const lastScrollPosition = useRef(0);
+  
   // Refs for touch handling
   const touchStartY = useRef(0);
   const touchStartTime = useRef(0);
@@ -216,9 +217,9 @@ const IdentityVerified = () => {
             setIsFullScreen(true);
             // Set initial section based on scroll direction
             if (isFromBelow.current) {
-              setSelectedIndex(0);
-            } else {
               setSelectedIndex(sections.length - 1);
+            } else {
+              setSelectedIndex(0);
             }
           } else {
             setIsFullScreen(false);
@@ -283,6 +284,21 @@ const IdentityVerified = () => {
     });
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentPosition = window.scrollY;
+      if (currentPosition > lastScrollPosition.current) {
+        isFromBelow.current = false; // Scrolling down
+      } else {
+        isFromBelow.current = true; // Scrolling up
+      }
+      lastScrollPosition.current = currentPosition;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Effect to handle wheel events for section navigation
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -320,7 +336,7 @@ const IdentityVerified = () => {
 
         // Update selected section index
         setSelectedIndex((current) => {
-          const next = direction === 'down' ? current + 1 : current - 1;
+          const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
           return next;
         });
       }
@@ -360,7 +376,7 @@ const IdentityVerified = () => {
 
         // Update selected section index
         setSelectedIndex((current) => {
-          const next = direction === 'down' ? current + 1 : current - 1;
+          const next = direction === 'down' ? Math.min(current + 1, 2) : Math.max(current - 1, 0);
           return next;
         });
       }
