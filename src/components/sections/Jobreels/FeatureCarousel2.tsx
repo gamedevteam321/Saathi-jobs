@@ -13,19 +13,19 @@ const features: FeatureItem[] = [
   {
     id: "explore",
     title: "Reels not Resumes",
-    description: <><p>Disruptive hiring with short video reels</p></>,
+    description: <>Disruptive hiring with short video reels</>,
     phoneImage: "images/JobReel.png"
   },
   {
     id: "reels",
     title: "Watch Listen Apply",
-    description:  <><p>Complex Job Descriptions become Simple Short Video Job Posts</p><p>AI/ML algorithms for an Instant Match</p></>,
+    description:  <>Complex Job Descriptions become Simple Short Video Job Posts <br/> AI/ML algorithms for an Instant Match</>,
     phoneImage: "images/JobPost.png"
   },
   {
     id: "stories",
     title: <>24/7 <span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>AI Recruiter</span></>,
-    description:  <><p>Instant interview with Employers AI Avatar</p></>,
+    description:  <>Instant interview with Employers AI Avatar</>,
     phoneImage: "images/AIinterview.png"
   },
 ];

@@ -98,12 +98,12 @@ const BusinessSubPage = () => {
           <div className="mt-2">
             <span className="text-white text-base md:text-lg">Risk Free</span>
             <br />
-            <span className="text-[#FFC01D] text-base md:text-lg">100% Money back guarantee</span>
+            <span className="text-[#FFC01D] text-base md:text-lg">100% Money Back Guarantee</span>
           </div>
         </div>
         {/* Bottom Logo and T&C */}
         <div className="w-full flex flex-col items-start mt-8">
-          <span className="text-2xl font-bold mb-1 flex items-center">Saathi<span className="text-[#FFC01D] text-3xl ml-1">»</span></span>
+          <img className="mb-1" src="/assets/home/Logo.svg" alt="saathi-logo" width={100} height={24} />
           <span className="text-gray-400 text-xs">Standard T&C to Apply</span>
         </div>
       </div>
