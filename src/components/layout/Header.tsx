@@ -184,10 +184,10 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
             
             
             {/* Menu content with vertical layout */}
-            <div className="flex flex-col items-start w-full px-3 md:px-16 pt-5 md:pt-10 pb-10">
+            <div className="flex flex-col items-start px-3 md:px-16 pt-5 md:pt-10 pb-10">
 
               {/* 1. Logo at the top */}
-              <div className="ml-3 mb-10 flex flex-row items-left justify-between gap-5">
+              <div className="pb-10 flex flex-row items-center justify-center  gap-5">
                 <a
                   href="/"
                   onClick={e => {
@@ -231,7 +231,18 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
               <div className="w-full h-full">
                 {/* Mobile view - all options stacked */}
                 <div className="md:hidden flex flex-col items-start gap-7">
-                  {menuOptions.map((option, index) => (
+                  {/* Business Button for Mobile View - Moved above menu options */}
+                  <button
+                    onClick={() => {
+                      handleBusinessClick();
+                      setIsMenuOpen(false);
+                    }}
+                    className="ml-3 mb-3 flex items-center justify-center bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] text-black font-poppins text-xl font-semibold px-7 py-2 hover:from-[#FF9A01] hover:via-[#FFD955] hover:to-[#FFC01D] transition-colors rounded-[8px]"
+                  >
+                    <span>Business</span>
+                  </button>
+                  
+                  {menuOptions.filter(option => option.href !== "/business-sub").map((option, index) => (
                     <Link
                       key={index}
                       className="px-3 text-white font-poppins text-xl font-medium hover:text-gray-500 transition-colors "

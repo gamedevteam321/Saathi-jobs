@@ -38,10 +38,12 @@ export default function Home() {
         const scrollProgress = (scrollY - featuresSectionTop) / featuresSectionHeight;
         
         // Determine which feature to show based on scroll position
-        if (scrollProgress < 0.33) {
+        if (scrollProgress < 0.25) {
           setFeatureIndex(0);
-        } else if (scrollProgress < 0.66) {
+        } else if (scrollProgress < 0.5) {
           setFeatureIndex(1);
+        } else if (scrollProgress < 0.75) {
+          setFeatureIndex(2);
         } else if (scrollProgress <= 1) {
           setFeatureIndex(2);
         }
@@ -57,10 +59,12 @@ export default function Home() {
         const scrollProgress = (scrollY - identitySectionTop) / identitySectionHeight;
         
         // Determine which identity to show based on scroll position
-        if (scrollProgress < 0.33) {
+        if (scrollProgress < 0.25) {
           setIdentityIndex(0);
-        } else if (scrollProgress < 0.66) {
+        } else if (scrollProgress < 0.5) {
           setIdentityIndex(1);
+        } else if (scrollProgress < 0.75) {
+          setIdentityIndex(2);
         } else if (scrollProgress <= 1) {
           setIdentityIndex(2);
         }
@@ -82,7 +86,7 @@ export default function Home() {
       {/* Carousel showcasing key features */}
       <div 
         ref={featuresRef} 
-        className="h-[300vh] relative"
+        className="h-[400vh] relative"
       >
         <div className="sticky top-0 h-screen">
           <FeatureCarousel selectedIndex={featureIndex} />
@@ -95,7 +99,7 @@ export default function Home() {
       {/* Identity Verified section with scroll effect */}
       <div 
         ref={identityRef} 
-        className="h-[300vh] relative"
+        className="h-[400vh] relative"
       >
         <div className="sticky top-0 h-screen">
           <IdentityVerified2 selectedIndex={identityIndex} />
