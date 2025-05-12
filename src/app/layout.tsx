@@ -3,8 +3,8 @@ import "./globals.css";
 import ClientBody from "./ClientBody";
 
 export const metadata: Metadata = {
-  title: "Saathi World App",
-  description: "Connect with great career opportunities. Search for jobs, upload your resume, and find your next career move.",
+  title: "Saathi",
+  description: "Reel Banao, Naukari Paao",
   icons: {
     icon: "/Logo.svg",
   },  
