@@ -1,9 +1,12 @@
+"use client";
+
 // Importing layout components
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
+import { useState, useEffect, useRef } from "react";
 
 // Importing section components for different parts of the landing page
-import FeatureCarousel from "@/components/sections/Jobreels/FeatureCarousel";
+import FeatureCarousel from "@/components/sections/Jobreels/FeatureCarousel2";
 import FastTrainSection from "@/components/sections/fasttrain/FastTrainSection";
 import CommunitySection from "@/components/sections/Reviews/CommunitySection";
 import Impact from "@/components/sections/Impact";
@@ -12,12 +15,62 @@ import DownloadAppSection from "@/components/sections/DownloadAppSection";
 import HeroSection from "@/components/sections/HeroSection";
 import SaathiEcosystem from "@/components/sections/SaathiEcosystem";
 // import IdentityVerified from "@/components/sections/IdentityVerified/IdentityVerified";
-import IdentityVerified2 from "@/components/sections/IdentityVerified/IdentityVerified2";
+import IdentityVerified2 from "@/components/sections/IdentityVerified/IdentityVerified";
 import DownloadAndHireSection from "@/components/sections/DownloadAndHireSection";
 import FullWidthTextSection from "@/components/sections/FullWidthTextSection";
 
 // Main page component that serves as the landing page
 export default function Home() {
+  const [featureIndex, setFeatureIndex] = useState(0);
+  const [identityIndex, setIdentityIndex] = useState(0);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const identityRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      // Feature carousel scroll logic
+      if (featuresRef.current) {
+        const scrollY = window.scrollY;
+        const featuresSectionTop = featuresRef.current.offsetTop;
+        const featuresSectionHeight = featuresRef.current.offsetHeight;
+        
+        // Calculate how far through the features section we've scrolled
+        const scrollProgress = (scrollY - featuresSectionTop) / featuresSectionHeight;
+        
+        // Determine which feature to show based on scroll position
+        if (scrollProgress < 0.33) {
+          setFeatureIndex(0);
+        } else if (scrollProgress < 0.66) {
+          setFeatureIndex(1);
+        } else if (scrollProgress <= 1) {
+          setFeatureIndex(2);
+        }
+      }
+      
+      // Identity verified scroll logic
+      if (identityRef.current) {
+        const scrollY = window.scrollY;
+        const identitySectionTop = identityRef.current.offsetTop;
+        const identitySectionHeight = identityRef.current.offsetHeight;
+        
+        // Calculate how far through the identity section we've scrolled
+        const scrollProgress = (scrollY - identitySectionTop) / identitySectionHeight;
+        
+        // Determine which identity to show based on scroll position
+        if (scrollProgress < 0.33) {
+          setIdentityIndex(0);
+        } else if (scrollProgress < 0.66) {
+          setIdentityIndex(1);
+        } else if (scrollProgress <= 1) {
+          setIdentityIndex(2);
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     // Main container with minimum height of screen and white background
     <main className="min-h-screen bg-black">
@@ -27,19 +80,28 @@ export default function Home() {
       </section>
       
       {/* Carousel showcasing key features */}
-      
-        <FeatureCarousel />
-      
+      <div 
+        ref={featuresRef} 
+        className="h-[300vh] relative"
+      >
+        <div className="sticky top-0 h-screen">
+          <FeatureCarousel selectedIndex={featureIndex} />
+        </div>
+      </div>
       
       {/* Section about fast train feature */}
+      <FastTrainSection />
       
-        <FastTrainSection />
+      {/* Identity Verified section with scroll effect */}
+      <div 
+        ref={identityRef} 
+        className="h-[300vh] relative"
+      >
+        <div className="sticky top-0 h-screen">
+          <IdentityVerified2 selectedIndex={identityIndex} />
+        </div>
+      </div>
       
-      
-      {/* Identity Verified section */}
-      
-        <IdentityVerified2 />
-    
       {/* Section explaining the Saathi ecosystem */}
       <section className="" id="ecosystem">
         <SaathiEcosystem />

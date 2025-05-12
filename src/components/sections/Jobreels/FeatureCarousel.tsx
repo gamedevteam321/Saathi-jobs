@@ -353,40 +353,40 @@ export default function FeatureCarousel() {
   }, [isFullScreen, selectedIndex, isTransitioning]);
 
   // Add an effect to prevent body scrolling when in fullscreen on iOS
-  useEffect(() => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  // useEffect(() => {
+  //   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
     
-    if (isIOS && isFullScreen) {
-      // Save the current body style
-      const originalStyle = {
-        position: document.body.style.position,
-        top: document.body.style.top,
-        overflow: document.body.style.overflow,
-        width: document.body.style.width,
-        height: document.body.style.height
-      };
+  //   if (isIOS && isFullScreen) {
+  //     // Save the current body style
+  //     const originalStyle = {
+  //       position: document.body.style.position,
+  //       top: document.body.style.top,
+  //       overflow: document.body.style.overflow,
+  //       width: document.body.style.width,
+  //       height: document.body.style.height
+  //     };
       
-      // Prevent scrolling on the body
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.overflow = 'hidden';
-      document.body.style.width = '100%';
-      document.body.style.height = '100%';
+  //     // Prevent scrolling on the body
+  //     const scrollY = window.scrollY;
+  //     document.body.style.position = 'fixed';
+  //     document.body.style.top = `-${scrollY}px`;
+  //     document.body.style.overflow = 'hidden';
+  //     document.body.style.width = '100%';
+  //     document.body.style.height = '100%';
       
-      return () => {
-        // Restore body styles when fullscreen is exited
-        document.body.style.position = originalStyle.position;
-        document.body.style.top = originalStyle.top;
-        document.body.style.overflow = originalStyle.overflow;
-        document.body.style.width = originalStyle.width;
-        document.body.style.height = originalStyle.height;
+  //     return () => {
+  //       // Restore body styles when fullscreen is exited
+  //       document.body.style.position = originalStyle.position;
+  //       document.body.style.top = originalStyle.top;
+  //       document.body.style.overflow = originalStyle.overflow;
+  //       document.body.style.width = originalStyle.width;
+  //       document.body.style.height = originalStyle.height;
         
-        // Restore scroll position
-        window.scrollTo(0, scrollY);
-      };
-    }
-  }, [isFullScreen]);
+  //       // Restore scroll position
+  //       window.scrollTo(0, scrollY);
+  //     };
+  //   }
+  // }, [isFullScreen]);
 
   // Effect to handle keyboard navigation
   useEffect(() => {
