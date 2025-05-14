@@ -6,7 +6,7 @@ import ScrollToTop from "@/components/common/ScrollToTop";
 import { useState, useEffect, useRef } from "react";
 
 // Importing section components for different parts of the landing page
-import FeatureCarousel from "@/components/sections/Jobreels/FeatureCarousel2";
+import FeatureCarousel from "@/components/sections/Jobreels/FeatureCarousel";
 import FastTrainSection from "@/components/sections/fasttrain/FastTrainSection";
 import CommunitySection from "@/components/sections/Reviews/CommunitySection";
 import Impact from "@/components/sections/Impact";
@@ -18,6 +18,9 @@ import SaathiEcosystem from "@/components/sections/SaathiEcosystem";
 import IdentityVerified2 from "@/components/sections/IdentityVerified/IdentityVerified";
 import DownloadAndHireSection from "@/components/sections/DownloadAndHireSection";
 import FullWidthTextSection from "@/components/sections/FullWidthTextSection";
+import JobReelContainer from "@/components/sections/Jobreels/JobReelContainer";
+import JobReelHeader from "@/components/sections/Jobreels/JobReelHeader";
+import GroupSection from "@/components/sections/Jobreels/GroupSection";
 
 // Main page component that serves as the landing page
 export default function Home() {
@@ -83,13 +86,19 @@ export default function Home() {
         <HeroSection />
       </section>
       
+      <section className="section-transition">
+        <GroupSection />
+      </section>
+      <section className="section-transition">
+        <JobReelHeader />
+      </section>
       {/* Carousel showcasing key features */}
       <div 
         ref={featuresRef} 
         className="h-[400vh] relative"
       >
         <div className="sticky top-0 h-screen">
-          <FeatureCarousel selectedIndex={featureIndex} />
+          <JobReelContainer selectedIndex={featureIndex} />
         </div>
       </div>
       

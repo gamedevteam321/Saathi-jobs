@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import FeatureCarousel2 from "../Jobreels/FeatureCarousel2";
+import FeatureCarousel2 from "../Jobreels/FeatureCarousel";
 // Placeholder icons (replace with your icon library or SVGs as needed)
 
 const features = [
