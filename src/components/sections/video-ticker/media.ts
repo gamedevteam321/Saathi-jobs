@@ -5,7 +5,7 @@ export const impactVideoData = [
     
     thumbnailUrl: "/images/Media/business-today.png",
     videoUrl: "",
-    youtubeUrl: "https://youtube.com/AZvtXKkVrCA?si=2SggTHDQsFuMxj8f"
+    youtubeUrl: "https://www.youtube.com/watch?v=AZvtXKkVrCA"
   },
   {
     id: "impact2",

@@ -146,7 +146,13 @@ const Header: React.FC<HeaderProps> = (): JSX.Element => {
       </div>
 
       {/* Mobile Burger Menu */}
-      <div className="md:hidden">
+      <div className="md:hidden flex items-center gap-3">
+        <button
+          onClick={handleBusinessClick}
+          className="flex items-center justify-center bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] text-black font-poppins text-base font-semibold px-4 py-1.5 hover:from-[#FF9A01] hover:via-[#FFD955] hover:to-[#FFC01D] transition-colors rounded-[8px]"
+        >
+          <span>Business</span>
+        </button>
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="p-2 focus:outline-none text-white"

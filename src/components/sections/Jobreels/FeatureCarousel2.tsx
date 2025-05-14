@@ -69,7 +69,7 @@ export default function FeatureCarousel({ selectedIndex = 0, onIndexChange }: Fe
             </h1>
             <p className="text-gray-400 italic text-md sm:text-md md:text-[18px] py-1 text-center md:text-left font-['Helvetica']">The Instagram of Jobs</p>
             <div className="mt-3 md:mt-8 text-center md:text-left">
-              <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight mb-4 md:mb-6 font-['Helvetica'] ">When Resume's meet Reel's<br/>hiring happens instantly.</h2>
+              <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight mb-4 md:mb-6 font-['Helvetica'] ">When Resumes meet Reels,<br/>hiring happens instantly</h2>
               <div className="text-gray-400 text-lg sm:text-xl md:text-[28px] font-medium leading-tight font-['Helvetica']  md:space-y-1">
                <p> Post. Swyp. Match. Hire</p>
                <p> Fast. Fun. Effortless</p>

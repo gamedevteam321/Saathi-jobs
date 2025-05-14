@@ -47,14 +47,14 @@ export default function Impact() {
   return (
     <section id="impact" className="bg-gradient-to-b from-[#070707] via-[#18181b] to-[#232325] pb-4  md:py-20">
       <div className="container px-6 md:px-12 lg:px-16 space-y-3 flex flex-col items-center">
-        <h2 className="text-4xl md:text-7xl font-bold text-white text-center">
+        {/* <h2 className="text-4xl md:text-7xl font-bold text-white text-center">
           Impacting <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">Bharat</span>
         </h2>
         <div className="flex flex-col items-center py-6">
           <p className="text-gray-400 text-xl md:text-[40px] font-regular text-center leading-tight tracking-[-0.8px]">Driving transformational impact at scale</p>
           <p className="text-white text-2xl md:text-[35px] font-regular text-center mt-2">Empower, Educate, Enrich</p>
         </div>
-        <ImpactCards />
+        <ImpactCards /> */}
         <div id="media" className="w-full">
           <h2 className="text-4xl md:text-5xl font-bold text-white text-center pt-10">
             In the <span className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">Media</span>
