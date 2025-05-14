@@ -199,51 +199,10 @@
     display: inline-block !important;
   }
   
-  h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
   
-  h1 {
-    margin-top: 20px;
-    font-size: 38px;
-    line-height: 44px;
-  }
+ 
   
-  h2 {
-    margin-top: 20px;
-    font-size: 32px;
-    line-height: 36px;
-  }
-  
-  h3 {
-    margin-top: 20px;
-    font-size: 24px;
-    line-height: 30px;
-  }
-  
-  h4 {
-    margin-top: 10px;
-    font-size: 18px;
-    line-height: 24px;
-  }
-  
-  h5 {
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 20px;
-  }
-  
-  h6 {
-    margin-top: 10px;
-    font-size: 12px;
-    line-height: 18px;
-  }
-  
-  p {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
+ 
   
   blockquote {
     border-left: 5px solid #e2e2e2;
@@ -1917,64 +1876,8 @@
     line-height: 140%;
   }
   
-  h1 {
-    color: var(--platinum);
-    letter-spacing: -.3rem;
-    margin-top: 0;
-    margin-bottom: 30px;
-    font-size: 5rem;
-    font-weight: 700;
-    line-height: 100%;
-  }
-  
-  h2 {
-    color: var(--platinum);
-    letter-spacing: -3px;
-    margin-top: 0;
-    margin-bottom: 30px;
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 110%;
-  }
-  
-  h3 {
-    color: var(--platinum);
-    letter-spacing: -1px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-    font-weight: 500;
-    line-height: 110%;
-  }
-  
-  h4 {
-    color: var(--platinum);
-    letter-spacing: -1px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.25rem;
-    font-weight: 500;
-  }
-  
-  h5 {
-    color: var(--platinum);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 1.125rem;
-    font-weight: 500;
-  }
-  
-  h6 {
-    color: var(--platinum);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-  
-  p {
-    margin-bottom: 30px;
-  }
+ 
+ 
   
   a {
     color: var(--light-grey);
@@ -2363,7 +2266,7 @@
     width: 50%;
     display: flex;
     position: sticky;
-    top: 15%;
+    top: 5%;
   }
   
   .steps-wrapper {
@@ -3526,17 +3429,7 @@
   }
   
   @media screen and (max-width: 991px) {
-    h1 {
-      font-size: 3.5rem;
-    }
-  
-    h2 {
-      font-size: 2.5rem;
-    }
-  
-    h3 {
-      font-size: 1.2rem;
-    }
+    
   
     .navbar {
       padding-left: 0%;
@@ -3724,13 +3617,7 @@
   }
   
   @media screen and (max-width: 767px) {
-    h1 {
-      font-size: 4rem;
-    }
-  
-    h2 {
-      font-size: 3rem;
-    }
+    
   
     .navbar-logo-left-container {
       max-width: 100%;

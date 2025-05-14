@@ -87,20 +87,21 @@ export default function Home() {
       </section>
       
       <section className="section-transition">
-        <GroupSection />
-      </section>
-      <section className="section-transition">
         <JobReelHeader />
       </section>
+      <section className="section-transition">
+        <GroupSection />
+      </section>
+     
       {/* Carousel showcasing key features */}
-      <div 
+      {/* <div 
         ref={featuresRef} 
         className="h-[400vh] relative"
       >
         <div className="sticky top-0 h-screen">
           <JobReelContainer selectedIndex={featureIndex} />
         </div>
-      </div>
+      </div> */}
       
       {/* Section about fast train feature */}
       <FastTrainSection />

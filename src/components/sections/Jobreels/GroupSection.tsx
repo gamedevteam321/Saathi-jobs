@@ -14,68 +14,30 @@ interface ProcessStep {
 
 const processSteps: ProcessStep[] = [
   {
-    number: '01',
-    title: 'Sign up',
-    description: 'Signing up for PursePulse is quick, easy, and the first step towards gaining control of your money.',
+    number: '',
+    title: 'Reels not Resumes',
+    description: 'Disruptive hiring with short video reels',
     requirements: {
-      title: "What you'll need",
-      items: [
-        'An active email address',
-        'A strong, unique password',
-        '60 seconds to complete registration'
-      ]
+      title: "",
+      items: []
     }
   },
   {
-    number: '02',
-    title: 'Set your goals',
-    description: 'Set specific financial goals, whether it\'s saving for a vacation, an emergency fund, or planning for retirement.',
+    number: '',
+    title: 'Watch Listen Apply',
+    description: 'Complex Job Descriptions become Simple Short Video Job Posts, AI/ML algorithms for an Instant Match',
     requirements: {
-      title: "What you'll need",
-      items: [
-        'Clear ideas about your financial aspirations',
-        'Approximate savings goals',
-        'Willingness to define and prioritize your financial objectives'
-      ]
+      title: "",
+      items: []
     }
   },
   {
-    number: '03',
-    title: 'Connect your accounts',
-    description: 'Link your bank accounts, credit cards, and other financial accounts to PursePulse.',
+    number: '',
+    title: '24/7 AI Recruiter',
+    description: 'Instant interview with Employers AI Avatar',
     requirements: {
-      title: "What you'll need",
-      items: [
-        'Online banking credentials',
-        'Statements for credit cards and other accounts',
-        'Secure internet connection'
-      ]
-    }
-  },
-  {
-    number: '04',
-    title: 'Personalize your budget',
-    description: 'Tailor your budget based on your income, expenses, and financial goals for a personalized and effective financial plan.',
-    requirements: {
-      title: "What you'll need",
-      items: [
-        'Knowledge of your monthly income',
-        'An understanding of your regular expenses',
-        'Specific financial goals to tailor your budget effectively'
-      ]
-    }
-  },
-  {
-    number: '05',
-    title: 'Explore all features',
-    description: 'Dive into all of PursePulse\'s features to maximize your financial potential.',
-    requirements: {
-      title: "What you'll need",
-      items: [
-        'Curiosity to discover PursePulse features',
-        'A willingness to explore and try out different tools',
-        'Some time to navigate and get acquainted with the app\'s functionalities'
-      ]
+      title: "",
+      items: []
     }
   }
 ];
@@ -88,33 +50,24 @@ interface ResponsiveImage {
 
 const mockupImages: ResponsiveImage[] = [
   {
-    src: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be8a27d41a4a6be3f97_Sign%20Up%20Mockup.png",
-    srcset: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be8a27d41a4a6be3f97_Sign%20Up%20Mockup-p-500.png 500w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be8a27d41a4a6be3f97_Sign%20Up%20Mockup-p-800.png 800w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be8a27d41a4a6be3f97_Sign%20Up%20Mockup.png 1080w",
+    src: "images/JobReel.png",
+    srcset: "",
     sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
   },
   {
-    src: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be830842ef9a5a953cb_PursePulse%20Mockup%201.png",
-    srcset: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be830842ef9a5a953cb_PursePulse%20Mockup%201-p-500.png 500w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be830842ef9a5a953cb_PursePulse%20Mockup%201-p-800.png 800w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be830842ef9a5a953cb_PursePulse%20Mockup%201.png 1080w",
+    src: "images/JobPost.png",
+    srcset: "",
     sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
   },
   {
-    src: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be70d5814fb1b250b93_PursePulse%20Mockup%205.png",
-    srcset: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be70d5814fb1b250b93_PursePulse%20Mockup%205-p-500.png 500w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be70d5814fb1b250b93_PursePulse%20Mockup%205-p-800.png 800w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be70d5814fb1b250b93_PursePulse%20Mockup%205.png 1080w",
+    src: "images/AIinterview.png",
+    srcset: "",
     sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
   },
-  {
-    src: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/658489c5b45fdc023016876d_PursePulse%20Mockup%204.png",
-    srcset: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/658489c5b45fdc023016876d_PursePulse%20Mockup%204-p-500.png 500w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/658489c5b45fdc023016876d_PursePulse%20Mockup%204-p-800.png 800w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/658489c5b45fdc023016876d_PursePulse%20Mockup%204.png 1080w",
-    sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
-  },
-  {
-    src: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be92e88def35a50e9aa_PursePulse%20Mockup%203.png",
-    srcset: "https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be92e88def35a50e9aa_PursePulse%20Mockup%203-p-500.png 500w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be92e88def35a50e9aa_PursePulse%20Mockup%203-p-800.png 800w, https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/65828be92e88def35a50e9aa_PursePulse%20Mockup%203.png 1080w",
-    sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
-  }
+  
 ];
 
-const GuideSection: React.FC = () => {
+const GuideSection: React.FC<{showFrame?: boolean}> = ({ showFrame = false }) => {
   const [activeStep, setActiveStep] = useState(0);
   const stepsRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -132,7 +85,7 @@ const GuideSection: React.FC = () => {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1]
+      threshold: [0.1, 0.33, 0.75]
     };
 
     // Observer for entrance animations
@@ -200,7 +153,69 @@ const GuideSection: React.FC = () => {
     });
   }, []);
 
-  // Handle scroll-based animations
+  // Update when process steps change
+  useEffect(() => {
+    // Sync the active step with the image display
+    const updateActiveStep = (index: number) => {
+      setActiveStep(index);
+      
+      // Update mockup image visibility
+      mockupImagesRef.current.forEach((img, imgIndex) => {
+        if (img) {
+          if (imgIndex === index) {
+            img.classList.add('active');
+          } else {
+            img.classList.remove('active');
+          }
+        }
+      });
+      
+      // Update progression circles
+      const progressionCircles = document.querySelectorAll('.progression-circle');
+      progressionCircles.forEach((circle, i) => {
+        if (i <= index) {
+          circle.classList.add('active');
+        } else {
+          circle.classList.remove('active');
+        }
+      });
+    };
+
+    // Initial sync
+    updateActiveStep(currentIndexRef.current);
+    
+    // Setup scroll observation for each process item
+    const handleProcessStepVisibility = () => {
+      if (!stepsRef.current) return;
+      
+      const processItems = stepsRef.current.querySelectorAll('.process-item');
+      processItems.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const itemTop = rect.top;
+        
+        // Check if this item is in the middle of the viewport
+        if (itemTop < viewportHeight * 0.6 && itemTop > -rect.height * 0.4) {
+          if (currentIndexRef.current !== index) {
+            currentIndexRef.current = index;
+            updateActiveStep(index);
+          }
+        }
+      });
+    };
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleProcessStepVisibility, { passive: true });
+    
+    // Initial check
+    handleProcessStepVisibility();
+    
+    return () => {
+      window.removeEventListener('scroll', handleProcessStepVisibility);
+    };
+  }, [processSteps]); // Re-run when process steps change
+
+  // Handle scroll-based animations - modified to use the sync function
   useEffect(() => {
     const updateMockups = () => {
       if (!stepsRef.current) return;
@@ -223,30 +238,10 @@ const GuideSection: React.FC = () => {
           1
         );
 
-        // Update current index based on scroll position
-        if (scrollProgress > 0.5 && index !== currentIndexRef.current) {
-          currentIndexRef.current = index;
-        }
-        
         // Update progress bar
         if (progressBar && index === currentIndexRef.current) {
           const progress = (currentIndexRef.current + scrollProgress) / processItems.length * 100;
           progressBar.style.height = `${progress}%`;
-        }
-      });
-
-      // If the current index changed, update the state (outside the scroll handler)
-      if (currentIndexRef.current !== activeStep) {
-        setActiveStep(currentIndexRef.current);
-      }
-
-      // Update progression circles
-      const progressionCircles = document.querySelectorAll('.progression-circle');
-      progressionCircles.forEach((circle, i) => {
-        if (i <= currentIndexRef.current) {
-          circle.classList.add('active');
-        } else {
-          circle.classList.remove('active');
         }
       });
     };
@@ -274,37 +269,47 @@ const GuideSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="guide" className="section transparent-bg">
+    <section id="guide" className="transparent-bg">
       <div className="container w-container">
-        <div className="heading-wrapper center-aligned">
-          <h2>Start for <span className="electric-indigo-text">free</span></h2>
-          <p>No need to watch long-winded tutorials to get started with our app. Just follow these 5 steps and
-            make your first transaction today!</p>
-        </div>
+      
         <div className="process-wrapper" ref={processWrapperRef} data-animate="true">
           <div className="sliding-mockups-wrapper">
             <div className="sliding-mockups-frame" ref={mockupFrameRef}>
-              <div className="mockup-screen">
-                {mockupImages.map((image, index) => (
+              {showFrame ? (
+                <>
+                  <div className="mockup-screen">
+                    {mockupImages.map((image, index) => (
+                      <img
+                        key={index}
+                        ref={el => {
+                          mockupImagesRef.current[index] = el;
+                        }}
+                        src={image.src}
+                        alt={`PursePulse Mockup ${index + 1}`}
+                        className={`sliding-mockup-${index + 1} ${index === activeStep ? 'active' : ''}`}
+                        sizes={image.sizes}
+                        srcSet={image.srcset}
+                      />
+                    ))}
+                  </div>
                   <img
-                    key={index}
-                    ref={el => {
-                      mockupImagesRef.current[index] = el;
-                    }}
-                    src={image.src}
-                    alt={`PursePulse Mockup ${index + 1}`}
-                    className={`sliding-mockup-${index + 1} ${index === activeStep ? 'active' : ''}`}
-                    sizes={image.sizes}
-                    srcSet={image.srcset}
+                    src="images/frame.svg"
+                    loading="lazy"
+                    alt="iPhone Frame"
+                    className="mockup-frame"
                   />
-                ))}
-              </div>
-              <img
-                src="https://cdn.prod.website-files.com/657abcc11bc331a5ef8b2a0a/658289366fd3d02d1635fa13_iPhone14-space-black-min.svg"
-                loading="lazy"
-                alt="iPhone Frame"
-                className="mockup-frame"
-              />
+                </>
+              ) : (
+                <div className="responsive-image-container">
+                  <img
+                    src={mockupImages[activeStep]?.src}
+                    alt={`Feature ${activeStep + 1}`}
+                    className="responsive-feature-image"
+                    sizes={mockupImages[activeStep]?.sizes}
+                    srcSet={mockupImages[activeStep]?.srcset}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="steps-wrapper" ref={stepsRef} data-animate="true">
