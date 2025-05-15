@@ -1,14 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, ReactNode } from 'react';
 import './GroupSection.css';
 import './MobileScreenStyles.css';
 
+// Adding custom styles to reduce gap between process items
+const customStyles = {
+  processItem: {
+    marginBottom: '0px', // Reduced further from 15px to 5px
+  },
+  progressionCircle: {
+    backgroundColor: '#4b5563', // gray-600
+    transition: 'all 0.3s ease',
+  },
+  activeCircle: {
+    background: 'linear-gradient(to right, #FFC01D, #FFD955, #FF9A01)',
+  }
+};
+
 interface ProcessStep {
-  number: string;
-  title: string;
-  description: string;
+  number: string | ReactNode;
+  title: string | ReactNode;
+  description: string | ReactNode;
   requirements: {
-    title: string;
-    items: string[];
+    title: string | ReactNode;
+    items: string[] | ReactNode[];
   };
 }
 
@@ -25,7 +39,7 @@ const processSteps: ProcessStep[] = [
   {
     number: '',
     title: 'Watch Listen Apply',
-    description: 'Complex Job Descriptions become Simple Short Video Job Posts, AI/ML algorithms for an Instant Match',
+    description: <>Complex Job Descriptions become Simple Short Video Job Posts <br/> AI/ML algorithms for an Instant Match</>,
     requirements: {
       title: "",
       items: []
@@ -33,7 +47,7 @@ const processSteps: ProcessStep[] = [
   },
   {
     number: '',
-    title: '24/7 AI Recruiter',
+    title: <>24/7 <span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>AI Recruiter</span></>,
     description: 'Instant interview with Employers AI Avatar',
     requirements: {
       title: "",
@@ -317,26 +331,29 @@ const GuideSection: React.FC<{showFrame?: boolean}> = ({ showFrame = false }) =>
               <div className="progress-bar" ref={progressBarRef}></div>
             </div>
             {processSteps.map((step, index) => (
-              <div key={index} className="process-item">
+              <div key={index} className="process-item" style={customStyles.processItem}>
                 <div className="process-center">
-                  <div className={`progression-circle ${index <= activeStep ? 'active' : ''}`}></div>
+                  <div 
+                    className={`progression-circle ${index <= activeStep ? 'active' : ''}`}
+                    style={index === activeStep ? 
+                      { ...customStyles.progressionCircle, ...customStyles.activeCircle } : 
+                      customStyles.progressionCircle}
+                  ></div>
                 </div>
                 <div className="process-right">
                   <div className="process-step-wrapper">
                     <div className="large-number">{step.number}</div>
-                    <h3>{step.title}</h3>
-                    <p className="paragraph-small">{step.description}</p>
+                    <h3 className="text-xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-2 md:pb-3">{step.title}</h3>
+                    <p className="text-md sm:text-base text-gray-400 mb-2 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic leading-tight">{step.description}</p>
                     <div className="process-detail-wrapper">
-                      <h4>{step.requirements.title}</h4>
+                      <h4 >{step.requirements.title}</h4>
                       <ul role="list">
                         {step.requirements.items.map((item, itemIndex) => (
                           <li key={itemIndex}>{item}</li>
                         ))}
                       </ul>
                     </div>
-                    {index === 0 && (
-                      <a href="#" className="button-primary-dark-bg-small w-button">Start free trial</a>
-                    )}
+                    
                   </div>
                 </div>
               </div>
