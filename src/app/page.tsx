@@ -21,7 +21,7 @@ import FullWidthTextSection from "@/components/sections/FullWidthTextSection";
 import JobReelContainer from "@/components/sections/Jobreels/JobReelContainer";
 import JobReelHeader from "@/components/sections/Jobreels/JobReelHeader";
 import GroupSection from "@/components/sections/Jobreels/GroupSection";
-
+import IdentityVerifiedHeader from "@/components/sections/IdentityVerified/IdentityVerifiedHeader";
 // Main page component that serves as the landing page
 export default function Home() {
   const [featureIndex, setFeatureIndex] = useState(0);
@@ -90,7 +90,7 @@ export default function Home() {
         <JobReelHeader />
       </section>
       <section className="section-transition">
-        <GroupSection />
+        <JobReelContainer />
       </section>
      
       {/* Carousel showcasing key features */}
@@ -107,14 +107,16 @@ export default function Home() {
       <FastTrainSection />
       
       {/* Identity Verified section with scroll effect */}
-      <div 
+      <IdentityVerifiedHeader />
+      <IdentityVerified2 />
+      {/* <div 
         ref={identityRef} 
         className="h-[400vh] relative"
       >
         <div className="sticky top-0 h-screen">
           <IdentityVerified2 selectedIndex={identityIndex} />
         </div>
-      </div>
+      </div> */}
       
       {/* Section explaining the Saathi ecosystem */}
       <section className="" id="ecosystem">

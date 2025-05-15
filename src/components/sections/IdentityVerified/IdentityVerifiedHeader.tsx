@@ -1,21 +1,21 @@
 import { ReactNode } from 'react';
 
-interface JobReelHeaderProps {
+interface IdentityVerifiedHeaderProps {
   title?: ReactNode;
   subtitle?: string;
   description?: ReactNode;
 }
 
-export default function JobReelHeader({ 
+export default function IdentityVerifiedHeader({ 
   title = (
     <>
-      <span>Job</span>
-      <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">Reels</span>
+      Saathi True<span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
     </>
   ),
-  subtitle = "The Instagram of Jobs",
-  description = <>When Resumes meet Reels, Hiring happens Instantly</>
-}: JobReelHeaderProps) {
+  subtitle = "LinkedIn of the Workforce",
+  description = <>A single automated snapshot of <br/> authenticated details redefining<br/>
+                <span className=" text-white"> Worker-Employer</span> trust metrics</>
+}: IdentityVerifiedHeaderProps) {
   return (
     <div className="w-full bg-black min-h-[30vh] flex items-center justify-center">
       <div className="container mx-auto px-4">

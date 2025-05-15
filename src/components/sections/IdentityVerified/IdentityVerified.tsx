@@ -1,8 +1,28 @@
-"use client";
+import React, { useEffect, useState, useRef, ReactNode } from 'react';
+import './IdentityVerified.css';
+import './MobileScreenStyles.css';
 
-import React, { useState, useEffect } from "react";
-import FeatureCarousel2 from "../Jobreels/FeatureCarousel";
-// Placeholder icons (replace with your icon library or SVGs as needed)
+// Adding custom styles to reduce gap between process items
+const customStyles = {
+  processItem: {
+    marginBottom: '0px', // Reduced further from 15px to 5px
+  },
+  progressionCircle: {
+    backgroundColor: 'rgb(75, 85, 99)', // gray-600
+    transition: 'all 0.3s ease',
+  },
+  activeCircle: {
+    backgroundColor: '#FFC01D', // Using a single color instead of gradient
+  }
+};
+
+
+
+interface ResponsiveImage {
+  src: string;
+  srcset: string;
+  sizes: string;
+}
 
 const features = [
   {
@@ -60,6 +80,24 @@ const employerBenefits = [
   { icon: '/assets/home/Timer.svg', title: 'Reduced', desc: 'Time-to-Hire' },
   { icon: '/assets/home/Stars.svg', title: 'Past employment History & ', desc: 'Ratings' },
   { icon: '/assets/home/Mindfulness.svg', title: 'Lower Attrition', desc: 'Higher Productivity' },
+  
+];
+const mockupImages: ResponsiveImage[] = [
+  {
+    src: "/assets/home/identity1.png",
+    srcset: "",
+    sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
+  },
+  {
+    src: "/assets/home/identity1.png",
+    srcset: "",
+    sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
+  },
+  {
+    src: "/assets/home/identity1.png",
+    srcset: "",
+    sizes: "(max-width: 767px) 100vw, (max-width: 991px) 95vw, 940px"
+  },
   
 ];
 
@@ -151,91 +189,470 @@ const sections = [
     image: '/assets/home/identity1.png'
   },
 ];
-type IdentityVerifiedProps = {
-  selectedIndex?: number;
-  onIndexChange?: (index: number) => void;
-};  
-const IdentityVerified = ({ selectedIndex = 0, onIndexChange }: IdentityVerifiedProps) => {
-  // State to track which section is currently selected (0, 1, or 2)
-  //const [selectedIndex, setSelectedIndex] = useState(0);
-  
-  // Handle section change
-  // Handle index change if controlled externally
+
+const IdentityVerified: React.FC<{showFrame?: boolean}> = ({ showFrame = false }) => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [prevStep, setPrevStep] = useState(-1);
+  const stepsRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const mockupFrameRef = useRef<HTMLDivElement>(null);
+  const processWrapperRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const mockupImagesRef = useRef<Array<HTMLImageElement | null>>([]);
+  const lastScrollYRef = useRef<number>(0);
+  const tickingRef = useRef<boolean>(false);
+  const currentIndexRef = useRef<number>(0);
+
+  // Initialize intersection observer for animations
   useEffect(() => {
-    if (onIndexChange && typeof selectedIndex !== 'undefined') {
-      onIndexChange(selectedIndex);
+    // Setup intersection observer for triggering animations
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: [0.1, 0.33, 0.75]
+    };
+
+    // Observer for entrance animations
+    observerRef.current = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('process-wrapper')) {
+            entry.target.classList.add('in-view');
+          } else if (entry.target.classList.contains('process-item')) {
+            entry.target.classList.add('visible');
+          }
+        }
+      });
+    }, options);
+
+    // Observe process wrapper for entrance animation
+    if (processWrapperRef.current) {
+      observerRef.current.observe(processWrapperRef.current);
     }
-  }, [selectedIndex, onIndexChange]);
+
+    // Observe each process item
+    if (stepsRef.current) {
+      const processItems = stepsRef.current.querySelectorAll('.process-item');
+      processItems.forEach(item => {
+        if (observerRef.current) {
+          observerRef.current.observe(item);
+        }
+      });
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  // Initialize mockup image refs
+  useEffect(() => {
+    // Clear any previous active classes
+    mockupImagesRef.current.forEach((img) => {
+      if (img && img.classList.contains('active')) {
+        img.classList.remove('active');
+      }
+      if (img && img.classList.contains('prev')) {
+        img.classList.remove('prev');
+      }
+    });
+    
+    // Set initial mockup visibility (first item active)
+    const firstImage = mockupImagesRef.current[0];
+    if (firstImage) {
+      firstImage.classList.add('active');
+      firstImage.style.transform = 'translateX(0%)';
+      firstImage.style.opacity = '1';
+    }
+    
+    // Position other images off-screen
+    for (let i = 1; i < mockupImagesRef.current.length; i++) {
+      const img = mockupImagesRef.current[i];
+      if (img) {
+        img.style.transform = 'translateX(100%)';
+        img.style.opacity = '0';
+      }
+    }
+    
+    // Initialize responsive images as well
+    setTimeout(() => {
+      const responsiveImages = document.querySelectorAll('.responsive-feature-image');
+      if (responsiveImages.length > 0) {
+        (responsiveImages[0] as HTMLElement).style.transform = 'translateX(0%)';
+        (responsiveImages[0] as HTMLElement).style.opacity = '1';
+        
+        for (let i = 1; i < responsiveImages.length; i++) {
+          (responsiveImages[i] as HTMLElement).style.transform = 'translateX(100%)';
+          (responsiveImages[i] as HTMLElement).style.opacity = '0';
+        }
+      }
+    }, 100);
+    
+    // Reset current index and active step
+    currentIndexRef.current = 0;
+    setActiveStep(0);
+    setPrevStep(-1);
+      
+    // Mark the first circle as active
+    const circles = document.querySelectorAll('.progression-circle');
+    circles.forEach((circle, i) => {
+      if (i === 0) {
+        circle.classList.add('active');
+      } else {
+        circle.classList.remove('active');
+      }
+    });
+  }, []);
+
+  // Update when process steps change
+  useEffect(() => {
+    // Sync the active step with the image display
+    const updateActiveStep = (index: number) => {
+      // Save previous step before updating
+      setPrevStep(activeStep);
+      setActiveStep(index);
+      
+      // Update mockup image visibility with parallax effect
+      mockupImagesRef.current.forEach((img, imgIndex) => {
+        if (img) {
+          if (imgIndex === index) {
+            img.classList.remove('prev');
+            img.classList.add('active');
+          } else if (imgIndex === activeStep) {
+            img.classList.remove('active');
+            img.classList.add('prev');
+          } else {
+            img.classList.remove('active');
+            img.classList.remove('prev');
+          }
+        }
+      });
+      
+      // Update progression circles
+      const progressionCircles = document.querySelectorAll('.progression-circle');
+      progressionCircles.forEach((circle, i) => {
+        if (i <= index) {
+          circle.classList.add('active');
+        } else {
+          circle.classList.remove('active');
+        }
+      });
+    };
+
+    // Initial sync
+    updateActiveStep(currentIndexRef.current);
+    
+    // Setup scroll observation for each process item
+    const handleProcessStepVisibility = () => {
+      if (!stepsRef.current) return;
+      
+      const processItems = stepsRef.current.querySelectorAll('.process-item');
+      processItems.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const itemTop = rect.top;
+        
+        // Check if this item is in the middle of the viewport
+        if (itemTop < viewportHeight * 0.6 && itemTop > -rect.height * 0.4) {
+          if (currentIndexRef.current !== index) {
+            currentIndexRef.current = index;
+            updateActiveStep(index);
+          }
+        }
+      });
+    };
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleProcessStepVisibility, { passive: true });
+    
+    // Initial check
+    handleProcessStepVisibility();
+    
+    return () => {
+      window.removeEventListener('scroll', handleProcessStepVisibility);
+    };
+  }, [sections, activeStep]); // Re-run when process steps or activeStep change
+
+  // Handle scroll-based animations - modified for ultra-smooth transitions
+  useEffect(() => {
+    const updateMockups = () => {
+      if (!stepsRef.current) return;
+
+      const processItems = stepsRef.current.querySelectorAll('.process-item');
+      const progressBar = progressBarRef.current;
+      
+      processItems.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const itemTop = rect.top;
+        const itemHeight = rect.height;
+        
+        // Calculate how far through the item we've scrolled (0 to 1) with enhanced easing
+        const rawScrollProgress = Math.min(
+          Math.max(
+            (viewportHeight * 0.5 - itemTop) / (itemHeight + viewportHeight * 0.5),
+            0
+          ),
+          1
+        );
+        
+        // Apply advanced easing function for ultra-smooth transitions
+        // This is a custom easing function that combines aspects of easeOutExpo and easeInOutQuint
+        const easeOutExpo = (t: number): number => {
+          if (t === 1) return 1;
+          return 1 - Math.pow(2, -10 * t);
+        };
+        
+        const easeInOutQuint = (t: number): number => {
+          return t < 0.5 
+            ? 16 * t * t * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 5) / 2;
+        };
+        
+        // Blend between two easing functions for a custom feel
+        const blendedEase = (t: number): number => {
+          // Get values from both easing functions
+          const expo = easeOutExpo(t);
+          const quint = easeInOutQuint(t);
+          
+          // Blend based on progress (more exponential at start, more quintic at end)
+          const blend = t < 0.5 ? t * 2 : (1 - t) * 2;
+          return expo * (1 - blend) + quint * blend;
+        };
+        
+        const scrollProgress = blendedEase(rawScrollProgress);
+
+        // Update progress bar with super-smooth animation
+        if (progressBar && index === currentIndexRef.current) {
+          const progress = (currentIndexRef.current + scrollProgress) / processItems.length * 100;
+          progressBar.style.height = `${progress}%`;
+        }
+        
+        // Apply parallax effect on the images based on scroll progress with enhanced smoothness
+        if (index === currentIndexRef.current) {
+          // Get all image references for the current index
+          const currentImage = mockupImagesRef.current[index];
+          const responsiveImages = document.querySelectorAll('.responsive-feature-image');
+          const currentResponsiveImage = responsiveImages[index] as HTMLElement;
+          
+          // Handle current active image with advanced easing
+          if (currentImage) {
+            // Advanced easing formula for smoother transitions
+            const translateY = scrollProgress < 0.5 ? 
+              (0.5 - scrollProgress) * 100 * Math.pow(1 - scrollProgress * 2, 1.5) : // Advanced slide-in with non-linear easing
+              0; // Keep centered
+            const scale = scrollProgress < 0.5 ?
+              0.95 + (scrollProgress * 2) * 0.05 : // Scale up as it enters
+              1; // Full scale when centered
+            
+            currentImage.style.transform = `translateY(${translateY}%) scale(${scale})`;
+            // Reduce blur as image enters view  
+            currentImage.style.filter = `blur(${Math.max(0, 2 - scrollProgress * 4)}px)`;
+          }
+          
+          if (currentResponsiveImage) {
+            const translateY = scrollProgress < 0.5 ? 
+              (0.5 - scrollProgress) * 100 * Math.pow(1 - scrollProgress * 2, 1.5) : // Advanced slide-in with non-linear easing
+              0; // Keep centered
+            const scale = scrollProgress < 0.5 ?
+              0.95 + (scrollProgress * 2) * 0.05 : // Scale up as it enters
+              1; // Full scale when centered
+            
+            currentResponsiveImage.style.transform = `translateY(${translateY}%) scale(${scale})`;
+            // Reduce blur as image enters view
+            currentResponsiveImage.style.filter = `blur(${Math.max(0, 2 - scrollProgress * 4)}px)`;
+          }
+          
+          // Next image - ultra-smooth slide in from bottom with advanced easing
+          if (index < processItems.length - 1) {
+            const nextImage = mockupImagesRef.current[index + 1];
+            const nextResponsiveImage = responsiveImages[index + 1] as HTMLElement;
+            
+            if (nextImage) {
+              // Enhanced cubic bezier approximation for beautiful slide-in
+              const nextProgress = scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0;
+              const nextTranslateY = 100 * (1 - Math.pow(nextProgress, 3)); // Cubic easing for smoother entrance
+              const nextScale = 0.95 + (nextProgress * 0.05); // Subtle scaling effect
+              
+              nextImage.style.transform = `translateY(${nextTranslateY}%) scale(${nextScale})`;
+              // Fade and blur control
+              nextImage.style.opacity = (nextProgress * 1.5).toString(); // Faster fade-in
+              nextImage.style.filter = `blur(${Math.max(0, 2 - nextProgress * 4)}px)`;
+            }
+            
+            if (nextResponsiveImage) {
+              const nextProgress = scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0;
+              const nextTranslateY = 100 * (1 - Math.pow(nextProgress, 3)); // Cubic easing for smoother entrance
+              const nextScale = 0.95 + (nextProgress * 0.05); // Subtle scaling effect
+              
+              nextResponsiveImage.style.transform = `translateY(${nextTranslateY}%) scale(${nextScale})`;
+              // Fade and blur control
+              nextResponsiveImage.style.opacity = (nextProgress * 1.5).toString(); // Faster fade-in
+              nextResponsiveImage.style.filter = `blur(${Math.max(0, 2 - nextProgress * 4)}px)`;
+            }
+          }
+          
+          // Previous image - ultra-smooth slide out to top with advanced easing
+          if (index > 0) {
+            const prevImage = mockupImagesRef.current[index - 1];
+            const prevResponsiveImage = responsiveImages[index - 1] as HTMLElement;
+            
+            if (prevImage) {
+              // Enhanced cubic bezier approximation for beautiful slide-out
+              const prevProgress = scrollProgress < 0.5 ? (0.5 - scrollProgress) * 2 : 0;
+              const prevTranslateY = -100 * (1 - Math.pow(prevProgress, 3)); // Cubic easing for smoother exit
+              const prevScale = 0.95 + (prevProgress * 0.05); // Subtle scaling effect
+              
+              prevImage.style.transform = `translateY(${prevTranslateY}%) scale(${prevScale})`;
+              // Fade and blur control
+              prevImage.style.opacity = (prevProgress * 0.5).toString(); // More dramatic fade-out
+              prevImage.style.filter = `blur(${Math.max(0, 2 - prevProgress * 4)}px)`;
+            }
+            
+            if (prevResponsiveImage) {
+              const prevProgress = scrollProgress < 0.5 ? (0.5 - scrollProgress) * 2 : 0;
+              const prevTranslateY = -100 * (1 - Math.pow(prevProgress, 3)); // Cubic easing for smoother exit
+              const prevScale = 0.95 + (prevProgress * 0.05); // Subtle scaling effect
+              
+              prevResponsiveImage.style.transform = `translateY(${prevTranslateY}%) scale(${prevScale})`;
+              // Fade and blur control
+              prevResponsiveImage.style.opacity = (prevProgress * 0.5).toString(); // More dramatic fade-out
+              prevResponsiveImage.style.filter = `blur(${Math.max(0, 2 - prevProgress * 4)}px)`;
+            }
+          }
+        }
+      });
+    };
+
+    // High-performance scroll handler with RAF optimization
+    let lastScrollY = window.scrollY;
+    let animationFrameId: number | null = null;
+    let lastTimestamp = 0;
+    
+    const handleScroll = () => {
+      const now = performance.now();
+      const currentScrollY = window.scrollY;
+      
+      // Only update if we have a meaningful scroll change or enough time has passed
+      // This creates buttery-smooth animations even on rapid scrolling
+      if (Math.abs(currentScrollY - lastScrollY) > 0.5 || now - lastTimestamp > 16) {
+        // Cancel any pending frames for smoother animation
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+        
+        // Schedule the update in the next frame with high priority
+        animationFrameId = requestAnimationFrame(() => {
+          updateMockups();
+          lastScrollY = currentScrollY;
+          lastTimestamp = now;
+          animationFrameId = null;
+        });
+      }
+    };
+
+    // Use passive event listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial update
+    updateMockups();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, []);
 
   return (
-    <div 
-      id="trueid"
-      className="relative bg-[#09090B] pt-4 pb-4"
-    >
-      <section className="min-h-screen bg-[#09090B] relative overflow-hidden">
-        <div className="absolute inset-0 flex flex-col px-2 sm:px-4 md:px-16 pt-6">
-          <div className="w-full flex flex-col md:flex-row items-center md:items-left">
-            <div className="max-w-2xl w-full h-full flex flex-col items-center md:items-start">
-              <h2 className="text-center md:text-left text-4xl sm:text-3xl md:text-5xl font-bold text-white leading-tight mb-1">
-                Saathi True<span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
-              </h2>
-              <div className="text-center md:text-left text-md sm:text-base md:text-[18px] text-gray-400 italic font-medium mb-4 md:mb-6">
-                LinkedIn of the Workforce
-              </div>
-              <div className="text-center md:text-left text-gray-400 text-2xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">
-                A single automated snapshot of authenticated details redefining
-                <span className=" text-white"> Worker-Employer</span> trust metrics
-              </div>
-              <div className="mt-4 md:mt-8 w-full flex flex-col items-center md:items-center">
-                <div className="flex flex-row items-start justify-center w-full">
-                  {/* Vertical Pagination Dots */}
-                  <div className="sm:flex flex-col items-center mr-2 sm:mr-4 pt-8 sm:pt-24">
-                    {sections.map((_, idx) => (
-                      <div
-                        key={idx}
-                        className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full mb-2 sm:mb-3 transition-all duration-300 ${selectedIndex === idx ? 'bg-[#FFC226]' : 'bg-gray-600'}`}
-                        onClick={() => onIndexChange && onIndexChange(idx)}
-                        style={{ cursor: 'pointer' }}
-                      />
-                    ))}
-                  </div>
-                  {/* Dynamic Section Content */}
-                  <div className="flex-1">
-                    {sections[selectedIndex] && sections[selectedIndex].content}
+    <section id="guide" className="transparent-bg">
+      <div className="container w-container">
+      
+        <div className="process-wrapper" ref={processWrapperRef} data-animate="true">
+        {/*Left Side*/}
+        <div className="steps-wrapper" ref={stepsRef} data-animate="true">
+            {/* <div className="process-path">
+              <div className="progress-bar" ref={progressBarRef}></div>
+            </div> */}
+            {sections.map((step, index) => (
+              <div key={index} className="process-item" style={customStyles.processItem}>
+                <div className="process-center">
+                  {/* <div 
+                    className={`progression-circle ${index <= activeStep ? 'active' : ''}`}
+                    style={index === activeStep ? 
+                      { ...customStyles.progressionCircle, ...customStyles.activeCircle } : 
+                      customStyles.progressionCircle}
+                  ></div> */}
+                </div>
+                <div className="process-right">
+                  <div className="process-step-wrapper">
+                    
+                    {/* <div className="large-number">{step.number}</div> 
+                    <h3 className="text-xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-2 md:pb-3">{step.title}</h3>
+                    <p className="text-md sm:text-base text-gray-400 mb-2 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic leading-tight">{step.description}</p>
+                    */}
+                    <div className="process-detail-wrapper">
+                    
+                    {sections[index] && sections[index].content}
+                  
+                    </div>
+                    
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Right Side - Image Display */}
-            <div className="flex-1 flex justify-center items-center mt-12 md:mt-0 w-full">
-              <div className="relative w-full max-w-[180px] sm:max-w-[200px] md:max-w-[350px] aspect-[9/16] mx-auto overflow-hidden rounded-lg flex items-center">
-                {sections.map((section, index) => (
-                  <div
-                    key={`image-${section.key}`}
-                    className={`absolute inset-0 ${
-                      selectedIndex === index
-                        ? 'opacity-100 scale-100'
-                        : 'opacity-0 scale-95 pointer-events-none'
-                    }`}
-                    style={{
-                      transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
-                      transform: selectedIndex === index ? 'scale(1)' : 'scale(0.95)'
-                    }}
-                  >
-                    <img
-                      src={section.image}
-                      alt={section.key}
-                      className="w-full h-full object-contain drop-shadow-2xl"
-                    />
+            ))}
+          </div>
+          
+          {/*Right Side*/}
+          <div className="sliding-mockups-wrapper">
+            <div className="sliding-mockups-frame" ref={mockupFrameRef}>
+              {showFrame ? (
+                <>
+                  <div className="mockup-screen">
+                    {mockupImages.map((image, index) => (
+                      <img
+                        key={index}
+                        ref={el => {
+                          mockupImagesRef.current[index] = el;
+                        }}
+                        src={image.src}
+                        alt={`PursePulse Mockup ${index + 1}`}
+                        className={`sliding-mockup-${index + 1} ${index === activeStep ? 'active' : index === prevStep ? 'prev' : ''}`}
+                        sizes={image.sizes}
+                        srcSet={image.srcset}
+                      />
+                    ))}
                   </div>
-                ))}
-              </div>
+                  <img
+                    src="images/frame.svg"
+                    loading="lazy"
+                    alt="iPhone Frame"
+                    className="mockup-frame"
+                  />
+                </>
+              ) : (
+                <div className="responsive-image-container">
+                  {mockupImages.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image.src}
+                      alt={`Feature ${1}`}
+                      className={``}
+                      sizes={image.sizes}
+                      srcSet={image.srcset}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
+          
         </div>
-      </section>
-      
-    </div>
+      </div>
+    </section>
   );
 };
 
