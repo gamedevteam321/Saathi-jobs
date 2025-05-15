@@ -18,7 +18,7 @@ const features: FeatureItem[] = [
   },
   {
     id: "reels",
-    title: "Watch Listen Apply",
+    title: "Watch.Listen.Apply",
     description:  <>Complex Job Descriptions become Simple Short Video Job Posts <br/> AI/ML algorithms for an Instant Match</>,
     phoneImage: "images/JobPost.png"
   },

@@ -4,6 +4,7 @@ interface JobReelHeaderProps {
   title?: ReactNode;
   subtitle?: string;
   description?: ReactNode;
+  description2?: ReactNode;
 }
 
 export default function JobReelHeader({ 
@@ -14,13 +15,14 @@ export default function JobReelHeader({
     </>
   ),
   subtitle = "The Instagram of Jobs",
-  description = <>When Resumes meet Reels, Hiring happens Instantly</>
+  description = <><p>When Resumes meet Reels,</p><p> Hiring happens Instantly.</p></>,
+  description2 = <><p>Post. Swyp. Match. Hire</p><p> Fast. Fun. Effortless,</p></>
 }: JobReelHeaderProps) {
   return (
-    <div className="w-full bg-black min-h-[30vh] flex items-center justify-center">
-      <div className="container mx-auto px-4">
+    <div className="w-full bg-black h-fit flex ">
+      <div className="container px-16 flex flex-col items-start justify-start"> 
         <div 
-          className="text-center"
+          className="text-left w-full"
           style={{
             position: 'relative',
             zIndex: 50
@@ -33,9 +35,12 @@ export default function JobReelHeader({
             {subtitle}
           </p>
           <div className="mt-1 md:mt-2">
-            <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight mb-4 md:mb-6 font-['Helvetica']">
+            <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight pb-4 md:pb-6 font-['Helvetica']">
               {description}
             </h2>
+            <h4 className="text-gray-400 text-2xl sm:text-lg md:text-[30px] font-light leading-tight font-['Helvetica']">
+              {description2}
+            </h4>
           </div>
         </div>
       </div>

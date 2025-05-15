@@ -20,7 +20,6 @@ import DownloadAndHireSection from "@/components/sections/DownloadAndHireSection
 import FullWidthTextSection from "@/components/sections/FullWidthTextSection";
 import JobReelContainer from "@/components/sections/Jobreels/JobReelContainer";
 import JobReelHeader from "@/components/sections/Jobreels/JobReelHeader";
-import GroupSection from "@/components/sections/Jobreels/GroupSection";
 import IdentityVerifiedHeader from "@/components/sections/IdentityVerified/IdentityVerifiedHeader";
 // Main page component that serves as the landing page
 export default function Home() {
