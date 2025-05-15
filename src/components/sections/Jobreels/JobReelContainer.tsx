@@ -509,7 +509,7 @@ const JobReelContainer: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
                         }}
                         src={image.src}
                         alt={`PursePulse Mockup ${index + 1}`}
-                        className={`active`}
+                        className={`sliding-mockup-${index + 1} ${index === activeStep ? 'active' : index === prevStep ? 'prev' : ''}`}
                         sizes={image.sizes}
                         srcSet={image.srcset}
                       />
