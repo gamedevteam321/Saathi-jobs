@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ContactModal from '@/components/layout/ContactModal';
 import TermsModal from '@/components/layout/TermsModal';
 import PrivacyPolicyModal from '@/components/layout/PrivacyPolicyModal';
+import { FaPlay } from 'react-icons/fa';
 
 const gradientText = "bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent";
 const gradientBg = "bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01]";
@@ -30,6 +31,8 @@ const BusinessSubPage = () => {
             currentVideo.muted = true;
           }
         }
+        // Set the video to preload when clicked
+        video.preload = "auto";
         video.play();
         video.muted = false;
         setPlayingVideo(videoId);
@@ -138,7 +141,16 @@ const BusinessSubPage = () => {
                 loop
                 playsInline
                 muted
+                preload="none"
+                poster="/videos/thumbnails/jobreel.png"
               />
+              {playingVideo !== 'jobreel-video' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
+                    <FaPlay className="text-black text-2xl ml-1" />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           {/* JobPosts */}
@@ -155,7 +167,16 @@ const BusinessSubPage = () => {
                 loop
                 playsInline
                 muted
+                preload="none"
+                poster="/videos/thumbnails/jobpost.png"
               />
+              {playingVideo !== 'jobpost-video' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
+                    <FaPlay className="text-black text-2xl ml-1" />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           {/* AI Recruiter */}
@@ -172,7 +193,16 @@ const BusinessSubPage = () => {
                 loop
                 playsInline
                 muted
+                preload="none"
+                poster="/videos/thumbnails/ai.png"
               />
+              {playingVideo !== 'ai-video' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
+                    <FaPlay className="text-black text-2xl ml-1" />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
