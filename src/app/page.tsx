@@ -21,6 +21,7 @@ import FullWidthTextSection from "@/components/sections/FullWidthTextSection";
 import JobReelContainer from "@/components/sections/Jobreels/JobReelContainer";
 import JobReelHeader from "@/components/sections/Jobreels/JobReelHeader";
 import IdentityVerifiedHeader from "@/components/sections/IdentityVerified/IdentityVerifiedHeader";
+import JobReelContainerMobile from "@/components/sections/Jobreels/JobReelContainerMobile";
 // Main page component that serves as the landing page
 export default function Home() {
   const [featureIndex, setFeatureIndex] = useState(0);
@@ -89,9 +90,16 @@ export default function Home() {
         <JobReelHeader />
       </section>
       <section className="section-transition">
-        <JobReelContainer />
+        <div className="hidden md:block">
+          <JobReelContainer />
+        </div>
+        <div className="md:hidden">
+          <JobReelContainerMobile selectedIndex={0} />
+          <JobReelContainerMobile selectedIndex={1} />
+          <JobReelContainerMobile selectedIndex={2} />
+        </div>
       </section>
-     
+
       {/* Carousel showcasing key features */}
       {/* <div 
         ref={featuresRef} 

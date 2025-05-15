@@ -13,8 +13,8 @@ export default function IdentityVerifiedHeader({
     </>
   ),
   subtitle = "LinkedIn of the Workforce",
-  description = <>A single automated snapshot of <br/> authenticated details redefining<br/>
-                <span className=" text-white"> Worker-Employer</span> trust metrics</>
+  description = <div className="text-center md:text-left text-gray-400 text-2xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">A single automated snapshot of <br/> authenticated details redefining<br/>
+                <span className=" text-white"> Worker-Employer</span> trust metrics</div>
 }: IdentityVerifiedHeaderProps) {
   return (
     <div className="w-full bg-black min-h-[30vh] flex items-center justify-center">
