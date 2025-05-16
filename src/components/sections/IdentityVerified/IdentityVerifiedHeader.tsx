@@ -13,7 +13,7 @@ export default function IdentityVerifiedHeader({
     </>
   ),
   subtitle = "LinkedIn of the Workforce",
-  description = <div className="text-center md:text-left text-gray-400 text-xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">A single automated snapshot of  authenticated details redefining
+  description = <div className="text-center text-gray-400 text-xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">A single automated snapshot of  authenticated details redefining
                 <span className=" text-white"> Worker-Employer</span> trust metrics</div>
 }: IdentityVerifiedHeaderProps) {
   return (
@@ -23,7 +23,11 @@ export default function IdentityVerifiedHeader({
           className="text-center md:text-left w-full"
           style={{
             position: 'relative',
-            zIndex: 50
+            zIndex: 50,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <h1 className="text-4xl sm:text-4xl md:text-6xl font-bold text-white font-['Helvetica']">
@@ -32,8 +36,8 @@ export default function IdentityVerifiedHeader({
           <p className="text-gray-400 italic text-md sm:text-md md:text-[18px] py-1 font-['Helvetica']">
             {subtitle}
           </p>
-          <div className="mt-1 md:mt-2">
-            <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight pb-4 md:pb-6 font-['Helvetica']">
+          <div className="pt-1 md:pt-2">
+            <h2 className="text-white text-center text-2xl sm:text-3xl md:text-[40px] font-light pb-4 md:pb-6 font-['Helvetica']">
               {description}
             </h2>
           </div>

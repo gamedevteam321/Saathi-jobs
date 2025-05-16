@@ -445,7 +445,7 @@ const JobReelContainer: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
 
   return (
     <section id="guide" className="transparent-bg">
-      <div className="slider-container w-container">
+      <div className="slider-container w-full px-10">
         <div className="process-wrapper" ref={processWrapperRef}>
           <div className="left-section">
             <div className="header-wrapper">
