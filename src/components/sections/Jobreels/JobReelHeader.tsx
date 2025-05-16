@@ -20,7 +20,7 @@ export default function JobReelHeader({
 }: JobReelHeaderProps) {
   return (
     <div className="w-full bg-black h-fit flex ">
-      <div className="mb-2 sm:mb-4 mt-1 sm:mt-4 md:mt-20 px-0 w-full "> 
+      <div className="pb-2 sm:pb-4 pt-1 sm:pt-4 md:pt-20 px-0 w-full "> 
         <div 
           className="text-center md:text-left w-full"
           style={{

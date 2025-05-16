@@ -2233,6 +2233,7 @@
   
   .process-step-wrapper {
     max-width: 80%;
+    padding-left: 30px;
   }
   
   .process-wrapper {
@@ -2241,9 +2242,8 @@
     gap: 40px;
     position: relative;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    margin: 0;
+    padding: 20px;
     min-height: 100vh;
   }
   
@@ -2803,7 +2803,8 @@
   }
   
   .process-detail-wrapper {
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    padding-left: 35px;
   }
   
   .graphic-link-block {
@@ -4403,11 +4404,14 @@
     width: auto !important;
     height: auto !important;
     object-fit: contain;
+    padding: 50px;
+    position: absolute; /* Keep this to maintain the sliding animation */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%) translateY(100%) scale(0.95) !important; /* Update transform to maintain centering */
     transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
                 opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1),
                 filter 0.8s ease !important;
-    /* Change transform direction from horizontal to vertical */
-    transform: translateY(100%) scale(0.95) !important;
     will-change: transform, opacity, filter !important;
     backface-visibility: hidden !important;
     -webkit-backface-visibility: hidden !important;
@@ -4415,16 +4419,14 @@
   }
   
   .responsive-feature-image.active {
-    /* Change transform direction from horizontal to vertical */
-    transform: translateY(0) scale(1) !important;
+    transform: translate(-50%, -50%) translateY(0) scale(1) !important; /* Update transform to maintain centering */
     opacity: 1 !important;
     z-index: 5;
     filter: blur(0) !important;
   }
   
   .responsive-feature-image.prev {
-    /* Change transform direction from horizontal to vertical */
-    transform: translateY(-100%) scale(0.95) !important;
+    transform: translate(-50%, -50%) translateY(-100%) scale(0.95) !important; /* Update transform to maintain centering */
     opacity: 0.25 !important;
     z-index: 1;
     filter: blur(2px) !important;

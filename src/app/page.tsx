@@ -86,7 +86,7 @@ export default function Home() {
       <section className="section-transition">
         <HeroSection />
       </section>
-
+      
       <section className="section-transition block md:hidden">
         <JobReelHeader />
       </section> 
