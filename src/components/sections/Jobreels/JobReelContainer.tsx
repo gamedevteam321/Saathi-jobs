@@ -331,87 +331,71 @@ const JobReelContainer: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
           
           // Handle current active image with advanced easing
           if (currentImage) {
-            // Advanced easing formula for smoother transitions
+            // Simplified translation for current image
             const translateY = scrollProgress < 0.5 ? 
-              (0.5 - scrollProgress) * 100 * Math.pow(1 - scrollProgress * 2, 1.5) : // Advanced slide-in with non-linear easing
-              0; // Keep centered
-            const scale = scrollProgress < 0.5 ?
-              0.95 + (scrollProgress * 2) * 0.05 : // Scale up as it enters
-              1; // Full scale when centered
+              (0.5 - scrollProgress) * 50 : // Reduced movement range
+              0;
             
-            currentImage.style.transform = `translateY(${translateY}%) scale(${scale})`;
-            // Reduce blur as image enters view  
-            currentImage.style.filter = `blur(${Math.max(0, 2 - scrollProgress * 4)}px)`;
+            currentImage.style.transform = `translateY(${translateY}%)`;
+            currentImage.style.opacity = '1';
+            currentImage.style.filter = 'blur(0px)';
           }
           
           if (currentResponsiveImage) {
             const translateY = scrollProgress < 0.5 ? 
-              (0.5 - scrollProgress) * 100 * Math.pow(1 - scrollProgress * 2, 1.5) : // Advanced slide-in with non-linear easing
-              0; // Keep centered
-            const scale = scrollProgress < 0.5 ?
-              0.95 + (scrollProgress * 2) * 0.05 : // Scale up as it enters
-              1; // Full scale when centered
+              (0.5 - scrollProgress) * 50 : // Reduced movement range
+              0;
             
-            currentResponsiveImage.style.transform = `translateY(${translateY}%) scale(${scale})`;
-            // Reduce blur as image enters view
-            currentResponsiveImage.style.filter = `blur(${Math.max(0, 2 - scrollProgress * 4)}px)`;
+            currentResponsiveImage.style.transform = `translateY(${translateY}%)`;
+            currentResponsiveImage.style.opacity = '1';
+            currentResponsiveImage.style.filter = 'blur(0px)';
           }
           
-          // Next image - ultra-smooth slide in from bottom with advanced easing
+          // Next image - slide in from bottom
           if (index < processItems.length - 1) {
             const nextImage = mockupImagesRef.current[index + 1];
             const nextResponsiveImage = responsiveImages[index + 1] as HTMLElement;
             
             if (nextImage) {
-              // Enhanced cubic bezier approximation for beautiful slide-in
               const nextProgress = scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0;
-              const nextTranslateY = 100 * (1 - Math.pow(nextProgress, 3)); // Cubic easing for smoother entrance
-              const nextScale = 0.95 + (nextProgress * 0.05); // Subtle scaling effect
+              const nextTranslateY = 100 * (1 - nextProgress); // Linear transition
               
-              nextImage.style.transform = `translateY(${nextTranslateY}%) scale(${nextScale})`;
-              // Fade and blur control
-              nextImage.style.opacity = (nextProgress * 1.5).toString(); // Faster fade-in
-              nextImage.style.filter = `blur(${Math.max(0, 2 - nextProgress * 4)}px)`;
+              nextImage.style.transform = `translateY(${nextTranslateY}%)`;
+              nextImage.style.opacity = nextProgress.toString();
+              nextImage.style.filter = 'blur(0px)';
             }
             
             if (nextResponsiveImage) {
               const nextProgress = scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0;
-              const nextTranslateY = 100 * (1 - Math.pow(nextProgress, 3)); // Cubic easing for smoother entrance
-              const nextScale = 0.95 + (nextProgress * 0.05); // Subtle scaling effect
+              const nextTranslateY = 100 * (1 - nextProgress); // Linear transition
               
-              nextResponsiveImage.style.transform = `translateY(${nextTranslateY}%) scale(${nextScale})`;
-              // Fade and blur control
-              nextResponsiveImage.style.opacity = (nextProgress * 1.5).toString(); // Faster fade-in
-              nextResponsiveImage.style.filter = `blur(${Math.max(0, 2 - nextProgress * 4)}px)`;
+              nextResponsiveImage.style.transform = `translateY(${nextTranslateY}%)`;
+              nextResponsiveImage.style.opacity = nextProgress.toString();
+              nextResponsiveImage.style.filter = 'blur(0px)';
             }
           }
           
-          // Previous image - ultra-smooth slide out to top with advanced easing
+          // Previous image - keep visible and slide up
           if (index > 0) {
             const prevImage = mockupImagesRef.current[index - 1];
             const prevResponsiveImage = responsiveImages[index - 1] as HTMLElement;
             
             if (prevImage) {
-              // Enhanced cubic bezier approximation for beautiful slide-out
               const prevProgress = scrollProgress < 0.5 ? (0.5 - scrollProgress) * 2 : 0;
-              const prevTranslateY = -100 * (1 - Math.pow(prevProgress, 3)); // Cubic easing for smoother exit
-              const prevScale = 0.95 + (prevProgress * 0.05); // Subtle scaling effect
+              const prevTranslateY = -50 * prevProgress; // Reduced movement range
               
-              prevImage.style.transform = `translateY(${prevTranslateY}%) scale(${prevScale})`;
-              // Fade and blur control
-              prevImage.style.opacity = (prevProgress * 0.5).toString(); // More dramatic fade-out
-              prevImage.style.filter = `blur(${Math.max(0, 2 - prevProgress * 4)}px)`;
+              prevImage.style.transform = `translateY(${prevTranslateY}%)`;
+              prevImage.style.opacity = (1 - prevProgress * 0.5).toString(); // Slower fade out
+              prevImage.style.filter = 'blur(0px)';
             }
             
             if (prevResponsiveImage) {
               const prevProgress = scrollProgress < 0.5 ? (0.5 - scrollProgress) * 2 : 0;
-              const prevTranslateY = -100 * (1 - Math.pow(prevProgress, 3)); // Cubic easing for smoother exit
-              const prevScale = 0.95 + (prevProgress * 0.05); // Subtle scaling effect
+              const prevTranslateY = -50 * prevProgress; // Reduced movement range
               
-              prevResponsiveImage.style.transform = `translateY(${prevTranslateY}%) scale(${prevScale})`;
-              // Fade and blur control
-              prevResponsiveImage.style.opacity = (prevProgress * 0.5).toString(); // More dramatic fade-out
-              prevResponsiveImage.style.filter = `blur(${Math.max(0, 2 - prevProgress * 4)}px)`;
+              prevResponsiveImage.style.transform = `translateY(${prevTranslateY}%)`;
+              prevResponsiveImage.style.opacity = (1 - prevProgress * 0.5).toString(); // Slower fade out
+              prevResponsiveImage.style.filter = 'blur(0px)';
             }
           }
         }
