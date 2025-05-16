@@ -152,6 +152,9 @@ const BusinessSubPage = () => {
                 </div>
               )}
             </div>
+            <button className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}>
+              Show More
+            </button>
           </div>
           {/* JobPosts */}
           <div className="flex flex-col items-center w-full">
@@ -178,6 +181,9 @@ const BusinessSubPage = () => {
                 </div>
               )}
             </div>
+            <button className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}>
+              Show More
+            </button>
           </div>
           {/* AI Recruiter */}
           <div className="flex flex-col items-center w-full">
@@ -204,6 +210,9 @@ const BusinessSubPage = () => {
                 </div>
               )}
             </div>
+            <button className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}>
+              Show More
+            </button>
           </div>
         </div>
         {/* Footer Links */}
