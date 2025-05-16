@@ -4,16 +4,45 @@ import Link from 'next/link';
 import ContactModal from '@/components/layout/ContactModal';
 import TermsModal from '@/components/layout/TermsModal';
 import PrivacyPolicyModal from '@/components/layout/PrivacyPolicyModal';
-import { FaPlay } from 'react-icons/fa';
+import { FaPlay, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import VideoSlider from './VideoSlider';
+
 
 const gradientText = "bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent";
 const gradientBg = "bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01]";
+
+// Mock data for videos - replace with your actual video data
+const videoData = {
+  jobreels: [
+    { id: 1, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 1" },
+    { id: 2, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 2" },
+    { id: 3, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 3" },
+    { id: 4, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 4" },
+    { id: 5, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 5" },
+  ],
+  jobposts: [
+    { id: 1, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 1" },
+    { id: 2, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 2" },
+    { id: 3, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 3" },
+    { id: 4, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 4" },
+    { id: 5, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 5" },
+  ],
+  ai: [
+    { id: 1, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 1" },
+    { id: 2, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 2" },
+    { id: 3, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 3" },
+    { id: 4, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 4" },
+    { id: 5, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 5" },
+  ],
+};
 
 const BusinessSubPage = () => {
   const [isContactOpen, setContactOpen] = useState(false);
   const [isTermsOpen, setTermsOpen] = useState(false);
   const [isPrivacyOpen, setPrivacyOpen] = useState(false);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [showCarousel, setShowCarousel] = useState<string | null>(null);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   const handleVideoClick = (videoId: string) => {
     const video = document.getElementById(videoId) as HTMLVideoElement;
@@ -23,7 +52,6 @@ const BusinessSubPage = () => {
         video.muted = true;
         setPlayingVideo(null);
       } else {
-        // Pause any currently playing video
         if (playingVideo) {
           const currentVideo = document.getElementById(playingVideo) as HTMLVideoElement;
           if (currentVideo) {
@@ -31,7 +59,6 @@ const BusinessSubPage = () => {
             currentVideo.muted = true;
           }
         }
-        // Set the video to preload when clicked
         video.preload = "auto";
         video.play();
         video.muted = false;
@@ -39,6 +66,50 @@ const BusinessSubPage = () => {
       }
     }
   };
+
+  const handleShowMore = (section: string) => {
+    setShowCarousel(section);
+    setCurrentVideoIndex(0);
+  };
+
+  const handleCarouselVideoClick = (videoId: string) => {
+    const video = document.getElementById(videoId) as HTMLVideoElement;
+    if (video) {
+      if (playingVideo === videoId) {
+        video.pause();
+        video.muted = true;
+        setPlayingVideo(null);
+      } else {
+        if (playingVideo) {
+          const currentVideo = document.getElementById(playingVideo) as HTMLVideoElement;
+          if (currentVideo) {
+            currentVideo.pause();
+            currentVideo.muted = true;
+          }
+        }
+        video.preload = "auto";
+        video.play();
+        video.muted = false;
+        setPlayingVideo(videoId);
+      }
+    }
+  };
+
+  const nextVideo = () => {
+    if (showCarousel) {
+      const videos = videoData[showCarousel as keyof typeof videoData];
+      setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
+    }
+  };
+
+  const prevVideo = () => {
+    if (showCarousel) {
+      const videos = videoData[showCarousel as keyof typeof videoData];
+      setCurrentVideoIndex((prev) => (prev - 1 + videos.length) % videos.length);
+    }
+  };
+
+  
 
   return (
     <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row overflow-hidden">
@@ -125,6 +196,36 @@ const BusinessSubPage = () => {
             <span>Your own <span className={gradientText}>AI Recruiter</span></span>
           </div>
         </div>
+
+        {/* Video Slider - Only show when jobreels is selected */}
+        {showCarousel === 'jobreels' && (
+          <div className="w-full mb-8">
+           
+            <VideoSlider videos={videoData.jobreels.map(video => ({
+              videoUrl: video.src,
+              extraText: video.title
+            }))} />
+          </div>
+        )}
+        {showCarousel === 'jobposts' && (
+          <div className="w-full mb-8">
+           
+            <VideoSlider videos={videoData.jobposts.map(video => ({
+              videoUrl: video.src,
+              extraText: video.title
+            }))} />
+          </div>
+        )}
+        {showCarousel === 'ai' && (
+          <div className="w-full mb-8">
+           
+            <VideoSlider videos={videoData.ai.map(video => ({
+              videoUrl: video.src,
+              extraText: video.title
+            }))} />
+          </div>
+        )}
+
         {/* Phone Mockups */}
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12 py-4 lg:py-0 lg:flex-1 mt-4 lg:mt-0">
           {/* JobReels */}
@@ -152,7 +253,10 @@ const BusinessSubPage = () => {
                 </div>
               )}
             </div>
-            <button className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}>
+            <button 
+              onClick={() => handleShowMore('jobreels')}
+              className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
+            >
               Show More
             </button>
           </div>
@@ -181,7 +285,10 @@ const BusinessSubPage = () => {
                 </div>
               )}
             </div>
-            <button className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}>
+            <button 
+              onClick={() => handleShowMore('jobposts')}
+              className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
+            >
               Show More
             </button>
           </div>
@@ -210,7 +317,10 @@ const BusinessSubPage = () => {
                 </div>
               )}
             </div>
-            <button className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}>
+            <button 
+              onClick={() => handleShowMore('ai')}
+              className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
+            >
               Show More
             </button>
           </div>
@@ -248,7 +358,7 @@ const BusinessSubPage = () => {
               aria-label="Close"
             >
               &times;
-            </button>
+            </button> 
             <PrivacyPolicyModal onClose={() => setPrivacyOpen(false)} />
           </div>
         </div>
