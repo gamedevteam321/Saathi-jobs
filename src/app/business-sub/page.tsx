@@ -14,25 +14,25 @@ const gradientBg = "bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01]";
 // Mock data for videos - replace with your actual video data
 const videoData = {
   jobreels: [
-    { id: 1, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 1" },
-    { id: 2, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 2" },
-    { id: 3, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 3" },
-    { id: 4, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 4" },
-    { id: 5, src: "/videos/jobreel.mp4", thumbnail: "/videos/thumbnails/jobreel.png", title: "JobReel 5" },
+    { id: 1, src: "/videos/jobreels/jobreel-1.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-1.png", title: "JobReel 1" },
+    { id: 2, src: "/videos/jobreels/jobreel-2.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-2.png", title: "JobReel 2" },
+    { id: 3, src: "/videos/jobreels/jobreel-3.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-3.png", title: "JobReel 3" },
+    { id: 4, src: "/videos/jobreels/jobreel-4.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-4.png", title: "JobReel 4" },
+    { id: 5, src: "/videos/jobreels/jobreel-5.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-5.png", title: "JobReel 5" },
   ],
   jobposts: [
-    { id: 1, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 1" },
-    { id: 2, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 2" },
-    { id: 3, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 3" },
-    { id: 4, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 4" },
-    { id: 5, src: "/videos/jobpost.mp4", thumbnail: "/videos/thumbnails/jobpost.png", title: "JobPost 5" },
+    { id: 1, src: "/videos/jobposts/jobpost-1.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-1.png", title: "JobPost 1" },
+    { id: 2, src: "/videos/jobposts/jobpost-2.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-2.png", title: "JobPost 2" },
+    { id: 3, src: "/videos/jobposts/jobpost-3.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-3.png", title: "JobPost 3" },
+    { id: 4, src: "/videos/jobposts/jobpost-4.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-4.png", title: "JobPost 4" },
+    { id: 5, src: "/videos/jobposts/jobpost-5.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-5.png", title: "JobPost 5" },
   ],
   ai: [
-    { id: 1, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 1" },
-    { id: 2, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 2" },
-    { id: 3, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 3" },
-    { id: 4, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 4" },
-    { id: 5, src: "/videos/ai.mp4", thumbnail: "/videos/thumbnails/ai.png", title: "AI Recruiter 5" },
+    { id: 1, src: "/videos/ai/ai-1.mp4", thumbnail: "/videos/thumbnails/ai/ai-1.png", title: "AI Recruiter 1" },
+    { id: 2, src: "/videos/ai/ai-2.mp4", thumbnail: "/videos/thumbnails/ai/ai-2.png", title: "AI Recruiter 2" },
+    { id: 3, src: "/videos/ai/ai-3.mp4", thumbnail: "/videos/thumbnails/ai/ai-3.png", title: "AI Recruiter 3" },
+    { id: 4, src: "/videos/ai/ai-4.mp4", thumbnail: "/videos/thumbnails/ai/ai-4.png", title: "AI Recruiter 4" },
+    { id: 5, src: "/videos/ai/ai-5.mp4", thumbnail: "/videos/thumbnails/ai/ai-5.png", title: "AI Recruiter 5" },
   ],
 };
 
@@ -200,28 +200,28 @@ const BusinessSubPage = () => {
         {/* Video Slider - Only show when jobreels is selected */}
         {showCarousel === 'jobreels' && (
           <div className="w-full mb-8">
-           
             <VideoSlider videos={videoData.jobreels.map(video => ({
               videoUrl: video.src,
-              extraText: video.title
+              extraText: video.title,
+              thumbnail: video.thumbnail
             }))} />
           </div>
         )}
         {showCarousel === 'jobposts' && (
           <div className="w-full mb-8">
-           
             <VideoSlider videos={videoData.jobposts.map(video => ({
               videoUrl: video.src,
-              extraText: video.title
+              extraText: video.title,
+              thumbnail: video.thumbnail
             }))} />
           </div>
         )}
         {showCarousel === 'ai' && (
           <div className="w-full mb-8">
-           
             <VideoSlider videos={videoData.ai.map(video => ({
               videoUrl: video.src,
-              extraText: video.title
+              extraText: video.title,
+              thumbnail: video.thumbnail
             }))} />
           </div>
         )}

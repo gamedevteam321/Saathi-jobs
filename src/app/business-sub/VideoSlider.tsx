@@ -5,6 +5,7 @@ import { FaPlay } from "react-icons/fa";
 interface Video {
     videoUrl: string;
     extraText?: string;
+    thumbnail: string;
 }
 
 // Helper function to extract YouTube video IDs
@@ -23,11 +24,12 @@ interface VideoCardProps {
   video: Video;
   paused: boolean;
   isActive: boolean;
+  thumbnail: string;
   onPrev: () => void;
   onNext: () => void;
 }
 
-const VideoCard = ({ video, paused, isActive, onPrev, onNext }: VideoCardProps) => {
+const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: VideoCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -35,10 +37,13 @@ const VideoCard = ({ video, paused, isActive, onPrev, onNext }: VideoCardProps) 
     if (videoRef.current) {
       if (paused) {
         videoRef.current.pause();
+        videoRef.current.muted = true;
         setIsPlaying(false);
       } else if (isActive) {
+        videoRef.current.muted = false;
         videoRef.current.play().catch(() => {
           setIsPlaying(false);
+          videoRef.current!.muted = true;
         });
         setIsPlaying(true);
       }
@@ -49,10 +54,13 @@ const VideoCard = ({ video, paused, isActive, onPrev, onNext }: VideoCardProps) 
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
+        videoRef.current.muted = true;
         setIsPlaying(false);
       } else {
+        videoRef.current.muted = false;
         videoRef.current.play().catch(() => {
           setIsPlaying(false);
+          videoRef.current!.muted = true;
         });
         setIsPlaying(true);
       }
@@ -64,23 +72,32 @@ const VideoCard = ({ video, paused, isActive, onPrev, onNext }: VideoCardProps) 
       className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
       onClick={handleVideoClick}
     >
-      <video 
-        ref={videoRef}
-        src={video.videoUrl}
-        className="w-full h-full object-contain"
-        loop
-        playsInline
-        muted
-        preload="none"
-      />
-      {!isPlaying && (
+      {isActive ? (
+        <video 
+          ref={videoRef}
+          src={video.videoUrl}
+          className="w-full h-full object-contain"
+          loop
+          playsInline
+          muted={!isPlaying}
+          preload="none"
+          poster={thumbnail}
+        />
+      ) : (
+        <img 
+          src={thumbnail}
+          alt={video.extraText || 'Video thumbnail'}
+          className="w-full h-full object-contain"
+        />
+      )}
+      {!isPlaying && isActive && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
             <FaPlay className="text-black text-2xl ml-1" />
           </div>
         </div>
       )}
-      {video.extraText && (
+      {video.extraText && isActive && (
         <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-sm">
           {video.extraText}
         </div>
@@ -185,7 +202,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
     const cardWidth = parseInt(getCardWidth());
     const spacing = windowWidth < 768 ? 20 : 15; // Spacing between cards
     const baseOffset = adjustedIndex * (cardWidth + spacing);
-    const dragAdjustment = isDragging ? (dragOffset / 2) : 0; // Reduce drag effect
+    const dragAdjustment = isDragging ? dragOffset : 0; // Use full drag offset for smoother feel
     return `${baseOffset + dragAdjustment}px`;
   };
 
@@ -200,11 +217,11 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
     let zIndex = 1;
 
     if (distance === 1) {
-      scale = 0.85;
-      opacity = 0.8;
+      scale = 0.9; // Slightly larger scale for better visibility
+      opacity = 0.9; // Higher opacity for better visibility
     } else if (distance === 2) {
-      scale = 0.7;
-      opacity = 0.6;
+      scale = 0.8;
+      opacity = 0.7;
     }
 
     if (isCenter) {
@@ -222,7 +239,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
 
     return (
         <div
-          className="relative w-full h-[80vh] md:h-[90vh] bg-transparent overflow-hidden flex items-center justify-center"
+          className="relative w-full h-[80vh] md:h-[90vh] bg-transparent overflow-hidden"
           onMouseDown={handleDragStart}
           onMouseMove={handleDragMove}
           onMouseUp={handleDragEnd}
@@ -248,7 +265,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
             </button>
           </div>
 
-          <div className="relative w-full h-full flex justify-center items-center">
+          <div className="absolute inset-0 flex justify-center items-center">
             <div className="relative h-full flex justify-center items-center">
               {getVisibleIndices().map((index) => (
                 <div
@@ -268,6 +285,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
                     isActive={index === currentIndex}
                     onPrev={handlePrev}
                     onNext={handleNext}
+                    thumbnail={videos[index].thumbnail}
                   />
                 </div>
               ))}
