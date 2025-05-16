@@ -208,7 +208,7 @@ const JobTrain = () => {
             </motion.p>
           </div>
 
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">
+          <div className="slider-container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center">
             {/* Left Side - Content */}
             <div className="relative min-h-[400px] flex flex-col justify-center">
               <div className="h-full">

@@ -69,12 +69,12 @@ export default function FeatureCarousel({ selectedIndex = 0, onIndexChange }: Fe
             </h1>
             <p className="text-gray-400 italic text-md sm:text-md md:text-[18px] py-1 text-center md:text-left font-['Helvetica']">The Instagram of Jobs</p>
             <div className="mt-3 md:mt-8 text-center md:text-left">
-              <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight mb-4 md:mb-6 font-['Helvetica'] ">When Resumes meet Reels,<br/>hiring happens instantly</h2>
+              <h2 className="text-white text-xl sm:text-3xl md:text-[40px] font-light leading-tight mb-4 md:mb-6 font-['Helvetica'] ">When Resumes meet Reels,<br/>hiring happens instantly</h2>
               
             </div>
           </div>
 
-          <div className="container mx-auto flex flex-col md:grid md:grid-cols-2 gap-2 sm:gap-5 md:gap-0 items-center mt-0 sm:-mt-36 md:-mt-40">
+          <div className="slider-container mx-auto flex flex-col md:grid md:grid-cols-2 gap-2 sm:gap-5 md:gap-0 items-center mt-0 sm:-mt-36 md:-mt-40">
             {/* Left Side - Feature Text */}
             <div className="relative min-h-[120px] sm:min-h-[300px] flex flex-col justify-center items-center md:items-end text-center md:text-left mt-6 md:mt-32 order-1 md:order-none w-full px-4">
               <div className="h-full flex items-center justify-center md:justify-end md:pr-4 w-full">

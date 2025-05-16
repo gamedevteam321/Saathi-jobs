@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, ReactNode } from 'react';
-import './IdentityVerified.css';
-import './MobileScreenStyles.css';
+import image from 'next/image';
 
 // Adding custom styles to reduce gap between process items
 const customStyles = {
@@ -33,7 +32,7 @@ const features = [
     ),
     title: (<><span className="text-white">Live Photo</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: <><span className='text-gray-400 italic text-[18px]'>Eliminating Fake Personas</span></>,
+    desc: <><span className='text-gray-400 italic text-md md:text-[18px]'>Eliminating Fake Personas</span></>,
   },
   {
     icon: (
@@ -43,7 +42,7 @@ const features = [
     ),
     title: (<><span className="text-white">Adhaar</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: <><span className='text-gray-400 italic text-[18px]'>Preventing Identity Fraud</span></>,
+    desc: <><span className='text-gray-400 italic text-md md:text-[18px]'>Preventing Identity Fraud</span></>,
   },
   {
     icon: (
@@ -53,7 +52,7 @@ const features = [
     ),
     title: (<><span className="text-white">Legal Status</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: <><span className='text-gray-400 italic text-[18px]'>Automated Court Case Checks</span></>,
+    desc: <><span className='text-gray-400 italic text-md md:text-[18px]'>Automated Court Case Checks</span></>,
   },
   {
     icon: (
@@ -63,7 +62,7 @@ const features = [
     ),
     title: (<><span className="text-white">Experience</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: <span className='text-gray-400 italic text-[18px]'>Past Employment Check with Rating</span>,
+    desc: <span className='text-gray-400 italic text-md md:text-[18px]'>Past Employment Check with Rating</span>,
   },
 ];
 
@@ -110,7 +109,7 @@ const sections = [
     ),
     content: (
       <>
-        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-2 pl-5 text-gray-400">
+        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-4 pl-5 text-gray-400">
           Live on <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
         </div>
         <ul className="space-y-4 sm:space-y-5 px-1">
@@ -140,7 +139,7 @@ const sections = [
     title: null,
     content: (
       <>
-        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-2 pl-5 text-gray-400">
+        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-4 pl-5 text-gray-400">
           <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span> <span className="text-gray-400">for the Workforce</span>
         </div>
         <ul className="space-y-4 sm:space-y-5 px-1">
@@ -167,7 +166,7 @@ const sections = [
     title: null,
     content: (
       <>
-        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-2 pl-5 text-gray-400">
+        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-4 pl-5 text-gray-400">
           <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span> <span className="text-gray-400">for Recruiters</span>
         </div>
         <ul className="space-y-4 sm:space-y-5 px-1">
@@ -190,7 +189,7 @@ const sections = [
   },
 ];
 
-const IdentityVerified: React.FC<{showFrame?: boolean}> = ({ showFrame = false }) => {
+const IdentityVerifiedMobile: React.FC<{showFrame?: boolean}> = ({ showFrame = false }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [prevStep, setPrevStep] = useState(-1);
   const stepsRef = useRef<HTMLDivElement>(null);
@@ -203,398 +202,45 @@ const IdentityVerified: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
   const tickingRef = useRef<boolean>(false);
   const currentIndexRef = useRef<number>(0);
 
-  // Initialize intersection observer for animations
-  useEffect(() => {
-    // Setup intersection observer for triggering animations
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: [0.1, 0.33, 0.75]
-    };
-
-    // Observer for entrance animations
-    observerRef.current = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (entry.target.classList.contains('process-wrapper')) {
-            entry.target.classList.add('in-view');
-          } else if (entry.target.classList.contains('process-item')) {
-            entry.target.classList.add('visible');
-          }
-        }
-      });
-    }, options);
-
-    // Observe process wrapper for entrance animation
-    if (processWrapperRef.current) {
-      observerRef.current.observe(processWrapperRef.current);
-    }
-
-    // Observe each process item
-    if (stepsRef.current) {
-      const processItems = stepsRef.current.querySelectorAll('.process-item');
-      processItems.forEach(item => {
-        if (observerRef.current) {
-          observerRef.current.observe(item);
-        }
-      });
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, []);
-
-  // Initialize mockup image refs
-  useEffect(() => {
-    // Clear any previous active classes
-    mockupImagesRef.current.forEach((img) => {
-      if (img && img.classList.contains('active')) {
-        img.classList.remove('active');
-      }
-      if (img && img.classList.contains('prev')) {
-        img.classList.remove('prev');
-      }
-    });
-    
-    // Set initial mockup visibility (first item active)
-    const firstImage = mockupImagesRef.current[0];
-    if (firstImage) {
-      firstImage.classList.add('active');
-      firstImage.style.transform = 'translateX(0%)';
-      firstImage.style.opacity = '1';
-    }
-    
-    // Position other images off-screen
-    for (let i = 1; i < mockupImagesRef.current.length; i++) {
-      const img = mockupImagesRef.current[i];
-      if (img) {
-        img.style.transform = 'translateX(100%)';
-        img.style.opacity = '0';
-      }
-    }
-    
-    // Initialize responsive images as well
-    setTimeout(() => {
-      const responsiveImages = document.querySelectorAll('.responsive-feature-image');
-      if (responsiveImages.length > 0) {
-        (responsiveImages[0] as HTMLElement).style.transform = 'translateX(0%)';
-        (responsiveImages[0] as HTMLElement).style.opacity = '1';
-        
-        for (let i = 1; i < responsiveImages.length; i++) {
-          (responsiveImages[i] as HTMLElement).style.transform = 'translateX(100%)';
-          (responsiveImages[i] as HTMLElement).style.opacity = '0';
-        }
-      }
-    }, 100);
-    
-    // Reset current index and active step
-    currentIndexRef.current = 0;
-    setActiveStep(0);
-    setPrevStep(-1);
-      
-    // Mark the first circle as active
-    const circles = document.querySelectorAll('.progression-circle');
-    circles.forEach((circle, i) => {
-      if (i === 0) {
-        circle.classList.add('active');
-      } else {
-        circle.classList.remove('active');
-      }
-    });
-  }, []);
-
-  // Update when process steps change
-  useEffect(() => {
-    // Sync the active step with the image display
-    const updateActiveStep = (index: number) => {
-      // Save previous step before updating
-      setPrevStep(activeStep);
-      setActiveStep(index);
-      
-      // Update mockup image visibility with parallax effect
-      mockupImagesRef.current.forEach((img, imgIndex) => {
-        if (img) {
-          if (imgIndex === index) {
-            img.classList.remove('prev');
-            img.classList.add('active');
-          } else if (imgIndex === activeStep) {
-            img.classList.remove('active');
-            img.classList.add('prev');
-          } else {
-            img.classList.remove('active');
-            img.classList.remove('prev');
-          }
-        }
-      });
-      
-      // Update progression circles
-      const progressionCircles = document.querySelectorAll('.progression-circle');
-      progressionCircles.forEach((circle, i) => {
-        if (i <= index) {
-          circle.classList.add('active');
-        } else {
-          circle.classList.remove('active');
-        }
-      });
-    };
-
-    // Initial sync
-    updateActiveStep(currentIndexRef.current);
-    
-    // Setup scroll observation for each process item
-    const handleProcessStepVisibility = () => {
-      if (!stepsRef.current) return;
-      
-      const processItems = stepsRef.current.querySelectorAll('.process-item');
-      processItems.forEach((item, index) => {
-        const rect = item.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const itemTop = rect.top;
-        
-        // Check if this item is in the middle of the viewport
-        if (itemTop < viewportHeight * 0.6 && itemTop > -rect.height * 0.4) {
-          if (currentIndexRef.current !== index) {
-            currentIndexRef.current = index;
-            updateActiveStep(index);
-          }
-        }
-      });
-    };
-    
-    // Add scroll listener
-    window.addEventListener('scroll', handleProcessStepVisibility, { passive: true });
-    
-    // Initial check
-    handleProcessStepVisibility();
-    
-    return () => {
-      window.removeEventListener('scroll', handleProcessStepVisibility);
-    };
-  }, [sections, activeStep]); // Re-run when process steps or activeStep change
-
-  // Handle scroll-based animations - modified for ultra-smooth transitions
-  useEffect(() => {
-    const updateMockups = () => {
-      if (!stepsRef.current) return;
-
-      const processItems = stepsRef.current.querySelectorAll('.process-item');
-      const progressBar = progressBarRef.current;
-      
-      processItems.forEach((item, index) => {
-        const rect = item.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const itemTop = rect.top;
-        const itemHeight = rect.height;
-        
-        // Calculate how far through the item we've scrolled (0 to 1) with enhanced easing
-        const rawScrollProgress = Math.min(
-          Math.max(
-            (viewportHeight * 0.5 - itemTop) / (itemHeight + viewportHeight * 0.5),
-            0
-          ),
-          1
-        );
-        
-        // Apply advanced easing function for ultra-smooth transitions
-        // This is a custom easing function that combines aspects of easeOutExpo and easeInOutQuint
-        const easeOutExpo = (t: number): number => {
-          if (t === 1) return 1;
-          return 1 - Math.pow(2, -10 * t);
-        };
-        
-        const easeInOutQuint = (t: number): number => {
-          return t < 0.5 
-            ? 16 * t * t * t * t * t
-            : 1 - Math.pow(-2 * t + 2, 5) / 2;
-        };
-        
-        // Blend between two easing functions for a custom feel
-        const blendedEase = (t: number): number => {
-          // Get values from both easing functions
-          const expo = easeOutExpo(t);
-          const quint = easeInOutQuint(t);
-          
-          // Blend based on progress (more exponential at start, more quintic at end)
-          const blend = t < 0.5 ? t * 2 : (1 - t) * 2;
-          return expo * (1 - blend) + quint * blend;
-        };
-        
-        const scrollProgress = blendedEase(rawScrollProgress);
-
-        // Update progress bar with super-smooth animation
-        if (progressBar && index === currentIndexRef.current) {
-          const progress = (currentIndexRef.current + scrollProgress) / processItems.length * 100;
-          progressBar.style.height = `${progress}%`;
-        }
-        
-        // Apply parallax effect on the images based on scroll progress with enhanced smoothness
-        if (index === currentIndexRef.current) {
-          // Get all image references for the current index
-          const currentImage = mockupImagesRef.current[index];
-          const responsiveImages = document.querySelectorAll('.responsive-feature-image');
-          const currentResponsiveImage = responsiveImages[index] as HTMLElement;
-          
-          // Handle current active image with advanced easing
-          if (currentImage) {
-            // Advanced easing formula for smoother transitions
-            const translateY = scrollProgress < 0.5 ? 
-              (0.5 - scrollProgress) * 100 * Math.pow(1 - scrollProgress * 2, 1.5) : // Advanced slide-in with non-linear easing
-              0; // Keep centered
-            const scale = scrollProgress < 0.5 ?
-              0.95 + (scrollProgress * 2) * 0.05 : // Scale up as it enters
-              1; // Full scale when centered
-            
-            currentImage.style.transform = `translateY(${translateY}%) scale(${scale})`;
-            // Reduce blur as image enters view  
-            currentImage.style.filter = `blur(${Math.max(0, 2 - scrollProgress * 4)}px)`;
-          }
-          
-          if (currentResponsiveImage) {
-            const translateY = scrollProgress < 0.5 ? 
-              (0.5 - scrollProgress) * 100 * Math.pow(1 - scrollProgress * 2, 1.5) : // Advanced slide-in with non-linear easing
-              0; // Keep centered
-            const scale = scrollProgress < 0.5 ?
-              0.95 + (scrollProgress * 2) * 0.05 : // Scale up as it enters
-              1; // Full scale when centered
-            
-            currentResponsiveImage.style.transform = `translateY(${translateY}%) scale(${scale})`;
-            // Reduce blur as image enters view
-            currentResponsiveImage.style.filter = `blur(${Math.max(0, 2 - scrollProgress * 4)}px)`;
-          }
-          
-          // Next image - ultra-smooth slide in from bottom with advanced easing
-          if (index < processItems.length - 1) {
-            const nextImage = mockupImagesRef.current[index + 1];
-            const nextResponsiveImage = responsiveImages[index + 1] as HTMLElement;
-            
-            if (nextImage) {
-              // Enhanced cubic bezier approximation for beautiful slide-in
-              const nextProgress = scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0;
-              const nextTranslateY = 100 * (1 - Math.pow(nextProgress, 3)); // Cubic easing for smoother entrance
-              const nextScale = 0.95 + (nextProgress * 0.05); // Subtle scaling effect
-              
-              nextImage.style.transform = `translateY(${nextTranslateY}%) scale(${nextScale})`;
-              // Fade and blur control
-              nextImage.style.opacity = (nextProgress * 1.5).toString(); // Faster fade-in
-              nextImage.style.filter = `blur(${Math.max(0, 2 - nextProgress * 4)}px)`;
-            }
-            
-            if (nextResponsiveImage) {
-              const nextProgress = scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0;
-              const nextTranslateY = 100 * (1 - Math.pow(nextProgress, 3)); // Cubic easing for smoother entrance
-              const nextScale = 0.95 + (nextProgress * 0.05); // Subtle scaling effect
-              
-              nextResponsiveImage.style.transform = `translateY(${nextTranslateY}%) scale(${nextScale})`;
-              // Fade and blur control
-              nextResponsiveImage.style.opacity = (nextProgress * 1.5).toString(); // Faster fade-in
-              nextResponsiveImage.style.filter = `blur(${Math.max(0, 2 - nextProgress * 4)}px)`;
-            }
-          }
-          
-          // Previous image - ultra-smooth slide out to top with advanced easing
-          if (index > 0) {
-            const prevImage = mockupImagesRef.current[index - 1];
-            const prevResponsiveImage = responsiveImages[index - 1] as HTMLElement;
-            
-            if (prevImage) {
-              // Enhanced cubic bezier approximation for beautiful slide-out
-              const prevProgress = scrollProgress < 0.5 ? (0.5 - scrollProgress) * 2 : 0;
-              const prevTranslateY = -100 * (1 - Math.pow(prevProgress, 3)); // Cubic easing for smoother exit
-              const prevScale = 0.95 + (prevProgress * 0.05); // Subtle scaling effect
-              
-              prevImage.style.transform = `translateY(${prevTranslateY}%) scale(${prevScale})`;
-              // Fade and blur control
-              prevImage.style.opacity = (prevProgress * 0.5).toString(); // More dramatic fade-out
-              prevImage.style.filter = `blur(${Math.max(0, 2 - prevProgress * 4)}px)`;
-            }
-            
-            if (prevResponsiveImage) {
-              const prevProgress = scrollProgress < 0.5 ? (0.5 - scrollProgress) * 2 : 0;
-              const prevTranslateY = -100 * (1 - Math.pow(prevProgress, 3)); // Cubic easing for smoother exit
-              const prevScale = 0.95 + (prevProgress * 0.05); // Subtle scaling effect
-              
-              prevResponsiveImage.style.transform = `translateY(${prevTranslateY}%) scale(${prevScale})`;
-              // Fade and blur control
-              prevResponsiveImage.style.opacity = (prevProgress * 0.5).toString(); // More dramatic fade-out
-              prevResponsiveImage.style.filter = `blur(${Math.max(0, 2 - prevProgress * 4)}px)`;
-            }
-          }
-        }
-      });
-    };
-
-    // High-performance scroll handler with RAF optimization
-    let lastScrollY = window.scrollY;
-    let animationFrameId: number | null = null;
-    let lastTimestamp = 0;
-    
-    const handleScroll = () => {
-      const now = performance.now();
-      const currentScrollY = window.scrollY;
-      
-      // Only update if we have a meaningful scroll change or enough time has passed
-      // This creates buttery-smooth animations even on rapid scrolling
-      if (Math.abs(currentScrollY - lastScrollY) > 0.5 || now - lastTimestamp > 16) {
-        // Cancel any pending frames for smoother animation
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
-        }
-        
-        // Schedule the update in the next frame with high priority
-        animationFrameId = requestAnimationFrame(() => {
-          updateMockups();
-          lastScrollY = currentScrollY;
-          lastTimestamp = now;
-          animationFrameId = null;
-        });
-      }
-    };
-
-    // Use passive event listener for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Initial update
-    updateMockups();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-  }, []);
+  
 
   return (
-    <section id="guide" className="transparent-bg">
-      <div className="container w-container">
+    <section id="guide" className="transparent-bg block md:hidden">
+      <div className="">
       
-        <div className="process-wrapper" ref={processWrapperRef} data-animate="true">
+        <div className="" ref={processWrapperRef} data-animate="true">
+
+           {/*Right Side*/}
+           
+           <div className="flex justify-center items-center">
+                  
+                    <img
+                      key={mockupImages.length}
+                      src='/assets/home/identity1.png'
+                      alt={`Identity Verified`}
+                      className={`mx-auto w-64 h-auto`}
+                      sizes={`(max-width: 767px) 90vw, (max-width: 991px) 95vw, 940px`}
+                    />
+                
+                </div>
+        
+
         {/*Left Side*/}
-        <div className="steps-wrapper" ref={stepsRef} data-animate="true">
+        <div className="" ref={stepsRef} data-animate="true">
             {/* <div className="process-path">
               <div className="progress-bar" ref={progressBarRef}></div>
             </div> */}
             {sections.map((step, index) => (
-              <div key={index} className="process-item" style={customStyles.processItem}>
-                <div className="process-center">
-                  {/* <div 
-                    className={`progression-circle ${index <= activeStep ? 'active' : ''}`}
-                    style={index === activeStep ? 
-                      { ...customStyles.progressionCircle, ...customStyles.activeCircle } : 
-                      customStyles.progressionCircle}
-                  ></div> */}
-                </div>
-                <div className="process-right">
-                  <div className="process-step-wrapper">
+              <div key={index} className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300 mx-auto my-8 w-[280px]">
+                
+                <div className="p-0">
+                  <div className="">
                     
                     {/* <div className="large-number">{step.number}</div> 
                     <h3 className="text-xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-2 md:pb-3">{step.title}</h3>
                     <p className="text-md sm:text-base text-gray-400 mb-2 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic leading-tight">{step.description}</p>
                     */}
-                    <div className="process-detail-wrapper">
+                    <div className="">
                     
                     {sections[index] && sections[index].content}
                   
@@ -606,49 +252,7 @@ const IdentityVerified: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
             ))}
           </div>
           
-          {/*Right Side*/}
-          <div className="sliding-mockups-wrapper">
-            <div className="sliding-mockups-frame" ref={mockupFrameRef}>
-              {showFrame ? (
-                <>
-                  <div className="mockup-screen">
-                    {mockupImages.map((image, index) => (
-                      <img
-                        key={index}
-                        ref={el => {
-                          mockupImagesRef.current[index] = el;
-                        }}
-                        src={image.src}
-                        alt={`PursePulse Mockup ${index + 1}`}
-                        className={`sliding-mockup-${index + 1} ${index === activeStep ? 'active' : index === prevStep ? 'prev' : ''}`}
-                        sizes={image.sizes}
-                        srcSet={image.srcset}
-                      />
-                    ))}
-                  </div>
-                  <img
-                    src="images/frame.svg"
-                    loading="lazy"
-                    alt="iPhone Frame"
-                    className="mockup-frame"
-                  />
-                </>
-              ) : (
-                <div className="responsive-image-container">
-                  {mockupImages.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image.src}
-                      alt={`Feature ${1}`}
-                      className={``}
-                      sizes={image.sizes}
-                      srcSet={image.srcset}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+         
           
         </div>
       </div>
@@ -656,4 +260,4 @@ const IdentityVerified: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
   );
 };
 
-export default IdentityVerified; 
+export default IdentityVerifiedMobile; 

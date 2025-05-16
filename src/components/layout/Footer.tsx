@@ -40,8 +40,8 @@ export default function Footer() {
   const [isPrivacyOpen, setPrivacyOpen] = useState(false);
 
   return (
-    <footer className="bg-[#070707] pt-16 pb-6 border-t border-[#19181f]">
-      <div className="container flex flex-col items-center">
+    <footer className="relative bg-[#070707] pt-16 pb-6 border-t border-[#19181f] before:content-[''] before:absolute before:inset-0 before:bg-[url('/footer_bg.png')] before:bg-contain before:bg-no-repeat before:bg-center before:opacity-20 before:z-0">
+      <div className="container flex flex-col items-center relative z-0">
         {/* Heading */}
         
 
@@ -53,13 +53,13 @@ export default function Footer() {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-start justify-between bg-[#07060d] rounded-2xl p-6 min-h-[140px] border border-[#19181f] shadow-sm hover:shadow-lg transition group"
+              className="flex flex-col items-center justify-between bg-[#151922] bg-opacity-30 rounded-2xl p-3 sm:p-6 min-h-[70px] sm:min-h-[140px] border border-[#19181f] shadow-sm hover:shadow-lg transition group"
             >
-              <div className="mb-4">
-                <Image src={item.icon} alt={item.name} width={50} height={50} />
+              <div className="mb-2 sm:mb-4">
+                <Image src={item.icon} alt={item.name} width={25} height={25} className="sm:w-[50px] sm:h-[50px]" />
               </div>
               <div>
-                <span className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent group-hover:underline leading-tight">
+                <span className="text-base sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent group-hover:underline leading-tight">
                   {item.name}
                 </span>
               </div>
@@ -68,7 +68,7 @@ export default function Footer() {
         </div>
 
         {/* Gradient Border */}
-        <div className="w-full h-0.5 bg-[#19181f] rounded-full " />
+        <div className="w-full h-fit bg-[#19181f] rounded-full " />
 
         {/* Bottom Bar */}
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 pt-8">

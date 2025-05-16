@@ -22,13 +22,14 @@ import JobReelContainer from "@/components/sections/Jobreels/JobReelContainer";
 import JobReelHeader from "@/components/sections/Jobreels/JobReelHeader";
 import IdentityVerifiedHeader from "@/components/sections/IdentityVerified/IdentityVerifiedHeader";
 import JobReelContainerMobile from "@/components/sections/Jobreels/JobReelContainerMobile";
+import IdentityVerifiedMobile from "@/components/sections/IdentityVerified/IdentityVerifiedMobile";
 // Main page component that serves as the landing page
 export default function Home() {
   const [featureIndex, setFeatureIndex] = useState(0);
   const [identityIndex, setIdentityIndex] = useState(0);
   const featuresRef = useRef<HTMLDivElement>(null);
   const identityRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       // Feature carousel scroll logic
@@ -36,10 +37,10 @@ export default function Home() {
         const scrollY = window.scrollY;
         const featuresSectionTop = featuresRef.current.offsetTop;
         const featuresSectionHeight = featuresRef.current.offsetHeight;
-        
+
         // Calculate how far through the features section we've scrolled
         const scrollProgress = (scrollY - featuresSectionTop) / featuresSectionHeight;
-        
+
         // Determine which feature to show based on scroll position
         if (scrollProgress < 0.25) {
           setFeatureIndex(0);
@@ -51,16 +52,16 @@ export default function Home() {
           setFeatureIndex(2);
         }
       }
-      
+
       // Identity verified scroll logic
       if (identityRef.current) {
         const scrollY = window.scrollY;
         const identitySectionTop = identityRef.current.offsetTop;
         const identitySectionHeight = identityRef.current.offsetHeight;
-        
+
         // Calculate how far through the identity section we've scrolled
         const scrollProgress = (scrollY - identitySectionTop) / identitySectionHeight;
-        
+
         // Determine which identity to show based on scroll position
         if (scrollProgress < 0.25) {
           setIdentityIndex(0);
@@ -73,7 +74,7 @@ export default function Home() {
         }
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -85,10 +86,10 @@ export default function Home() {
       <section className="section-transition">
         <HeroSection />
       </section>
-      
-      <section className="section-transition">
+
+      {/* <section className="section-transition">
         <JobReelHeader />
-      </section>
+      </section> */}
       <section className="section-transition">
         <div className="hidden md:block">
           <JobReelContainer />
@@ -109,13 +110,19 @@ export default function Home() {
           <JobReelContainer selectedIndex={featureIndex} />
         </div>
       </div> */}
-      
+
       {/* Section about fast train feature */}
       <FastTrainSection />
-      
+
       {/* Identity Verified section with scroll effect */}
       <IdentityVerifiedHeader />
-      <IdentityVerified2 />
+
+      <div className="hidden md:block">
+        <IdentityVerified2 />
+      </div>
+      <div className="md:hidden">
+        <IdentityVerifiedMobile />
+      </div>
       {/* <div 
         ref={identityRef} 
         className="h-[400vh] relative"
@@ -124,27 +131,27 @@ export default function Home() {
           <IdentityVerified2 selectedIndex={identityIndex} />
         </div>
       </div> */}
-      
+
       {/* Section explaining the Saathi ecosystem */}
       <section className="" id="ecosystem">
         <SaathiEcosystem />
       </section>
-      
+
       {/* Section for creators */}
       <section className="" id="impact">
         <Impact />
       </section>
-      
+
       {/* Section for Download and Hire */}
       <section className="" id="download">
         <DownloadAndHireSection />
       </section>
-      
+
       {/* Section for Full Width Text */}
-      <section className="" id="media">
+      {/* <section className="" id="media">
         <FullWidthTextSection />
-      </section>
-      
+      </section> */}
+
       {/* Footer component */}
       <Footer />
       <ScrollToTop />

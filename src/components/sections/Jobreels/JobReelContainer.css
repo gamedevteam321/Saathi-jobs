@@ -2090,7 +2090,7 @@
     padding-right: 30px;
   }
   
-  .container {
+  .slider-container {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -2236,43 +2236,43 @@
   }
   
   .process-wrapper {
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 5%;
-    padding-bottom: 5%;
     display: flex;
+    flex-direction: row;
+    gap: 40px;
     position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
   }
   
   .process-item {
-    z-index: 2;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    grid-template-rows: auto;
-    grid-template-columns: 180px 1fr;
-    grid-auto-columns: 1fr;
-    height: 100vh;
-    padding-top: 64px;
-    display: grid;
-    position: relative;
+    margin-bottom: 60px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: block;
+    width: 100%;
   }
   
   .sliding-mockups-wrapper {
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    display: flex;
+    flex: 1;
     position: sticky;
-    top: 5%;
+    top: 40px;
+    height: calc(100vh - 80px);
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .steps-wrapper {
-    width: 50%;
-    position: relative;
+    flex: 1;
+    max-width: 100%;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
   }
   
   .testimonial-slider {
@@ -3504,7 +3504,7 @@
       min-height: auto;
     }
   
-    .container {
+    .slider-container {
       max-width: none;
     }
   
@@ -4524,5 +4524,41 @@
     .responsive-feature-image.prev {
       transform: translateY(-100%) scale(0.8) !important; /* 15% smaller on mobile */
     }
+  }
+  
+  .header-wrapper {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: var(--jet-black);
+    width: 100%;
+    padding: 20px 0;
+    margin-bottom: 40px;
+  }
+  
+  .left-section {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .steps-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+  }
+  
+  .process-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: block;
+    width: 100%;
+    text-align: left;
   }
   

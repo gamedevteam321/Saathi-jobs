@@ -182,7 +182,7 @@ const IdentityVerified = ({ selectedIndex = 0, onIndexChange }: IdentityVerified
               <div className="text-center md:text-left text-md sm:text-base md:text-[18px] text-gray-400 italic font-medium mb-4 md:mb-6">
                 LinkedIn of the Workforce
               </div>
-              <div className="text-center md:text-left text-gray-400 text-2xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">
+              <div className="text-center md:text-left text-gray-400 text-xl sm:text-lg md:text-[40px] font-regular pb-6 md:pb-10 max-w-5xl md:leading-none">
                 A single automated snapshot of authenticated details redefining
                 <span className=" text-white"> Worker-Employer</span> trust metrics
               </div>

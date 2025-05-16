@@ -106,11 +106,11 @@ const sections = [
     key: "trueid",
     heading: "Live on TrueID",
     title: (
-      <>Live on Saathi <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">TrueID</span></>
+      <><div className=''>Live on Saathi <span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">TrueID</span></div></>
     ),
     content: (
       <>
-        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-2 pl-5 text-gray-400">
+        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-8 pl-5 text-gray-400">
           Live on <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span>
         </div>
         <ul className="space-y-4 sm:space-y-5 px-1">
@@ -140,7 +140,7 @@ const sections = [
     title: null,
     content: (
       <>
-        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-2 pl-5 text-gray-400">
+        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-8 pl-5 text-gray-400">
           <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span> <span className="text-gray-400">for the Workforce</span>
         </div>
         <ul className="space-y-4 sm:space-y-5 px-1">
@@ -167,7 +167,7 @@ const sections = [
     title: null,
     content: (
       <>
-        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-2 pl-5 text-gray-400">
+        <div className="text-left text-xl sm:text-lg md:text-[28px] font-regular mt-2 mb-8 pl-5 text-gray-400">
           <span className="text-white">True</span><span className="bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent">ID</span> <span className="text-gray-400">for Recruiters</span>
         </div>
         <ul className="space-y-4 sm:space-y-5 px-1">
@@ -568,8 +568,8 @@ const IdentityVerified: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
   }, []);
 
   return (
-    <section id="guide" className="transparent-bg">
-      <div className="container w-container">
+    <section id="guide" className="transparent-bg hidden md:block">
+      <div className="slider-container w-container">
       
         <div className="process-wrapper" ref={processWrapperRef} data-animate="true">
         {/*Left Side*/}
@@ -634,17 +634,25 @@ const IdentityVerified: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
                   />
                 </>
               ) : (
-                <div className="responsive-image-container">
-                  {mockupImages.map((image, index) => (
+                <div className="responsive-image-container flex items-center justify-center min-h-[calc(100vh-6rem)] py-8">
+                  {/* {mockupImages.map((image, index) => (
                     <img
                       key={index}
                       src={image.src}
                       alt={`Feature ${1}`}
-                      className={``}
+                      className={`w-[280px] h-auto object-contain`}
                       sizes={image.sizes}
                       srcSet={image.srcset}
                     />
-                  ))}
+                  ))} */}
+                  <img
+                      key={0}
+                      src={mockupImages[0].src}
+                      alt={`Feature ${1}`}
+                      className={`w-[280px] h-auto object-contain`}
+                      sizes={mockupImages[0].sizes}
+                      srcSet={mockupImages[0].srcset}
+                    />
                 </div>
               )}
             </div>

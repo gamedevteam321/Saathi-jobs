@@ -18,8 +18,14 @@ const features: FeatureItem[] = [
   },
   {
     id: "reels",
-    title: "Watch Listen Apply",
-    description:  <>Complex Job Descriptions become Simple Short Video Job Posts <br/> AI/ML algorithms for an Instant Match</>,
+    title: "Watch.Listen.Apply",
+    description: (
+      <span>
+        Complex Job Descriptions become Simple Short Video Job Posts
+        <br />
+        AI/ML algorithms for an Instant Match
+      </span>
+    ),
     phoneImage: "images/JobPost.png"
   },
   {
@@ -50,13 +56,13 @@ export default function JobReelContainerMobile({ selectedIndex = 0, onIndexChang
     <div 
       id="jobreels"
       ref={sectionRef}
-      className="relative bg-black md:hidden"
+      className="relative bg-black backdrop-blur-sm rounded-2xl shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300 mx-auto my-8 w-[280px] md:hidden h-fit"
     >
       <section 
-        className="min-h-screen relative overflow-hidden bg-black"
+        className=" relative overflow-hidden"
       >
-        <div className="absolute inset-0 flex flex-col justify-start px-2 sm:px-4 pt-2">
-          <div className="container mx-auto flex flex-col gap-2 sm:gap-5 items-center mt-0 sm:-mt-36">
+        <div className="inset-0 flex flex-col justify-start px-2 sm:px-4 pt-2">
+          <div className="slider-container mx-auto flex flex-col gap-2 sm:gap-5 items-center mt-0 sm:-mt-36">
            
             {/* Video Display */}
             <div className="relative h-full flex flex-col items-center justify-center bg-black mt-6 w-full px-4">
@@ -73,7 +79,7 @@ export default function JobReelContainerMobile({ selectedIndex = 0, onIndexChang
                       willChange: 'transform, opacity, scale',
                       transition: 'all 0.5s linear',
                       transitionDelay: '0.2s',
-                      backgroundColor: 'black'
+                     
                     }}
                   >
                     {feature.phoneImage.endsWith('.mp4') ? (
@@ -98,12 +104,12 @@ export default function JobReelContainerMobile({ selectedIndex = 0, onIndexChang
               </div>
             </div>
             {/* Feature Text */}
-            <div className="relative min-h-[120px] sm:min-h-[300px] flex flex-col justify-center items-center text-center mt-6 w-full px-4">
+            <div className="relative min-h-[180px] sm:min-h-[320px] flex flex-col justify-center items-center text-center mt-1 w-full px-4 overflow-visible ">
               <div className="h-full flex items-center justify-center w-full">
                 {features.map((feature, index) => (
                   <div
                     key={feature.id}
-                    className={`absolute w-full transition-all duration-500 linear bg-black ${
+                    className={`absolute w-full transition-all duration-500 linear   ${
                       selectedIndex === index
                         ? 'opacity-100 translate-y-0'
                         : 'opacity-0 -translate-y-4 pointer-events-none'
@@ -111,15 +117,14 @@ export default function JobReelContainerMobile({ selectedIndex = 0, onIndexChang
                     style={{ 
                       willChange: 'transform, opacity',
                       transition: 'all 0.5s linear',
-                      transitionDelay: '0.2s',
-                      backgroundColor: 'black'
+                      transitionDelay: '0.2s'
                     }}
                   >
                     <div className="w-full h-full flex flex-col items-center space-y-4">
                       <h2 className="text-xl sm:text-3xl font-regular text-white font-['Helvetica'] pb-2">
                         {feature.title}
                       </h2>
-                      <p className="text-md sm:text-base text-gray-400 mb-2 sm:mb-6 max-w-[280px] mx-auto font-['Helvetica'] text-[18px] font-light italic leading-tight">{feature.description}</p>
+                      <p className="text-md sm:text-base text-gray-400 pb-4 sm:pb-7 max-w-[280px] mx-auto font-['Helvetica'] text-[18px] font-light italic leading-tight">{feature.description}</p>
                     </div>
                   </div>
                 ))}

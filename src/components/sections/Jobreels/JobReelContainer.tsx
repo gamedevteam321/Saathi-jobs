@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, ReactNode } from 'react';
 import './JobReelContainer.css';
 import './MobileScreenStyles.css';
+import JobReelHeader from './JobReelHeader';
 
 // Adding custom styles to reduce gap between process items
 const customStyles = {
@@ -100,7 +101,7 @@ const JobReelContainer: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: [0.1, 0.33, 0.75]
+      threshold: [0.25, 0.5, 0.75]
     };
 
     // Observer for entrance animations
@@ -460,82 +461,46 @@ const JobReelContainer: React.FC<{showFrame?: boolean}> = ({ showFrame = false }
 
   return (
     <section id="guide" className="transparent-bg">
-      <div className="container w-container">
-      
-        <div className="process-wrapper" ref={processWrapperRef} data-animate="true">
-          <div className="steps-wrapper" ref={stepsRef} data-animate="true">
-            {/* <div className="process-path">
-              <div className="progress-bar" ref={progressBarRef}></div>
-            </div> */}
-            {processSteps.map((step, index) => (
-              <div key={index} className="process-item" style={customStyles.processItem}>
-                <div className="process-center">
-                  {/* <div 
-                    className={`progression-circle ${index <= activeStep ? 'active' : ''}`}
-                    style={index === activeStep ? 
-                      { ...customStyles.progressionCircle, ...customStyles.activeCircle } : 
-                      customStyles.progressionCircle}
-                  ></div> */}
-                </div>
-                <div className="process-right">
-                  <div className="process-step-wrapper">
-                    <div className="large-number">{step.number}</div>
-                    <h3 className="text-xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-2 md:pb-3">{step.title}</h3>
-                    <p className="text-md sm:text-base text-gray-400 mb-2 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic leading-tight">{step.description}</p>
-                    <div className="process-detail-wrapper">
-                      <h4 >{step.requirements.title}</h4>
-                      <ul role="list">
-                        {step.requirements.items.map((item, itemIndex) => (
-                          <li key={itemIndex}>{item}</li>
-                        ))}
-                      </ul>
+      <div className="slider-container w-container">
+        <div className="process-wrapper" ref={processWrapperRef}>
+          <div className="left-section">
+            <div className="header-wrapper">
+              <JobReelHeader />
+            </div>
+            <div className="steps-wrapper" ref={stepsRef}>
+              {processSteps.map((step, index) => (
+                <div key={index} className="process-item">
+                  <div className="process-right">
+                    <div className="process-step-wrapper">
+                      <div className="large-number">{step.number}</div>
+                      <h3 className="text-xl sm:text-3xl md:text-4xl font-regular text-white font-['Helvetica'] pb-2 md:pb-3">{step.title}</h3>
+                      <p className="text-md sm:text-base text-gray-400 mb-2 sm:mb-6 max-w-[280px] sm:max-w-none mx-auto md:mx-0 font-['Helvetica'] md:text-[18px] font-light italic leading-tight">{step.description}</p>
+                      <div className="process-detail-wrapper">
+                        <h4>{step.requirements.title}</h4>
+                        <ul role="list">
+                          {step.requirements.items.map((item, itemIndex) => (
+                            <li key={itemIndex}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <div className="sliding-mockups-wrapper">
-            <div className="sliding-mockups-frame" ref={mockupFrameRef}>
-              {showFrame ? (
-                <>
-                  <div className="mockup-screen">
-                    {mockupImages.map((image, index) => (
-                      <img
-                        key={index}
-                        ref={el => {
-                          mockupImagesRef.current[index] = el;
-                        }}
-                        src={image.src}
-                        alt={`PursePulse Mockup ${index + 1}`}
-                        className={`sliding-mockup-${index + 1} ${index === activeStep ? 'active' : index === prevStep ? 'prev' : ''}`}
-                        sizes={image.sizes}
-                        srcSet={image.srcset}
-                      />
-                    ))}
-                  </div>
-                  <img
-                    src="images/frame.svg"
-                    loading="lazy"
-                    alt="iPhone Frame"
-                    className="mockup-frame"
-                  />
-                </>
-              ) : (
-                <div className="responsive-image-container">
-                  {mockupImages.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image.src}
-                      alt={`Feature ${index + 1}`}
-                      className={`responsive-feature-image ${index === activeStep ? 'active' : index === prevStep ? 'prev' : ''}`}
-                      sizes={image.sizes}
-                      srcSet={image.srcset}
-                    />
-                  ))}
-                </div>
-              )}
+            <div className="responsive-image-container">
+              {mockupImages.map((image, index) => (
+                <img
+                  key={index}
+                  src={image.src}
+                  alt={`Feature ${index + 1}`}
+                  className={`responsive-feature-image ${index === activeStep ? 'active' : ''}`}
+                  sizes={image.sizes}
+                  srcSet={image.srcset}
+                />
+              ))}
             </div>
           </div>
         </div>

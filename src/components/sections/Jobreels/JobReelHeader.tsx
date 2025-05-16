@@ -16,13 +16,13 @@ export default function JobReelHeader({
   ),
   subtitle = "The Instagram of Jobs",
   description = <><p>When Resumes meet Reels,</p><p> Hiring happens Instantly.</p></>,
-  description2 = <><p>Post. Swyp. Match. Hire</p><p> Fast. Fun. Effortless,</p></>
+  description2 = <><p>Post. Swyp. Match. Hire.</p><p> Fast. Fun. Effortless.</p></>
 }: JobReelHeaderProps) {
   return (
     <div className="w-full bg-black h-fit flex ">
-      <div className="container px-16 flex flex-col items-start justify-start"> 
+      <div className="mb-2 sm:mb-4 mt-1 sm:mt-4 md:mt-20 px-0 w-full "> 
         <div 
-          className="text-left w-full"
+          className="text-center md:text-left w-full"
           style={{
             position: 'relative',
             zIndex: 50
@@ -38,7 +38,7 @@ export default function JobReelHeader({
             <h2 className="text-white text-2xl sm:text-3xl md:text-[40px] font-light leading-tight pb-4 md:pb-6 font-['Helvetica']">
               {description}
             </h2>
-            <h4 className="text-gray-400 text-2xl sm:text-lg md:text-[30px] font-light leading-tight font-['Helvetica']">
+            <h4 className="text-gray-400 text-lg sm:text-xl md:text-[28px] font-medium leading-tight font-['Helvetica']  md:space-y-1">
               {description2}
             </h4>
           </div>

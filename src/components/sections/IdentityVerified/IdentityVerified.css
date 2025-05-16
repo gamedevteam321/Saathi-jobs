@@ -2090,7 +2090,7 @@
     padding-right: 30px;
   }
   
-  .container {
+  .slider-container {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -3504,7 +3504,7 @@
       min-height: auto;
     }
   
-    .container {
+    .slider-container {
       max-width: none;
     }
   
