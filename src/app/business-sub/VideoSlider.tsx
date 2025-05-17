@@ -252,39 +252,41 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
     let zIndex = 1;
     let width = getCardWidth(index);
 
-    if (windowWidth < 768) {
-      // Mobile: side cards are smaller
-      if (!isCenter) {
+    if (!isCenter) {
+      // Side cards: blur for both mobile and desktop
+      if (windowWidth < 768) {
         scale = 0.85;
         opacity = 0.7;
         zIndex = 1;
       } else {
-        scale = 1;
-        opacity = 1;
-        zIndex = 10;
+        if (distance === 1) {
+          scale = 0.9;
+          opacity = 0.9;
+        } else if (distance === 2) {
+          scale = 0.8;
+          opacity = 0.7;
+        }
+        zIndex = 1;
       }
+      return {
+        width: `${width}px`,
+        transform: `translateX(${getPosition(index, width)}) scale(${scale})`,
+        opacity,
+        zIndex,
+        filter: 'blur(0px)',
+      };
     } else {
-      // Desktop: original logic
-      if (distance === 1) {
-        scale = 0.9;
-        opacity = 0.9;
-      } else if (distance === 2) {
-        scale = 0.8;
-        opacity = 0.7;
-      }
-      if (isCenter) {
-        scale = 1;
-        opacity = 1;
-        zIndex = 10;
-      }
+      // Center card: no blur
+      scale = 1;
+      opacity = 1;
+      zIndex = 10;
+      return {
+        width: `${width}px`,
+        transform: `translateX(${getPosition(index, width)}) scale(${scale})`,
+        opacity,
+        zIndex,
+      };
     }
-
-    return {
-      width: `${width}px`,
-      transform: `translateX(${getPosition(index, width)}) scale(${scale})`,
-      opacity,
-      zIndex,
-    };
   };
 
     return (
