@@ -200,7 +200,10 @@ const BusinessSubPage = () => {
 
         {/* Video Slider - Only show when jobreels is selected */}
         {showCarousel === 'jobreels' && (
-          <div className="w-full mb-8">
+          <div className="hidden lg:block w-full mb-8">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              JOB <span className={gradientText}>REELS</span>
+            </h2>
             <VideoSlider videos={videoData.jobreels.map(video => ({
               videoUrl: video.src,
               extraText: video.title,
@@ -209,7 +212,10 @@ const BusinessSubPage = () => {
           </div>
         )}
         {showCarousel === 'jobposts' && (
-          <div className="w-full mb-8">
+          <div className="hidden lg:block w-full mb-8">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              JOB <span className={gradientText}>POSTS</span>
+            </h2>
             <VideoSlider videos={videoData.jobposts.map(video => ({
               videoUrl: video.src,
               extraText: video.title,
@@ -218,7 +224,10 @@ const BusinessSubPage = () => {
           </div>
         )}
         {showCarousel === 'ai' && (
-          <div className="w-full mb-8">
+          <div className="hidden lg:block w-full mb-8">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              AI <span className={gradientText}>RECRUITER</span>
+            </h2>
             <VideoSlider videos={videoData.ai.map(video => ({
               videoUrl: video.src,
               extraText: video.title,
@@ -265,42 +274,48 @@ const BusinessSubPage = () => {
 
           {/* Desktop View - VideoActionCards */}
           <div className="hidden lg:flex w-full flex-row justify-center items-center gap-8 lg:gap-12">
-            <VideoActionCard
-              title="JOB REELS"
-              gradientText={gradientText}
-              videoId="jobreel-video"
-              videoSrc="/videos/jobreel.mp4"
-              thumbnailSrc="/videos/thumbnails/jobreel.png"
-              isPlaying={playingVideo === 'jobreel-video'}
-              onVideoClick={handleVideoClick}
-              onShowMore={handleShowMore}
-              section="jobreels"
-              gradientBg={gradientBg}
-            />
-            <VideoActionCard
-              title="JOB POSTS"
-              gradientText={gradientText}
-              videoId="jobpost-video"
-              videoSrc="/videos/jobpost.mp4"
-              thumbnailSrc="/videos/thumbnails/jobpost.png"
-              isPlaying={playingVideo === 'jobpost-video'}
-              onVideoClick={handleVideoClick}
-              onShowMore={handleShowMore}
-              section="jobposts"
-              gradientBg={gradientBg}
-            />
-            <VideoActionCard
-              title="AI RECRUITER"
-              gradientText={gradientText}
-              videoId="ai-video"
-              videoSrc="/videos/ai.mp4"
-              thumbnailSrc="/videos/thumbnails/ai.png"
-              isPlaying={playingVideo === 'ai-video'}
-              onVideoClick={handleVideoClick}
-              onShowMore={handleShowMore}
-              section="ai"
-              gradientBg={gradientBg}
-            />
+            {showCarousel !== 'jobreels' && (
+              <VideoActionCard
+                title="JOB REELS"
+                gradientText={gradientText}
+                videoId="jobreel-video"
+                videoSrc="/videos/jobreel.mp4"
+                thumbnailSrc="/videos/thumbnails/jobreel.png"
+                isPlaying={playingVideo === 'jobreel-video'}
+                onVideoClick={handleVideoClick}
+                onShowMore={handleShowMore}
+                section="jobreels"
+                gradientBg={gradientBg}
+              />
+            )}
+            {showCarousel !== 'jobposts' && (
+              <VideoActionCard
+                title="JOB POSTS"
+                gradientText={gradientText}
+                videoId="jobpost-video"
+                videoSrc="/videos/jobpost.mp4"
+                thumbnailSrc="/videos/thumbnails/jobpost.png"
+                isPlaying={playingVideo === 'jobpost-video'}
+                onVideoClick={handleVideoClick}
+                onShowMore={handleShowMore}
+                section="jobposts"
+                gradientBg={gradientBg}
+              />
+            )}
+            {showCarousel !== 'ai' && (
+              <VideoActionCard
+                title="AI RECRUITER"
+                gradientText={gradientText}
+                videoId="ai-video"
+                videoSrc="/videos/ai.mp4"
+                thumbnailSrc="/videos/thumbnails/ai.png"
+                isPlaying={playingVideo === 'ai-video'}
+                onVideoClick={handleVideoClick}
+                onShowMore={handleShowMore}
+                section="ai"
+                gradientBg={gradientBg}
+              />
+            )}
           </div>
         </div>
         {/* Footer Links */}
