@@ -32,6 +32,41 @@ interface VideoCardProps {
 const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: VideoCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (videoRef.current) {
+            if (!entry.isIntersecting) {
+              videoRef.current.pause();
+              videoRef.current.muted = true;
+              setIsPlaying(false);
+            } else if (isActive && !paused) {
+              videoRef.current.muted = false;
+              videoRef.current.play().catch(() => {
+                setIsPlaying(false);
+                videoRef.current!.muted = true;
+              });
+              setIsPlaying(true);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Video will pause when less than 50% is visible
+      }
+    );
+
+    observer.observe(cardRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isActive, paused]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -69,6 +104,7 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: Video
 
   return (
     <div 
+      ref={cardRef}
       className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
       onClick={handleVideoClick}
     >
