@@ -71,6 +71,15 @@ const BusinessSubPage = () => {
   const handleShowMore = (section: string) => {
     setShowCarousel(section);
     setCurrentVideoIndex(0);
+    
+    // Add smooth scroll to video slider container
+    const videoSliderContainer = document.getElementById('video-slider-container');
+    if (videoSliderContainer) {
+      videoSliderContainer.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   };
 
   const handleCarouselVideoClick = (videoId: string) => {
@@ -199,6 +208,7 @@ const BusinessSubPage = () => {
         </div>
 
         {/* Video Slider - Only show when jobreels is selected */}
+        <div id="video-slider-container">
         {showCarousel === 'jobreels' && (
           <div className="hidden lg:block w-full mb-8">
             <h2 className="text-2xl font-bold mb-4 text-center">
@@ -235,7 +245,7 @@ const BusinessSubPage = () => {
             }))} />
           </div>
         )}
-
+      </div>
         {/* Phone Mockups */}
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12 py-4 lg:py-0 lg:flex-1 mt-4 lg:mt-0">
           {/* Mobile View - Video Sliders */}
