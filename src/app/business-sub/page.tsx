@@ -6,6 +6,7 @@ import TermsModal from '@/components/layout/TermsModal';
 import PrivacyPolicyModal from '@/components/layout/PrivacyPolicyModal';
 import { FaPlay, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import VideoSlider from './VideoSlider';
+import VideoActionCard from '@/app/business-sub/VideoActionCard';
 
 
 const gradientText = "bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent";
@@ -228,102 +229,42 @@ const BusinessSubPage = () => {
 
         {/* Phone Mockups */}
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12 py-4 lg:py-0 lg:flex-1 mt-4 lg:mt-0">
-          {/* JobReels */}
-          <div className="flex flex-col items-center w-full">
-            <span className="text-lg lg:text-2xl font-bold text-white text-center mb-2">
-              JOB<span className={gradientText}>REELS</span>
-            </span>
-            <div className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
-                 onClick={() => handleVideoClick('jobreel-video')}>
-              <video 
-                id="jobreel-video"
-                src="/videos/jobreel.mp4" 
-                className="w-full h-full object-contain"
-                loop
-                playsInline
-                muted
-                preload="none"
-                poster="/videos/thumbnails/jobreel.png"
-              />
-              {playingVideo !== 'jobreel-video' && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
-                    <FaPlay className="text-black text-2xl ml-1" />
-                  </div>
-                </div>
-              )}
-            </div>
-            <button 
-              onClick={() => handleShowMore('jobreels')}
-              className={`mt-4 px-2 py-1 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
-            >
-              Show More
-            </button>
-          </div>
-          {/* JobPosts */}
-          <div className="flex flex-col items-center w-full">
-            <span className="text-lg lg:text-2xl font-bold text-white text-center mb-2">
-              JOB<span className={gradientText}>POSTS</span>
-            </span>
-            <div className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
-                 onClick={() => handleVideoClick('jobpost-video')}>
-              <video 
-                id="jobpost-video"
-                src="/videos/jobpost.mp4" 
-                className="w-full h-full object-contain"
-                loop
-                playsInline
-                muted
-                preload="none"
-                poster="/videos/thumbnails/jobpost.png"
-              />
-              {playingVideo !== 'jobpost-video' && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
-                    <FaPlay className="text-black text-2xl ml-1" />
-                  </div>
-                </div>
-              )}
-            </div>
-            <button 
-              onClick={() => handleShowMore('jobposts')}
-              className={`mt-4 px-2 py-1 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
-            >
-              Show More
-            </button>
-          </div>
-          {/* AI Recruiter */}
-          <div className="flex flex-col items-center w-full">
-            <span className="text-lg lg:text-2xl font-bold text-white text-center mb-2">
-              AI<span className={gradientText}> RECRUITER</span>
-            </span>
-            <div className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
-                 onClick={() => handleVideoClick('ai-video')}>
-              <video 
-                id="ai-video"
-                src="/videos/ai.mp4" 
-                className="w-full h-full object-contain"
-                loop
-                playsInline
-                muted
-                preload="none"
-                poster="/videos/thumbnails/ai.png"
-              />
-              {playingVideo !== 'ai-video' && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
-                    <FaPlay className="text-black text-2xl ml-1" />
-                  </div>
-                </div>
-              )}
-            </div>
-            <button 
-              onClick={() => handleShowMore('ai')}
-              className={`mt-4 px-2 py-1 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
-            >
-              Show More
-            </button>
-          </div>
+          <VideoActionCard
+            title="JOB REELS"
+            gradientText={gradientText}
+            videoId="jobreel-video"
+            videoSrc="/videos/jobreel.mp4"
+            thumbnailSrc="/videos/thumbnails/jobreel.png"
+            isPlaying={playingVideo === 'jobreel-video'}
+            onVideoClick={handleVideoClick}
+            onShowMore={handleShowMore}
+            section="jobreels"
+            gradientBg={gradientBg}
+          />
+          <VideoActionCard
+            title="JOB POSTS"
+            gradientText={gradientText}
+            videoId="jobpost-video"
+            videoSrc="/videos/jobpost.mp4"
+            thumbnailSrc="/videos/thumbnails/jobpost.png"
+            isPlaying={playingVideo === 'jobpost-video'}
+            onVideoClick={handleVideoClick}
+            onShowMore={handleShowMore}
+            section="jobposts"
+            gradientBg={gradientBg}
+          />
+          <VideoActionCard
+            title="AI RECRUITER"
+            gradientText={gradientText}
+            videoId="ai-video"
+            videoSrc="/videos/ai.mp4"
+            thumbnailSrc="/videos/thumbnails/ai.png"
+            isPlaying={playingVideo === 'ai-video'}
+            onVideoClick={handleVideoClick}
+            onShowMore={handleShowMore}
+            section="ai"
+            gradientBg={gradientBg}
+          />
         </div>
         {/* Footer Links */}
         <div className="flex space-x-4 text-gray-400 text-xs lg:text-sm w-full justify-center lg:w-auto lg:absolute lg:bottom-6 lg:right-6 lg:justify-end static">
