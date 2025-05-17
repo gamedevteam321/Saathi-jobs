@@ -259,14 +259,17 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
       const totalWidth = sideWidth + centerWidth + sideWidth + 2 * spacing;
       const startX = (windowWidth - totalWidth) / 2;
       if (adjustedIndex === 0) {
+       
         // Center card
         return `${startX + sideWidth + spacing}px`;
       } else if (adjustedIndex === -1) {
         // Left card
         return `${startX}px`;
       } else if (adjustedIndex === 1) {
+        
+      
         // Right card
-        return `${startX + sideWidth + spacing + centerWidth + spacing}px`;
+        return `${startX + sideWidth + centerWidth/2 - sideWidth/2}px`;
       }
       // Fallback
       return `0px`;
@@ -300,7 +303,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
           transform: `translateX(${getPosition(index, width)}) scale(${scale})`,
           opacity,
           zIndex,
-          filter: 'blur(2px)',
+          filter: 'blur(8px)',
         };
       } else {
         if (distance === 1) {
@@ -334,7 +337,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
 
     return (
         <div
-          className="relative w-full h-[80vh] md:h-[90vh] bg-transparent overflow-hidden"
+          className="relative w-full h-[65vh] md:h-[60vh] bg-transparent overflow-hidden"
           onMouseDown={handleDragStart}
           onMouseMove={handleDragMove}
           onMouseUp={handleDragEnd}
