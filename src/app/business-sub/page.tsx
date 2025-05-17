@@ -123,8 +123,8 @@ const BusinessSubPage = () => {
 
   return (
     <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row overflow-hidden">
-      {/* Left: Offer & Info */}
-      <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-black relative">
+      {/* Left: Offer & Info - Fixed */}
+      <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-black lg:fixed lg:h-screen">
         <div className="w-full flex flex-col items-start gap-4 lg:gap-6">
           {/* Heading */}
           <div className="mt-2">
@@ -192,8 +192,8 @@ const BusinessSubPage = () => {
         </div>
       </div>
 
-      {/* Right: Features & Visuals */}
-      <div className="lg:w-[70%] w-full flex flex-col justify-between bg-[#1B1B1B] px-4 lg:px-12 py-8 lg:py-12 relative">
+      {/* Right: Features & Visuals - Scrollable */}
+      <div className="lg:w-[70%] w-full flex flex-col justify-between bg-[#1B1B1B] px-4 lg:px-12 py-8 lg:py-12 relative lg:ml-[30%]">
         <div className="flex flex-col items-center text-center w-full">
           <h1 className="text-2xl lg:text-4xl font-bold mb-2 text-center">
             HIRE FASTER BETTER & <span className={gradientText}>EASIER</span>

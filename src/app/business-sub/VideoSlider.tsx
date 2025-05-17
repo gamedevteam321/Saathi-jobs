@@ -8,17 +8,7 @@ interface Video {
     thumbnail: string;
 }
 
-// Helper function to extract YouTube video IDs
-function getVideoId(videoUrl: string): string | null {
-    if (videoUrl.includes("shorts/")) {
-    return videoUrl.split("shorts/")[1].split("?")[0];
-    } else if (videoUrl.includes("watch?v=")) {
-    return videoUrl.split("watch?v=")[1].split("&")[0];
-    } else if (videoUrl.includes("youtu.be/")) {
-    return videoUrl.split("youtu.be/")[1].split("?")[0];
-  }
-  return null;
-}
+
 
 interface VideoCardProps {
   video: Video;
@@ -118,6 +108,7 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: Video
           muted={!isPlaying}
           preload="none"
           poster={thumbnail}
+          controlsList="nodownload"
         />
       ) : (
         <img 
@@ -152,6 +143,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
   const [velocity, setVelocity] = useState(0);
   const [lastX, setLastX] = useState(0);
   const [lastTime, setLastTime] = useState(0);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
    
   
   useEffect(() => {
@@ -165,10 +157,12 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
   if (videos.length === 0) return <div>Loading...</div>;
 
   const handleNext = () => {
+    setDirection('next');
     setCurrentIndex((prev) => (prev + 1) % videos.length);
   };
 
   const handlePrev = () => {
+    setDirection('prev');
     setCurrentIndex((prev) => (prev - 1 + videos.length) % videos.length);
   };
 
@@ -238,7 +232,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
       }
     } else {
       // Show 5 cards for desktop: -2, -1, 0, 1, 2
-      for (let i = -2; i <= 2; i++) {
+      for (let i = -1; i <= 2; i++) {
         const index = (currentIndex + i + videos.length) % videos.length;
         indices.push(index);
       }
@@ -371,7 +365,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
                   style={{ 
                     position: 'absolute',
                     ...getCardStyle(index),
-                    transition: isDragging ? 'none' : 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                    transition: isDragging ? 'none' : `all 1s cubic-bezier(${direction === 'next' ? '0.4, 0, 0.2, 1' : '0.4, 0, 0.2, 1'})`,
                     cursor: 'grab',
                   }}
                   className="h-full"
