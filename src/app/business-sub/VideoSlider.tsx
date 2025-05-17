@@ -180,30 +180,66 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
     setVelocity(0);
   };
 
-  const getCardWidth = () => {
-    if (windowWidth < 768) return "90vw";
-    if (windowWidth < 1024) return "240px";
-    return "280px";
+  const getCardWidth = (index: number) => {
+    if (windowWidth < 768) {
+      // Center card
+      if (index === currentIndex) return windowWidth * 0.7;
+      // Side cards
+      return windowWidth * 0.4;
+    }
+    // Desktop
+    if (windowWidth < 1024) return 240;
+    return 280;
   };
 
   const getVisibleIndices = () => {
     const indices = [];
-    // Always show 5 cards (-2, -1, 0, 1, 2)
-    for (let i = -2; i <= 2; i++) {
-      const index = (currentIndex + i + videos.length) % videos.length;
-      indices.push(index);
+    if (windowWidth < 768) {
+      // Show only 3 cards for mobile: -1, 0, 1
+      for (let i = -1; i <= 1; i++) {
+        const index = (currentIndex + i + videos.length) % videos.length;
+        indices.push(index);
+      }
+    } else {
+      // Show 5 cards for desktop: -2, -1, 0, 1, 2
+      for (let i = -2; i <= 2; i++) {
+        const index = (currentIndex + i + videos.length) % videos.length;
+        indices.push(index);
+      }
     }
     return indices;
   };
 
-  const getPosition = (index: number) => {
+  const getPosition = (index: number, cardWidth: number) => {
     const relativeIndex = (index - currentIndex + videos.length) % videos.length;
     const adjustedIndex = relativeIndex > 2 ? relativeIndex - videos.length : relativeIndex;
-    const cardWidth = parseInt(getCardWidth());
-    const spacing = windowWidth < 768 ? 20 : 15; // Spacing between cards
-    const baseOffset = adjustedIndex * (cardWidth + spacing);
-    const dragAdjustment = isDragging ? dragOffset : 0; // Use full drag offset for smoother feel
-    return `${baseOffset + dragAdjustment}px`;
+    const isMobile = windowWidth < 768;
+    let spacing = isMobile ? 8 : 15;
+    let centerWidth = isMobile ? windowWidth * 0.85 : cardWidth;
+    let sideWidth = isMobile ? windowWidth * 0.4 : cardWidth;
+
+    if (isMobile) {
+      // For mobile, calculate total width of all three cards and center them
+      const totalWidth = sideWidth + centerWidth + sideWidth + 2 * spacing;
+      const startX = (windowWidth - totalWidth) / 2;
+      if (adjustedIndex === 0) {
+        // Center card
+        return `${startX + sideWidth + spacing}px`;
+      } else if (adjustedIndex === -1) {
+        // Left card
+        return `${startX}px`;
+      } else if (adjustedIndex === 1) {
+        // Right card
+        return `${startX + sideWidth + spacing + centerWidth + spacing}px`;
+      }
+      // Fallback
+      return `0px`;
+    } else {
+      // Desktop: original logic
+      const baseOffset = adjustedIndex * (cardWidth + spacing);
+      const dragAdjustment = isDragging ? dragOffset : 0;
+      return `${baseOffset + dragAdjustment}px`;
+    }
   };
 
   const getCardStyle = (index: number) => {
@@ -211,27 +247,41 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
     const adjustedIndex = relativeIndex > 2 ? relativeIndex - videos.length : relativeIndex;
     const isCenter = adjustedIndex === 0;
     const distance = Math.abs(adjustedIndex);
-    
     let scale = 1;
     let opacity = 1;
     let zIndex = 1;
+    let width = getCardWidth(index);
 
-    if (distance === 1) {
-      scale = 0.9; // Slightly larger scale for better visibility
-      opacity = 0.9; // Higher opacity for better visibility
-    } else if (distance === 2) {
-      scale = 0.8;
-      opacity = 0.7;
-    }
-
-    if (isCenter) {
-      scale = 1;
-      opacity = 1;
-      zIndex = 10;
+    if (windowWidth < 768) {
+      // Mobile: side cards are smaller
+      if (!isCenter) {
+        scale = 0.85;
+        opacity = 0.7;
+        zIndex = 1;
+      } else {
+        scale = 1;
+        opacity = 1;
+        zIndex = 10;
+      }
+    } else {
+      // Desktop: original logic
+      if (distance === 1) {
+        scale = 0.9;
+        opacity = 0.9;
+      } else if (distance === 2) {
+        scale = 0.8;
+        opacity = 0.7;
+      }
+      if (isCenter) {
+        scale = 1;
+        opacity = 1;
+        zIndex = 10;
+      }
     }
 
     return {
-      transform: `translateX(${getPosition(index)}) scale(${scale})`,
+      width: `${width}px`,
+      transform: `translateX(${getPosition(index, width)}) scale(${scale})`,
       opacity,
       zIndex,
     };
@@ -271,7 +321,6 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
                 <div
                   key={index}
                   style={{ 
-                    width: getCardWidth(),
                     position: 'absolute',
                     ...getCardStyle(index),
                     transition: isDragging ? 'none' : 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',

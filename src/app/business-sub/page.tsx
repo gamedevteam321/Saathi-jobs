@@ -14,25 +14,25 @@ const gradientBg = "bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01]";
 // Mock data for videos - replace with your actual video data
 const videoData = {
   jobreels: [
-    { id: 1, src: "/videos/jobreels/jobreel-1.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-1.png", title: "JobReel 1" },
-    { id: 2, src: "/videos/jobreels/jobreel-2.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-2.png", title: "JobReel 2" },
-    { id: 3, src: "/videos/jobreels/jobreel-3.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-3.png", title: "JobReel 3" },
-    { id: 4, src: "/videos/jobreels/jobreel-4.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-4.png", title: "JobReel 4" },
-    { id: 5, src: "/videos/jobreels/jobreel-5.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-5.png", title: "JobReel 5" },
+    { id: 1, src: "/videos/jobreels/jobreel-1.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-1.png", title: "" },
+    { id: 2, src: "/videos/jobreels/jobreel-2.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-2.png", title: "" },
+    { id: 3, src: "/videos/jobreels/jobreel-3.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-3.png", title: "" },
+    { id: 4, src: "/videos/jobreels/jobreel-4.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-4.png", title: "" },
+    { id: 5, src: "/videos/jobreels/jobreel-5.mp4", thumbnail: "/videos/thumbnails/jobreels/jobreel-5.png", title: "" },
   ],
   jobposts: [
-    { id: 1, src: "/videos/jobposts/jobpost-1.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-1.png", title: "JobPost 1" },
-    { id: 2, src: "/videos/jobposts/jobpost-2.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-2.png", title: "JobPost 2" },
-    { id: 3, src: "/videos/jobposts/jobpost-3.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-3.png", title: "JobPost 3" },
-    { id: 4, src: "/videos/jobposts/jobpost-4.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-4.png", title: "JobPost 4" },
-    { id: 5, src: "/videos/jobposts/jobpost-5.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-5.png", title: "JobPost 5" },
+    { id: 1, src: "/videos/jobposts/jobpost-1.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-1.png", title: "" },
+    { id: 2, src: "/videos/jobposts/jobpost-2.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-2.png", title: "" },
+    { id: 3, src: "/videos/jobposts/jobpost-3.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-3.png", title: "" },
+    { id: 4, src: "/videos/jobposts/jobpost-4.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-4.png", title: "" },
+    { id: 5, src: "/videos/jobposts/jobpost-5.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-5.png", title: "" },
   ],
   ai: [
-    { id: 1, src: "/videos/ai/ai-1.mp4", thumbnail: "/videos/thumbnails/ai/ai-1.png", title: "AI Recruiter 1" },
-    { id: 2, src: "/videos/ai/ai-2.mp4", thumbnail: "/videos/thumbnails/ai/ai-2.png", title: "AI Recruiter 2" },
-    { id: 3, src: "/videos/ai/ai-3.mp4", thumbnail: "/videos/thumbnails/ai/ai-3.png", title: "AI Recruiter 3" },
-    { id: 4, src: "/videos/ai/ai-4.mp4", thumbnail: "/videos/thumbnails/ai/ai-4.png", title: "AI Recruiter 4" },
-    { id: 5, src: "/videos/ai/ai-5.mp4", thumbnail: "/videos/thumbnails/ai/ai-5.png", title: "AI Recruiter 5" },
+    { id: 1, src: "/videos/ai/ai-1.mp4", thumbnail: "/videos/thumbnails/ai/ai-1.png", title: "" },
+    { id: 2, src: "/videos/ai/ai-2.mp4", thumbnail: "/videos/thumbnails/ai/ai-2.png", title: "" },
+    { id: 3, src: "/videos/ai/ai-3.mp4", thumbnail: "/videos/thumbnails/ai/ai-3.png", title: "" },
+    { id: 4, src: "/videos/ai/ai-4.mp4", thumbnail: "/videos/thumbnails/ai/ai-4.png", title: "" },
+    { id: 5, src: "/videos/ai/ai-5.mp4", thumbnail: "/videos/thumbnails/ai/ai-5.png", title: "" },
   ],
 };
 
@@ -255,7 +255,7 @@ const BusinessSubPage = () => {
             </div>
             <button 
               onClick={() => handleShowMore('jobreels')}
-              className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
+              className={`mt-4 px-2 py-1 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
             >
               Show More
             </button>
@@ -287,7 +287,7 @@ const BusinessSubPage = () => {
             </div>
             <button 
               onClick={() => handleShowMore('jobposts')}
-              className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
+              className={`mt-4 px-2 py-1 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
             >
               Show More
             </button>
@@ -319,7 +319,7 @@ const BusinessSubPage = () => {
             </div>
             <button 
               onClick={() => handleShowMore('ai')}
-              className={`mt-4 px-6 py-2 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
+              className={`mt-4 px-2 py-1 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
             >
               Show More
             </button>
