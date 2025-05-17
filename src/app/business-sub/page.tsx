@@ -229,42 +229,79 @@ const BusinessSubPage = () => {
 
         {/* Phone Mockups */}
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12 py-4 lg:py-0 lg:flex-1 mt-4 lg:mt-0">
-          <VideoActionCard
-            title="JOB REELS"
-            gradientText={gradientText}
-            videoId="jobreel-video"
-            videoSrc="/videos/jobreel.mp4"
-            thumbnailSrc="/videos/thumbnails/jobreel.png"
-            isPlaying={playingVideo === 'jobreel-video'}
-            onVideoClick={handleVideoClick}
-            onShowMore={handleShowMore}
-            section="jobreels"
-            gradientBg={gradientBg}
-          />
-          <VideoActionCard
-            title="JOB POSTS"
-            gradientText={gradientText}
-            videoId="jobpost-video"
-            videoSrc="/videos/jobpost.mp4"
-            thumbnailSrc="/videos/thumbnails/jobpost.png"
-            isPlaying={playingVideo === 'jobpost-video'}
-            onVideoClick={handleVideoClick}
-            onShowMore={handleShowMore}
-            section="jobposts"
-            gradientBg={gradientBg}
-          />
-          <VideoActionCard
-            title="AI RECRUITER"
-            gradientText={gradientText}
-            videoId="ai-video"
-            videoSrc="/videos/ai.mp4"
-            thumbnailSrc="/videos/thumbnails/ai.png"
-            isPlaying={playingVideo === 'ai-video'}
-            onVideoClick={handleVideoClick}
-            onShowMore={handleShowMore}
-            section="ai"
-            gradientBg={gradientBg}
-          />
+          {/* Mobile View - Video Sliders */}
+          <div className="lg:hidden w-full flex flex-col gap-8">
+            <div className="w-full">
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                JOB <span className={gradientText}>REELS</span>
+              </h2>
+              <VideoSlider videos={videoData.jobreels.map(video => ({
+                videoUrl: video.src,
+                extraText: video.title,
+                thumbnail: video.thumbnail
+              }))} />
+            </div>
+            <div className="w-full">
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                JOB <span className={gradientText}>POSTS</span>
+              </h2>
+              <VideoSlider videos={videoData.jobposts.map(video => ({
+                videoUrl: video.src,
+                extraText: video.title,
+                thumbnail: video.thumbnail
+              }))} />
+            </div>
+            <div className="w-full">
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                AI <span className={gradientText}>RECRUITER</span>
+              </h2>
+              <VideoSlider videos={videoData.ai.map(video => ({
+                videoUrl: video.src,
+                extraText: video.title,
+                thumbnail: video.thumbnail
+              }))} />
+            </div>
+          </div>
+
+          {/* Desktop View - VideoActionCards */}
+          <div className="hidden lg:flex w-full flex-row justify-center items-center gap-8 lg:gap-12">
+            <VideoActionCard
+              title="JOB REELS"
+              gradientText={gradientText}
+              videoId="jobreel-video"
+              videoSrc="/videos/jobreel.mp4"
+              thumbnailSrc="/videos/thumbnails/jobreel.png"
+              isPlaying={playingVideo === 'jobreel-video'}
+              onVideoClick={handleVideoClick}
+              onShowMore={handleShowMore}
+              section="jobreels"
+              gradientBg={gradientBg}
+            />
+            <VideoActionCard
+              title="JOB POSTS"
+              gradientText={gradientText}
+              videoId="jobpost-video"
+              videoSrc="/videos/jobpost.mp4"
+              thumbnailSrc="/videos/thumbnails/jobpost.png"
+              isPlaying={playingVideo === 'jobpost-video'}
+              onVideoClick={handleVideoClick}
+              onShowMore={handleShowMore}
+              section="jobposts"
+              gradientBg={gradientBg}
+            />
+            <VideoActionCard
+              title="AI RECRUITER"
+              gradientText={gradientText}
+              videoId="ai-video"
+              videoSrc="/videos/ai.mp4"
+              thumbnailSrc="/videos/thumbnails/ai.png"
+              isPlaying={playingVideo === 'ai-video'}
+              onVideoClick={handleVideoClick}
+              onShowMore={handleShowMore}
+              section="ai"
+              gradientBg={gradientBg}
+            />
+          </div>
         </div>
         {/* Footer Links */}
         <div className="flex space-x-4 text-gray-400 text-xs lg:text-sm w-full justify-center lg:w-auto lg:absolute lg:bottom-6 lg:right-6 lg:justify-end static">
