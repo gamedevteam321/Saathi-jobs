@@ -4533,7 +4533,7 @@
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: var(--jet-black);
+    background-color: var(--black);
     width: 100%;
     padding: 20px 0;
     margin-bottom: 40px;
