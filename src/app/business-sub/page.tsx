@@ -158,10 +158,16 @@ const BusinessSubPage = () => {
             </span>
           </div>
           {/* Unlimited Job Posts */}
-          <div className="flex items-end mb-2">
+          <div className="flex items-end gap-2">
             <span className="text-xl lg:text-2xl font-bold text-[#FFC01D]">UNLIMITED</span>
-            <span className="ml-2 text-xl lg:text-2xl font-bold text-white">JOB POSTS !!</span>
+            <span className="text-xl lg:text-2xl font-bold text-white">JOB POSTS !!</span>
           </div>
+          {/* Free AI Interviews */}
+          <div className="flex items-end gap-2">
+            <span className="text-xl lg:text-2xl font-bold text-[#FFC01D]">Free</span>
+            <span className="text-xl lg:text-2xl font-bold text-white">AI Interviews</span>
+          </div>
+
           {/* Pay Now Button */}
           <button onClick={() => window.location.href = "https://hire.saathi.in"} className={`mt-2 mb-2 w-full relative overflow-hidden text-black font-bold py-3 rounded text-lg lg:text-xl shadow-lg transition hover:scale-105`}>
             <span className="relative z-10">PAY NOW</span>

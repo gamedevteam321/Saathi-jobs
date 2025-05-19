@@ -76,7 +76,7 @@ export default function CardCarousel({ title, cards }: CardCarouselProps) {
                 
                 {/* Title overlay */}
                 <div className="absolute bottom-0 left-0 w-full p-4">
-                  <h3 className="text-white font-medium truncate">{card.title}</h3>
+                  <h3 className="text-white font-medium text-sm md:text-base line-clamp-2">{card.title}</h3>
                 </div>
               </div>
             </div>

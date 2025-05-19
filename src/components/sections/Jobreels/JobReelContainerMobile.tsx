@@ -31,7 +31,7 @@ const features: FeatureItem[] = [
   {
     id: "stories",
     title: <>24/7 <span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>AI Recruiter</span></>,
-    description:  <>Instant interview with Employers AI Avatar</>,
+    description:  <>Instant interview with Employer's AI Avatar</>,
     phoneImage: "images/AIinterview.png"
   },
 ];

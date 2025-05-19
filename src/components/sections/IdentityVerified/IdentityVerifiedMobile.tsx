@@ -32,7 +32,7 @@ const features = [
     ),
     title: (<><span className="text-white">Live Photo</span> <span className="text-[#FFC226]">Verified</span></>),
     highlight: "Verified",
-    desc: <><span className='text-gray-400 italic text-md md:text-[18px]'>Eliminating Fake Personas</span></>,
+    desc: <><span className='text-gray-400 italic text-md md:text-[18px]'>Eliminating Fake Profiles</span></>,
   },
   {
     icon: (

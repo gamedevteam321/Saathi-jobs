@@ -15,8 +15,8 @@ export default function JobReelHeader({
     </>
   ),
   subtitle = "The Instagram of Jobs",
-  description = <><p>When Resumes meet Reels,</p><p> Hiring happens Instantly.</p></>,
-  description2 = <><p>Post. Swyp. Match. Hire.</p><p> Fast. Fun. Effortless.</p></>
+  description = <><p>When Resumes meet Reels,</p><p> Hiring happens Instantly</p></>,
+  description2 = <><p>POST.SWYP.MATCH.HIRE</p><p> Fast.Fun.Effortless</p></>
 }: JobReelHeaderProps) {
   return (
     <div className="w-full bg-black h-fit flex ">

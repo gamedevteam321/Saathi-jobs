@@ -25,7 +25,7 @@ const LargeCards = () => {
                 <span className="block md:inline"> Digital Skilling</span>
               </p>
               <p className="text-md md:text-md text-gray-400 italic font-['Helvetica']">
-                Delivering credibility with proof of skills and knowledge.
+                delivers credibility with proof of skills and knowledge
               </p>
             </div>
           </div>
@@ -50,10 +50,10 @@ const LargeCards = () => {
             </h3>
             <div className="space-y-1">
               <p className="text-md md:text-md text-gray-400 italic font-['Helvetica']">
-                A single glance metric of capability and suitability.
+                The single-glance metric of capability and suitability
               </p>
               <p className="text-md md:text-md text-gray-400 italic font-['Helvetica']">
-                Skill grading, KYC, Psychometrics & Past employer ratings.
+                includes skill grading, KYC, psychometrics, and past employer ratings
               </p>
             </div>
           </div>

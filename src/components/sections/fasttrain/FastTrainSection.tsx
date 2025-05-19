@@ -49,7 +49,7 @@ export default function FastTrainSection() {
         {/* <StepsSection /> */}
         <div className="flex flex-col items-center md:items-start justify-center w-full max-w-[100%] mx-auto  mb-10">
           <p className="text-gray-400 text-xl md:text-[40px] py-4 text-center md:text-left justify-center leading-tight max-w-full">
-          A<span className="text-white"> unique storytelling web series approach</span> wrapped with seamless curriculum guided learning objectives ensuring Effective Learning, Completion, and Certification.
+          A<span className="text-white"> web series with a unique storytelling approach,</span> seamlessly integrated with a curriculum that guides learning objectives to ensure effective learning, completion, and certification
           </p>
         </div>
         <div className="w-full pb-10 md:pb-20">
