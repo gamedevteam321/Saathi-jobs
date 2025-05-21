@@ -49,7 +49,7 @@ const processSteps: ProcessStep[] = [
   {
     number: '',
     title: <>24/7 <span className='bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent'>AI Recruiter</span></>,
-    description: <p>Instant interview with Employer's AI Avatar</p>,
+    description: <>Instant interview with Employer's AI Avatar</>,
     requirements: {
       title: "",
       items: []

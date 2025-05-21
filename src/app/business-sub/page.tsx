@@ -29,11 +29,11 @@ const videoData = {
     { id: 5, src: "/videos/jobposts/jobpost-5.mp4", thumbnail: "/videos/thumbnails/jobposts/jobpost-5.png", title: "" },
   ],
   ai: [
-    { id: 1, src: "/videos/ai/AI-1.mp4", thumbnail: "/videos/thumbnails/ai/ai-1.png", title: "" },
-    { id: 2, src: "/videos/ai/AI-2.mp4", thumbnail: "/videos/thumbnails/ai/ai-2.png", title: "" },
-    { id: 3, src: "/videos/ai/AI-3.mp4", thumbnail: "/videos/thumbnails/ai/ai-3.png", title: "" },
-    { id: 4, src: "/videos/ai/AI-4.mp4", thumbnail: "/videos/thumbnails/ai/ai-4.png", title: "" },
-    { id: 5, src: "/videos/ai/AI-5.mp4", thumbnail: "/videos/thumbnails/ai/ai-5.png", title: "" },
+    { id: 1, src: "/videos/ai/ai-1.mp4", thumbnail: "/videos/thumbnails/ai/ai-1.png", title: "" },
+    { id: 2, src: "/videos/ai/ai-2.mp4", thumbnail: "/videos/thumbnails/ai/ai-2.png", title: "" },
+    { id: 3, src: "/videos/ai/ai-3.mp4", thumbnail: "/videos/thumbnails/ai/ai-3.png", title: "" },
+    { id: 4, src: "/videos/ai/ai-4.mp4", thumbnail: "/videos/thumbnails/ai/ai-4.png", title: "" },
+    { id: 5, src: "/videos/ai/ai-5.mp4", thumbnail: "/videos/thumbnails/ai/ai-5.png", title: "" },
   ],
 };
 

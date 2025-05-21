@@ -134,9 +134,8 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: Video
 };
 
 export default function VideoSlider( {videos}: {videos: Video[]}) {
-  //const [videos, setVideos] = useState<Video[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(1024); // Default to desktop width
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -145,8 +144,10 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
   const [lastTime, setLastTime] = useState(0);
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
    
-  
   useEffect(() => {
+    // Set initial window width
+    setWindowWidth(window.innerWidth);
+    
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
