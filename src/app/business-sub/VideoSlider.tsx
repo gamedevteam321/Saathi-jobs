@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { FaPlay } from "react-icons/fa";
+import { ImSpinner8 } from "react-icons/im";
 
 interface Video {
     videoUrl: string;
@@ -17,12 +18,22 @@ interface VideoCardProps {
   thumbnail: string;
   onPrev: () => void;
   onNext: () => void;
+  shouldPreload?: boolean;
 }
 
-const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: VideoCardProps) => {
+const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext, shouldPreload = false }: VideoCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Preload video if it's the next or previous one
+  useEffect(() => {
+    if (shouldPreload && videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [shouldPreload]);
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -47,7 +58,7 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: Video
         });
       },
       {
-        threshold: 0.5, // Video will pause when less than 50% is visible
+        threshold: 0.5,
       }
     );
 
@@ -92,6 +103,18 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: Video
     }
   };
 
+  const handleVideoLoad = () => {
+    setIsLoaded(true);
+  };
+
+  const handleWaiting = () => {
+    setIsBuffering(true);
+  };
+
+  const handlePlaying = () => {
+    setIsBuffering(false);
+  };
+
   return (
     <div 
       ref={cardRef}
@@ -99,25 +122,46 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext }: Video
       onClick={handleVideoClick}
     >
       {isActive ? (
-        <video 
-          ref={videoRef}
-          src={video.videoUrl}
-          className="w-full h-full object-contain"
-          loop
-          playsInline
-          muted={!isPlaying}
-          preload="none"
-          poster={thumbnail}
-          controlsList="nodownload"
-        />
+        <>
+          <video 
+            ref={videoRef}
+            src={video.videoUrl}
+            className={cn(
+              "w-full h-full object-contain",
+              !isLoaded && "opacity-0"
+            )}
+            loop
+            playsInline
+            muted={!isPlaying}
+            preload={shouldPreload ? "auto" : "none"}
+            poster={thumbnail}
+            controlsList="nodownload"
+            onLoadedData={handleVideoLoad}
+            onWaiting={handleWaiting}
+            onPlaying={handlePlaying}
+          />
+          {(!isLoaded || isBuffering) && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <ImSpinner8 className="text-white text-4xl animate-spin" />
+            </div>
+          )}
+          {!isLoaded && (
+            <img 
+              src={thumbnail}
+              alt="Loading..."
+              className="absolute inset-0 w-full h-full object-contain"
+            />
+          )}
+        </>
       ) : (
         <img 
           src={thumbnail}
           alt={video.extraText || 'Video thumbnail'}
           className="w-full h-full object-contain"
+          loading="lazy"
         />
       )}
-      {!isPlaying && isActive && (
+      {!isPlaying && isActive && !isBuffering && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
             <FaPlay className="text-black text-2xl ml-1" />
@@ -378,6 +422,7 @@ export default function VideoSlider( {videos}: {videos: Video[]}) {
                     onPrev={handlePrev}
                     onNext={handleNext}
                     thumbnail={videos[index].thumbnail}
+                    shouldPreload={Math.abs(index - currentIndex) <= 1}
                   />
                 </div>
               ))}
