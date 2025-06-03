@@ -124,19 +124,20 @@ const BusinessSubPage = () => {
   return (
     <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row overflow-hidden">
       {/* Left: Offer & Info - Fixed */}
-      <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-black lg:fixed lg:h-screen">
-        <div className="w-full flex flex-col items-start gap-4 lg:gap-6">
+      <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-gradient-to-r from-[#24008C] to-[#4C00AD] lg:fixed lg:h-screen relative overflow-hidden">
+        {/* Decorative mask overlay */}
+        <img src="/masklines.png" alt="decorative lines" className="pointer-events-none select-none absolute top-0 left-0 w-full h-full object-cover z-0" />
+        <div className="w-full flex flex-col items-start gap-2 lg:gap-2 relative z-10">
           {/* Heading */}
-          <div className="mt-2">
-            <span className="block text-2xl lg:text-4xl font-bold leading-tight">SAATHI</span>
-            <span className="block text-2xl lg:text-4xl font-bold leading-tight">JOB<span className={gradientText}>REELS</span></span>
+          <div className="pt-2 pb-5 w-full flex items-center justify-start">
+            <img src="/jobreelslogo.png" alt="JobReels Logo" className="h-8 lg:h-12 w-auto" />
           </div>
           {/* Tagline */}
-          <div className="text-base lg:text-lg font-normal mb-2">
-            New Age <span className="text-[#FFC01D]">Hiring</span> - Powered by <span className="text-[#FFC01D]">AI</span>
+          <div className="text-base lg:text-lg font-normal pt-5">
+            New Age Hiring - Powered by AI
           </div>
           {/* Limited Launch Offer */}
-          <div className="border border-[#FFC01D] rounded w-full py-2 px-4 flex items-center justify-center mb-2 animate-breath">
+          {/* <div className="border border-[#FFC01D] rounded w-full py-2 px-4 flex items-center justify-center mb-2 animate-breath">
             <span className="text-white font-bold">LIMITED</span>&nbsp;
             <span className="text-[#FFC01D] font-bold">LAUNCH OFFER</span>
           </div>
@@ -148,24 +149,24 @@ const BusinessSubPage = () => {
             .animate-breath {
               animation: breath 2s ease-in-out infinite;
             }
-          `}</style>
+          `}</style> */}
           {/* Annual Package */}
           <div className="flex flex-col">
-            <span className="text-base lg:text-lg font-normal">Annual Package</span>
-            <span className="flex items-end">
-              <span className="text-4xl lg:text-5xl font-bold text-[#FFC01D] leading-none">₹5,000</span>
-              <span className="ml-2 text-xl lg:text-2xl font-bold text-white leading-none">ONLY</span>
-            </span>
+            <span className="text-5xl lg:text-7xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">80%</span>
+            <span className="text-xl lg:text-2xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">Improvement</span>
           </div>
           {/* Unlimited Job Posts */}
-          <div className="flex items-end gap-2">
-            <span className="text-xl lg:text-2xl font-bold text-[#FFC01D]">UNLIMITED</span>
-            <span className="text-xl lg:text-2xl font-bold text-white">JOB POSTS !!</span>
+          <div className="flex items-end gap-1">
+            <span className="text-lg lg:text-xl font-regular text-white">In</span> 
+            <span className="text-lg lg:text-xl font-bold text-white">Cost to Hire</span>
+            <span className="text-lg lg:text-xl font-regular text-white">&</span>
+            <span className="text-lg lg:text-xl font-bold text-white">Time to Hire</span>
           </div>
-
+          {/* Business Offer Image */}
+          <img src="/assets/Businessoffer.png" alt="Business Offer" className="w-full h-auto" />
           {/* Pay Now Button */}
           <button onClick={() => window.location.href = "https://hire.saathi.in"} className={`mt-2 mb-2 w-full relative overflow-hidden text-black font-bold py-3 rounded text-lg lg:text-xl shadow-lg transition hover:scale-105`}>
-            <span className="relative z-10">PAY NOW</span>
+            <span className="relative z-10">Sign up Now</span>
             <div className="absolute inset-0 bg-gradient-to-r from-[#FFC01D] via-[#FFD955] to-[#FF9A01] animate-gradient-rotate"></div>
           </button>
           <style jsx>{`
@@ -179,33 +180,26 @@ const BusinessSubPage = () => {
               animation: gradient-rotate 3s ease infinite;
             }
           `}</style>
-          {/* Risk Free Guarantee */}
-          <div className="mt-2">
-            <span className="text-white text-base lg:text-lg">Risk Free</span>
-            <br />
-            <span className="text-[#FFC01D] text-base lg:text-lg">100% Money Back Guarantee</span>
-          </div>
         </div>
         {/* Bottom Logo and T&C */}
         <div className="w-full flex flex-col items-start mt-8">
-          <img className="mb-1" src="/assets/home/Logo.svg" alt="saathi-logo" width={100} height={24} />
-          <span className="text-gray-400 text-xs">Standard T&C to Apply</span>
+          <span className="text-gray-400 text-xs">©Saathi 2025. All rights reserved.</span>
         </div>
       </div>
 
       {/* Right: Features & Visuals - Scrollable */}
-      <div className="lg:w-[70%] w-full flex flex-col justify-between bg-[#1B1B1B] px-4 lg:px-12 py-8 lg:py-12 relative lg:ml-[30%]">
+      <div className="lg:w-[70%] w-full flex flex-col justify-between bg-gradient-to-r from-[#24008C] to-[#4C00AD] px-4 lg:px-12 py-10 lg:py-15 relative lg:ml-[30%]">
         <div className="flex flex-col items-center text-center w-full">
-          <h1 className="text-2xl lg:text-4xl font-bold mb-2 text-center">
-            HIRE FASTER BETTER & <span className={gradientText}>EASIER</span>
+          <h1 className="text-2xl lg:text-4xl font-bold text-center">
+            HIRE FASTER BETTER & EASIER
           </h1>
-          <div className="flex flex-col lg:flex-row gap-4 text-gray-300 text-sm lg:text-lg mb-8 text-center items-center justify-center">
+          {/* <div className="flex flex-col lg:flex-row gap-4 text-gray-300 text-sm lg:text-lg mb-8 text-center items-center justify-center">
             <span>Reduce <span className={gradientText}>Cost to Hire</span> by 80%</span>
             <span className="hidden lg:inline">|</span>
             <span>Reduce <span className={gradientText}>Time to Hire</span> by 80%</span>
             <span className="hidden lg:inline">|</span>
             <span>Your own <span className={gradientText}>AI Recruiter</span></span>
-          </div>
+          </div> */}
         </div>
 
         {/* Video Slider - Only show when jobreels is selected */}
@@ -330,7 +324,7 @@ const BusinessSubPage = () => {
           </div>
         </div>
         {/* Footer Links */}
-        <div className="flex space-x-4 text-gray-400 text-xs lg:text-sm w-full justify-center lg:w-auto lg:absolute lg:bottom-6 lg:right-6 lg:justify-end static">
+        <div className="flex space-x-4 text-gray-400 text-xs lg:text-sm w-full justify-center items-center">
           <Link href="/" className="hover:text-yellow-400">Home</Link>
           <button onClick={() => setContactOpen(true)} className="hover:text-yellow-400 bg-transparent border-none cursor-pointer p-0 m-0">Contact Us</button>
           <button onClick={() => setTermsOpen(true)} className="hover:text-yellow-400 bg-transparent border-none cursor-pointer p-0 m-0">Terms</button>

@@ -49,15 +49,15 @@ const VideoActionCard: React.FC<VideoActionCardProps> = ({
         />
         {!isPlaying && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-[#FFC01D] flex items-center justify-center">
-              <FaPlay className="text-black text-2xl ml-1" />
+            <div className="w-16 h-16 rounded-full bg-black/60 backdrop-blur-[14px] flex items-center justify-center">
+              <FaPlay className="text-white text-2xl ml-1" />
             </div>
           </div>
         )}
       </div>
       <button 
         onClick={() => onShowMore(section)}
-        className={`mt-4 px-2 py-1 rounded ${gradientBg} text-black font-semibold hover:scale-105 transition-transform`}
+        className="mt-4 px-6 py-2 rounded-lg border-2 border-[#FFB800] bg-transparent text-[#FFB800] font-bold hover:scale-105 transition-transform"
       >
         Show More
       </button>

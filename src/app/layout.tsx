@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ClientBody from "./ClientBody";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Saathi",
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning className="antialiased font-['Helvetica']">
+        <GoogleAnalytics />
         <ClientBody>{children}</ClientBody>
       </body>
     </html>
