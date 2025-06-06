@@ -336,8 +336,8 @@ const BusinessSubPage = () => {
       {/* Modals */}
       {isContactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
       {isTermsOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="relative bg-white rounded-2xl shadow-xl max-w-5xl w-full p-8 text-left overflow-y-auto max-h-[80vh] text-black">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-60">
+          <div className="relative bg-white rounded-2xl max-w-5xl w-full p-8 text-left overflow-y-auto max-h-[80vh] text-black">
             <button
               onClick={() => setTermsOpen(false)}
               className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 text-2xl font-bold focus:outline-none"

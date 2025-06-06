@@ -38,7 +38,7 @@ const VideoActionCard: React.FC<VideoActionCardProps> = ({
         )}
       </span>
       <div 
-        className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
+        className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden cursor-pointer"
         onClick={() => onVideoClick(videoId)}
       >
         <video 
