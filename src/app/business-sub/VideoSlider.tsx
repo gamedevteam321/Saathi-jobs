@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { FaPlay } from "react-icons/fa";
 import { ImSpinner8 } from "react-icons/im";
+import Image from "next/image";
 
 interface Video {
     videoUrl: string;
@@ -146,20 +147,37 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext, shouldP
             </div>
           )}
           {!isLoaded && (
-            <img 
-              src={thumbnail}
-              alt="Loading..."
-              className="absolute inset-0 w-full h-full object-contain"
-            />
+            <div className="absolute inset-0 w-full h-full">
+              <Image 
+                src={thumbnail}
+                alt="Loading..."
+                fill
+                className="object-contain"
+                priority
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.backgroundColor = '#333';
+                  target.style.display = 'block';
+                }}
+              />
+            </div>
           )}
         </>
       ) : (
-        <img 
-          src={thumbnail}
-          alt={video.extraText || 'Video thumbnail'}
-          className="w-full h-full object-contain"
-          loading="lazy"
-        />
+        <div className="relative w-full h-full">
+          <Image 
+            src={thumbnail}
+            alt={video.extraText || 'Video thumbnail'}
+            fill
+            className="object-contain"
+            loading="lazy"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.backgroundColor = '#333';
+              target.style.display = 'block';
+            }}
+          />
+        </div>
       )}
       {!isPlaying && isActive && !isBuffering && (
         <div className="absolute inset-0 flex items-center justify-center">

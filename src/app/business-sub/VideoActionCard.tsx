@@ -2,7 +2,7 @@ import React from 'react';
 import { FaPlay } from 'react-icons/fa';
 
 interface VideoActionCardProps {
-  title: string;
+  title: string | React.ReactNode;
   gradientText: string;
   videoId: string;
   videoSrc: string;
@@ -29,9 +29,13 @@ const VideoActionCard: React.FC<VideoActionCardProps> = ({
   return (
     <div className="flex flex-col items-center w-full">
       <span className="text-lg lg:text-2xl font-bold text-white text-center mb-2">
-        {title.split(' ').map((word, index) => (
-          index === 0 ? word : <span key={index} className={gradientText}> {word}</span>
-        ))}
+        {typeof title === 'string' ? (
+          title.split(' ').map((word, index) => (
+            index === 0 ? word : <span key={index} className={gradientText}> {word}</span>
+          ))
+        ) : (
+          title
+        )}
       </span>
       <div 
         className="relative w-[220px] lg:w-[240px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg cursor-pointer"
@@ -57,7 +61,7 @@ const VideoActionCard: React.FC<VideoActionCardProps> = ({
       </div>
       <button 
         onClick={() => onShowMore(section)}
-        className="mt-4 px-6 py-2 rounded-lg border-2 border-[#FFB800] bg-transparent text-[#FFB800] font-bold hover:scale-105 transition-transform"
+        className="mt-4 px-6 py-2 rounded-lg border-2 border-[#24008C] bg-transparent text-[#4C00AD] font-bold hover:scale-105 transition-transform"
       >
         Show More
       </button>

@@ -122,7 +122,7 @@ const BusinessSubPage = () => {
   
 
   return (
-    <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row overflow-hidden">
+    <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row overflow-hidden font-poppins">
       {/* Left: Offer & Info - Fixed */}
       <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-gradient-to-r from-[#24008C] to-[#4C00AD] lg:fixed lg:h-screen relative overflow-hidden">
         {/* Decorative mask overlay */}
@@ -131,10 +131,10 @@ const BusinessSubPage = () => {
           {/* Heading */}
           <div className="pt-2 pb-5 w-full flex items-center justify-start">
             <img src="/jobreelslogo.png" alt="JobReels Logo" className="h-8 lg:h-12 w-auto" />
-          </div>
+          </div>    
           {/* Tagline */}
-          <div className="text-base lg:text-lg font-normal pt-5">
-            New Age Hiring - Powered by AI
+          <div>
+            <img src="/assets/businessaistrip.png" alt="Business Offer" className="w-full h-auto" />
           </div>
           {/* Limited Launch Offer */}
           {/* <div className="border border-[#FFC01D] rounded w-full py-2 px-4 flex items-center justify-center mb-2 animate-breath">
@@ -153,14 +153,16 @@ const BusinessSubPage = () => {
           {/* Annual Package */}
           <div className="flex flex-col">
             <span className="text-5xl lg:text-7xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">80%</span>
-            <span className="text-xl lg:text-2xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">Improvement</span>
+            <span className="text-xl lg:text-2xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">Reduction</span>
           </div>
           {/* Unlimited Job Posts */}
           <div className="flex items-end gap-1">
-            <span className="text-lg lg:text-xl font-regular text-white">In</span> 
-            <span className="text-lg lg:text-xl font-bold text-white">Cost to Hire</span>
-            <span className="text-lg lg:text-xl font-regular text-white">&</span>
-            <span className="text-lg lg:text-xl font-bold text-white">Time to Hire</span>
+            <span className="text-lg lg:text-xl font-bold text-white">Time-to-Hire</span>
+            <span className="text-lg lg:text-xl font-regular text-white">&</span> 
+            <span className="text-lg lg:text-xl font-bold text-white">Cost-to-Hire</span>
+          </div>
+          <div className="flex items-end gap-1">
+            <span className="text-[12px] font-regular text-ds-purple/100">Instantly Hire : Skill Certified & Identity Verified Workforce. </span> 
           </div>
           {/* Business Offer Image */}
           <img src="/assets/Businessoffer.png" alt="Business Offer" className="w-full h-auto" />
@@ -188,10 +190,10 @@ const BusinessSubPage = () => {
       </div>
 
       {/* Right: Features & Visuals - Scrollable */}
-      <div className="lg:w-[70%] w-full flex flex-col justify-between bg-gradient-to-r from-[#24008C] to-[#4C00AD] px-4 lg:px-12 py-10 lg:py-15 relative lg:ml-[30%]">
+      <div className="lg:w-[70%] w-full flex flex-col justify-between bg-gradient-to-r from-[#FFFFFF] to-[#EDDDFF] px-4 lg:px-12 py-10 lg:py-15 relative lg:ml-[30%]">
         <div className="flex flex-col items-center text-center w-full">
-          <h1 className="text-2xl lg:text-4xl font-bold text-center">
-            HIRE FASTER BETTER & EASIER
+          <h1 className="text-2xl lg:text-4xl font-bold text-center font-poppins pt-10 bg-gradient-to-r from-[#24008C] to-[#24008C] bg-clip-text text-transparent">
+          Now Hire :  Faster - Better - Easier
           </h1>
           {/* <div className="flex flex-col lg:flex-row gap-4 text-gray-300 text-sm lg:text-lg mb-8 text-center items-center justify-center">
             <span>Reduce <span className={gradientText}>Cost to Hire</span> by 80%</span>
@@ -205,9 +207,9 @@ const BusinessSubPage = () => {
         {/* Video Slider - Only show when jobreels is selected */}
         <div id="video-slider-container">
         {showCarousel === 'jobreels' && (
-          <div className="hidden lg:block w-full mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-center">
-              JOB <span className={gradientText}>REELS</span>
+          <div className="lg:block w-full mb-8">
+            <h2 className="text-2xl font-bold pb-4 text-center">
+              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">REELS</span>
             </h2>
             <VideoSlider videos={videoData.jobreels.map(video => ({
               videoUrl: video.src,
@@ -219,7 +221,7 @@ const BusinessSubPage = () => {
         {showCarousel === 'jobposts' && (
           <div className="hidden lg:block w-full mb-8">
             <h2 className="text-2xl font-bold mb-4 text-center">
-              JOB <span className={gradientText}>POSTS</span>
+              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">POSTS</span>
             </h2>
             <VideoSlider videos={videoData.jobposts.map(video => ({
               videoUrl: video.src,
@@ -231,7 +233,7 @@ const BusinessSubPage = () => {
         {showCarousel === 'ai' && (
           <div className="hidden lg:block w-full mb-8">
             <h2 className="text-2xl font-bold mb-4 text-center">
-              AI <span className={gradientText}>RECRUITER</span>
+              <span className="text-[#24008C]">AI</span> <span className="text-[#4C00AD]">RECRUITER</span>
             </h2>
             <VideoSlider videos={videoData.ai.map(video => ({
               videoUrl: video.src,
@@ -246,9 +248,9 @@ const BusinessSubPage = () => {
           {/* Mobile View - Video Sliders */}
           <div className="lg:hidden w-full flex flex-col gap-8">
             <div className="w-full">
-              <h2 className="text-2xl font-bold mb-4 text-center">
-                JOB <span className={gradientText}>REELS</span>
-              </h2>
+            <h2 className="text-2xl font-bold pb-4 text-center">
+              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">REELS</span>
+            </h2>
               <VideoSlider videos={videoData.jobreels.map(video => ({
                 videoUrl: video.src,
                 extraText: video.title,
@@ -256,9 +258,9 @@ const BusinessSubPage = () => {
               }))} />
             </div>
             <div className="w-full">
-              <h2 className="text-2xl font-bold mb-4 text-center">
-                JOB <span className={gradientText}>POSTS</span>
-              </h2>
+            <h2 className="text-2xl font-bold pb-4 text-center">
+              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">POSTS</span>
+            </h2>
               <VideoSlider videos={videoData.jobposts.map(video => ({
                 videoUrl: video.src,
                 extraText: video.title,
@@ -266,9 +268,9 @@ const BusinessSubPage = () => {
               }))} />
             </div>
             <div className="w-full">
-              <h2 className="text-2xl font-bold mb-4 text-center">
-                AI <span className={gradientText}>RECRUITER</span>
-              </h2>
+            <h2 className="text-2xl font-bold pb-4 text-center">
+              <span className="text-[#24008C]">AI</span> <span className="text-[#4C00AD]">RECRUITER</span>
+            </h2>
               <VideoSlider videos={videoData.ai.map(video => ({
                 videoUrl: video.src,
                 extraText: video.title,
@@ -281,11 +283,11 @@ const BusinessSubPage = () => {
           <div className="hidden lg:flex w-full flex-row justify-center items-center gap-8 lg:gap-12">
             {showCarousel !== 'jobreels' && (
               <VideoActionCard
-                title="JOB REELS"
+                title={<><span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">REELS</span></>}
                 gradientText={gradientText}
                 videoId="jobreel-video"
-                videoSrc="/videos/jobreel.mp4"
-                thumbnailSrc="/videos/thumbnails/jobreel.png"
+                videoSrc="/videos/jobreels/jobreel-1.mp4"
+                thumbnailSrc="/videos/thumbnails/jobreels/jobreel-1.png"
                 isPlaying={playingVideo === 'jobreel-video'}
                 onVideoClick={handleVideoClick}
                 onShowMore={handleShowMore}
@@ -295,11 +297,11 @@ const BusinessSubPage = () => {
             )}
             {showCarousel !== 'jobposts' && (
               <VideoActionCard
-                title="JOB POSTS"
+                title={<><span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">POSTS</span></>}
                 gradientText={gradientText}
                 videoId="jobpost-video"
-                videoSrc="/videos/jobpost.mp4"
-                thumbnailSrc="/videos/thumbnails/jobpost.png"
+                videoSrc="/videos/jobposts/jobpost-1.mp4"
+                thumbnailSrc="/videos/thumbnails/jobposts/jobpost-1.png"
                 isPlaying={playingVideo === 'jobpost-video'}
                 onVideoClick={handleVideoClick}
                 onShowMore={handleShowMore}
@@ -309,11 +311,11 @@ const BusinessSubPage = () => {
             )}
             {showCarousel !== 'ai' && (
               <VideoActionCard
-                title="AI RECRUITER"
+                title={<><span className="text-[#24008C]">AI</span> <span className="text-[#4C00AD]">RECRUITER</span></>}
                 gradientText={gradientText}
                 videoId="ai-video"
-                videoSrc="/videos/ai.mp4"
-                thumbnailSrc="/videos/thumbnails/ai.png"
+                videoSrc="/videos/ai/ai-1.mp4"
+                thumbnailSrc="/videos/thumbnails/ai/ai-1.png"
                 isPlaying={playingVideo === 'ai-video'}
                 onVideoClick={handleVideoClick}
                 onShowMore={handleShowMore}

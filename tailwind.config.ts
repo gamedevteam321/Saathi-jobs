@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ['var(--font-poppins)'],
+      },
       keyframes: {
         breathe: {
           '0%, 100%': { transform: 'scale(1)' },
