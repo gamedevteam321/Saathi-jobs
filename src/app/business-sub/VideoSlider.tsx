@@ -142,7 +142,7 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext, shouldP
             onPlaying={handlePlaying}
           />
           {(!isLoaded || isBuffering) && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50">
               <ImSpinner8 className="text-white text-4xl animate-spin" />
             </div>
           )}
@@ -187,7 +187,7 @@ const VideoCard = ({ video, paused, isActive, thumbnail, onPrev, onNext, shouldP
         </div>
       )}
       {video.extraText && isActive && (
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-sm">
+        <div className="absolute bottom-0 left-0 right-0 bg-opacity-50 text-white p-2 text-sm">
           {video.extraText}
         </div>
       )}

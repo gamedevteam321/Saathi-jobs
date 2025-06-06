@@ -53,7 +53,7 @@ const VideoActionCard: React.FC<VideoActionCardProps> = ({
         />
         {!isPlaying && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-black/60 backdrop-blur-[14px] flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full backdrop-blur-[14px] flex items-center justify-center">
               <FaPlay className="text-white text-2xl ml-1" />
             </div>
           </div>
