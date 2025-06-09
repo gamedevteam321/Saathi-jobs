@@ -130,7 +130,7 @@ const BusinessSubPage = () => {
         <div className="w-full flex flex-col items-start gap-2 lg:gap-5 relative z-10">
           {/* Heading */}
           <div className="pt-5 pb-7 w-full flex items-center justify-start">
-            <img src="/jobreelslogo.png" alt="JobReels Logo" className="h-8 lg:h-12 w-auto" />
+            <img src="/reelslogo.png" alt="JobReels Logo" className="h-8 lg:h-12 w-auto" />
           </div>    
           {/* Tagline */}
           <div>
