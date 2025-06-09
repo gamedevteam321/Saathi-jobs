@@ -122,14 +122,14 @@ const BusinessSubPage = () => {
   
 
   return (
-    <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row overflow-hidden font-poppins">
+    <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row font-poppins">
       {/* Left: Offer & Info - Fixed */}
       <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-gradient-to-r from-[#24008C] to-[#4C00AD] lg:fixed lg:h-screen relative overflow-hidden">
         {/* Decorative mask overlay */}
         <img src="/masklines.png" alt="decorative lines" className="pointer-events-none select-none absolute top-0 left-0 w-full h-full object-cover z-0" />
-        <div className="w-full flex flex-col items-start gap-2 lg:gap-2 relative z-10">
+        <div className="w-full flex flex-col items-start gap-2 lg:gap-5 relative z-10">
           {/* Heading */}
-          <div className="pt-2 pb-5 w-full flex items-center justify-start">
+          <div className="pt-5 pb-7 w-full flex items-center justify-start">
             <img src="/jobreelslogo.png" alt="JobReels Logo" className="h-8 lg:h-12 w-auto" />
           </div>    
           {/* Tagline */}
@@ -209,7 +209,7 @@ const BusinessSubPage = () => {
         {showCarousel === 'jobreels' && (
           <div className="lg:block w-full mb-8">
             <h2 className="text-2xl font-bold pb-4 text-center">
-              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">REELS</span>
+              <span className="text-[#24008C]">Job</span><span className="text-[#4C00AD]">Reels</span>
             </h2>
             <VideoSlider videos={videoData.jobreels.map(video => ({
               videoUrl: video.src,
@@ -221,7 +221,7 @@ const BusinessSubPage = () => {
         {showCarousel === 'jobposts' && (
           <div className="hidden lg:block w-full mb-8">
             <h2 className="text-2xl font-bold mb-4 text-center">
-              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">POSTS</span>
+              <span className="text-[#24008C]">Job</span><span className="text-[#4C00AD]">Posts</span>
             </h2>
             <VideoSlider videos={videoData.jobposts.map(video => ({
               videoUrl: video.src,
@@ -233,7 +233,7 @@ const BusinessSubPage = () => {
         {showCarousel === 'ai' && (
           <div className="hidden lg:block w-full mb-8">
             <h2 className="text-2xl font-bold mb-4 text-center">
-              <span className="text-[#24008C]">AI</span> <span className="text-[#4C00AD]">RECRUITER</span>
+              <span className="text-[#24008C]">AI</span><span className="text-[#4C00AD]">Recruiter</span>
             </h2>
             <VideoSlider videos={videoData.ai.map(video => ({
               videoUrl: video.src,
@@ -249,7 +249,7 @@ const BusinessSubPage = () => {
           <div className="lg:hidden w-full flex flex-col gap-8">
             <div className="w-full">
             <h2 className="text-2xl font-bold pb-4 text-center">
-              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">REELS</span>
+              <span className="text-[#24008C]">Job</span><span className="text-[#4C00AD]">Reels</span>
             </h2>
               <VideoSlider videos={videoData.jobreels.map(video => ({
                 videoUrl: video.src,
@@ -259,7 +259,7 @@ const BusinessSubPage = () => {
             </div>
             <div className="w-full">
             <h2 className="text-2xl font-bold pb-4 text-center">
-              <span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">POSTS</span>
+              <span className="text-[#24008C]">Job</span><span className="text-[#4C00AD]">Posts</span>
             </h2>
               <VideoSlider videos={videoData.jobposts.map(video => ({
                 videoUrl: video.src,
@@ -269,7 +269,7 @@ const BusinessSubPage = () => {
             </div>
             <div className="w-full">
             <h2 className="text-2xl font-bold pb-4 text-center">
-              <span className="text-[#24008C]">AI</span> <span className="text-[#4C00AD]">RECRUITER</span>
+              <span className="text-[#24008C]">AI</span><span className="text-[#4C00AD]">Recruiter</span>
             </h2>
               <VideoSlider videos={videoData.ai.map(video => ({
                 videoUrl: video.src,
@@ -283,7 +283,7 @@ const BusinessSubPage = () => {
           <div className="hidden lg:flex w-full flex-row justify-center items-center gap-8 lg:gap-12">
             {showCarousel !== 'jobreels' && (
               <VideoActionCard
-                title={<><span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">REELS</span></>}
+                title={<><span className="text-[#24008C]">Job</span><span className="text-[#4C00AD]">Reels</span></>}
                 gradientText={gradientText}
                 videoId="jobreel-video"
                 videoSrc="/videos/jobreels/jobreel-1.mp4"
@@ -297,7 +297,7 @@ const BusinessSubPage = () => {
             )}
             {showCarousel !== 'jobposts' && (
               <VideoActionCard
-                title={<><span className="text-[#24008C]">JOB</span> <span className="text-[#4C00AD]">POSTS</span></>}
+                title={<><span className="text-[#24008C]">Job</span><span className="text-[#4C00AD]">Posts</span></>}
                 gradientText={gradientText}
                 videoId="jobpost-video"
                 videoSrc="/videos/jobposts/jobpost-1.mp4"
@@ -311,7 +311,7 @@ const BusinessSubPage = () => {
             )}
             {showCarousel !== 'ai' && (
               <VideoActionCard
-                title={<><span className="text-[#24008C]">AI</span> <span className="text-[#4C00AD]">RECRUITER</span></>}
+                title={<><span className="text-[#24008C]">AI</span><span className="text-[#4C00AD]">Recruiter</span></>}
                 gradientText={gradientText}
                 videoId="ai-video"
                 videoSrc="/videos/ai/ai-1.mp4"
