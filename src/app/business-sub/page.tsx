@@ -126,7 +126,7 @@ const BusinessSubPage = () => {
       {/* Left: Offer & Info - Fixed */}
       <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-gradient-to-r from-[#24008C] to-[#4C00AD] lg:fixed lg:h-screen relative overflow-hidden">
         {/* Decorative mask overlay */}
-        <img src="/masklines.png" alt="decorative lines" className="pointer-events-none select-none absolute top-0 left-0 w-full h-full object-cover z-0" />
+        {/* <img src="/masklines.png" alt="decorative lines" className="pointer-events-none select-none absolute top-0 left-0 w-full h-full object-cover z-0" /> */}
         <div className="w-full flex flex-col items-start gap-2 lg:gap-5 relative z-10">
           {/* Heading */}
           <div className="pt-5 pb-7 w-full flex items-center justify-start">
