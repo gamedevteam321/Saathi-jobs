@@ -122,12 +122,12 @@ const BusinessSubPage = () => {
   
 
   return (
-    <div className="min-h-screen w-full bg-black text-white flex flex-col lg:flex-row font-poppins">
+    <div className="min-h-screen w-full bg-white text-white flex flex-col lg:flex-row font-poppins">
       {/* Left: Offer & Info - Fixed */}
       <div className="lg:w-[30%] w-full flex flex-col justify-between items-start px-6 lg:px-12 py-8 lg:py-10 bg-gradient-to-r from-[#24008C] to-[#4C00AD] lg:fixed lg:h-screen relative overflow-hidden">
         {/* Decorative mask overlay */}
-        {/* <img src="/masklines.png" alt="decorative lines" className="pointer-events-none select-none absolute top-0 left-0 w-full h-full object-cover z-0" /> */}
-        <div className="w-full flex flex-col items-start gap-2 lg:gap-5 relative z-10">
+        <img src="/maskline.png" alt="decorative lines" className="pointer-events-none select-none absolute top-0 left-0 w-full h-full object-cover z-0" />
+        <div className="w-full flex flex-col items-start gap-8 sm:gap-6 relative z-10">
           {/* Heading */}
           <div className="pt-5 pb-7 w-full flex items-center justify-start">
             <img src="/reelslogo.png" alt="JobReels Logo" className="h-8 lg:h-12 w-auto" />
@@ -151,21 +151,24 @@ const BusinessSubPage = () => {
             }
           `}</style> */}
           {/* Annual Package */}
-          <div className="flex flex-col">
-            <span className="text-5xl lg:text-7xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">80%</span>
-            <span className="text-xl lg:text-2xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">Reduction</span>
+          <div className="flex flex-row items-end gap-4 justify-center items-center">
+            <div className="flex flex-col">
+              <span className="text-5xl lg:text-7xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">80%</span>
+              <span className="text-xl lg:text-2xl font-semibold bg-gradient-to-br from-[#FFC01D] via-[#FFD955] to-[#FF9A01] bg-clip-text text-transparent leading-none">Reduction</span>
+            </div>
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-3xl sm:text-md font-bold text-white">Time-to-Hire</span>
+              <span className="text-3xl sm:text-md font-bold text-white">Cost-to-Hire</span>
+            </div>
           </div>
-          {/* Unlimited Job Posts */}
-          <div className="flex items-end gap-1">
-            <span className="text-lg lg:text-xl font-bold text-white">Time-to-Hire</span>
-            <span className="text-lg lg:text-xl font-regular text-white">&</span> 
-            <span className="text-lg lg:text-xl font-bold text-white">Cost-to-Hire</span>
-          </div>
-          <div className="flex items-end gap-1">
-            <span className="text-[12px] font-regular text-ds-purple/100">Instantly Hire : Skill Certified & Identity Verified Workforce. </span> 
+          <div>
+            <ul className="list-disc list-inside flex flex-col gap-2">
+              <li className="text-[13.5px] font-semibold text-ds-purple/100">Instantly Hire Skill Certified & Verified Workforce</li> 
+              <li className="text-[13.5px] font-semibold text-ds-purple/100">Discover & Access new genuine candidates daily</li>
+            </ul>
           </div>
           {/* Business Offer Image */}
-          <img src="/assets/Businessoffer.png" alt="Business Offer" className="w-full h-auto" />
+          <img src="/assets/businessoffer.png" alt="Business Offer" className="w-full h-auto" />
           {/* Pay Now Button */}
           <button onClick={() => window.location.href = "https://hire.saathi.in"} className={`mt-2 mb-2 w-full relative overflow-hidden text-black font-bold py-3 rounded text-lg lg:text-xl shadow-lg transition hover:scale-105`}>
             <span className="relative z-10">Sign up Now</span>
